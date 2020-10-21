@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">BarterTrader</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="action_back">BACK</string>
+    <string name="placeholder_email">Email</string>
+    <string name="action_register">Send Reset Email!</string>
+    <string name="message_reset_password">Enter the email associated to your account. We will send you a link to reset your password!</string>
+
+    <string name="title_fragment_blank">Splash Fragment</string>
+    <string name="title_fragment_password_reset">Password Reset</string>
+    <string name="error_email">Invalid email format. Ensure it follows the local-part@domain format.</string>
 </resources>
