@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/LogInFragment">
+    app:startDestination="@id/registrationFragment">
 
     <fragment
         android:id="@+id/SplashFragment"
@@ -12,26 +12,15 @@
         tools:layout="@layout/fragment_splash" />
 
     <fragment
-        android:id="@+id/providerFragment"
-        android:name="ca.dal.bartertrader.ProviderFragment"
-        android:label="fragment_provider"
-        tools:layout="@layout/fragment_provider">
+        android:id="@+id/registrationFragment"
+        android:name="ca.dal.bartertrader.registration.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
         <action
-            android:id="@+id/action_providerFragment_to_receiverFragment"
-            app:destination="@id/receiverFragment" />
+            android:id="@+id/action_registrationFragment_to_LogInFragment"
+            app:destination="@id/LogInFragment" />
     </fragment>
-
     <fragment
-        android:id="@+id/receiverFragment"
-        android:name="ca.dal.bartertrader.ReceiverFragment"
-        android:label="fragment_receiver"
-        tools:layout="@layout/fragment_receiver">
-        <action
-            android:id="@+id/action_receiverFragment_to_providerFragment"
-            app:destination="@id/providerFragment" />
-    </fragment>
-
-    <fragment>
         android:id="@+id/PasswordResetFragment"
         android:name="ca.dal.bartertrader.PasswordResetFragment"
         android:label="@string/title_fragment_password_reset"
@@ -40,7 +29,6 @@
             android:id="@+id/action_PasswordResetFragment_to_LogInFragment"
             app:destination="@id/LogInFragment" />
     </fragment>
-
     <fragment
         android:id="@+id/LogInFragment"
         android:name="ca.dal.bartertrader.LogInFragment"
@@ -49,5 +37,4 @@
             android:id="@+id/action_LogInFragment_to_PasswordResetFragment"
             app:destination="@id/PasswordResetFragment" />
     </fragment>
-
 </navigation>
