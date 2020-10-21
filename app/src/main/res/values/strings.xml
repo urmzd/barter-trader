@@ -1,11 +1,22 @@
 <resources>
     <string name="app_name">BarterTrader</string>
-
+    <string name="title_first_name_placeholder">First Name</string>
+    <string name="error_invalid_email">Please ensure your email address follows the format: username@provider.domain</string>
+    <string name="error_invalid_password">Please make sure your password is non-empty and at least 6 characters long.</string>
+    <string name="error_invalid_confirmation_password">Please make sure both passwords match.</string>
+    <string name="title_last_name_placeholder">Last Name</string>
+    <string name="title_email_placeholder">Email</string>
+    <string name="title_password_placeholder">Password</string>
+    <string name="title_confirmed_password_placeholder">Confirmed Password</string>
+    <string name="title_provider_label">Provider</string>
+    <string name="action_register">Register!</string>
+    <string name="registration_email_sent"> A registration request to has been sent</string>
+    <string name="registration_account_created"> Account has been created</string>
+    <string name="registration_account_failure"> This email could not be registered to an account, it may already exist.</string>
     <string name="action_back">BACK</string>
     <string name="placeholder_email">Email</string>
     <string name="action_register">Send Reset Email!</string>
     <string name="message_reset_password">Enter the email associated to your account. We will send you a link to reset your password!</string>
-
     <string name="title_fragment_blank">Splash Fragment</string>
     <string name="title_fragment_password_reset">Password Reset</string>
     <string name="error_email">Invalid email format. Ensure it follows the local-part@domain format.</string>

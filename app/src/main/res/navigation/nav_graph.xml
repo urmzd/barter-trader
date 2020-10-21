@@ -12,6 +12,15 @@
         tools:layout="@layout/fragment_splash" />
 
     <fragment
+        android:id="@+id/registrationFragment"
+        android:name="ca.dal.bartertrader.registration.RegistrationFragment"
+        android:label="fragment_registration"
+        tools:layout="@layout/fragment_registration" >
+        <action
+            android:id="@+id/action_registrationFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/PasswordResetFragment"
         android:name="ca.dal.bartertrader.PasswordResetFragment"
         android:label="@string/title_fragment_password_reset"
