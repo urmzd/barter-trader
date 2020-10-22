@@ -12,6 +12,26 @@
         tools:layout="@layout/fragment_splash" />
 
     <fragment
+        android:id="@+id/providerFragment"
+        android:name="ca.dal.bartertrader.ProviderFragment"
+        android:label="fragment_provider"
+        tools:layout="@layout/fragment_provider">
+        <action
+            android:id="@+id/action_providerFragment_to_receiverFragment"
+            app:destination="@id/receiverFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/receiverFragment"
+        android:name="ca.dal.bartertrader.ReceiverFragment"
+        android:label="fragment_receiver"
+        tools:layout="@layout/fragment_receiver">
+        <action
+            android:id="@+id/action_receiverFragment_to_providerFragment"
+            app:destination="@id/providerFragment" />
+    </fragment>
+
+    <fragment
         android:id="@+id/registrationFragment"
         android:name="ca.dal.bartertrader.registration.RegistrationFragment"
         android:label="fragment_registration"

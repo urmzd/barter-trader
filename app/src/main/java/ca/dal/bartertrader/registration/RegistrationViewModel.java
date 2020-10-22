@@ -188,7 +188,7 @@ public class RegistrationViewModel extends ViewModel {
                         if (task.isSuccessful()) {
                             Log.d("createNewAccount:","Success");
                             sendRegistrationEmailEvent.setValue(new SingleEvent<>(true));
-                            createDataCollection();
+                            createDataCollection(task.getResult().getUser().getUid());
                         }
                         else {
                             Log.d("createNewAccount:","Failure");
@@ -199,13 +199,13 @@ public class RegistrationViewModel extends ViewModel {
 
     }
 
-    private void createDataCollection()
+    private void createDataCollection(String uid)
     {
         HashMap<String, Boolean> user = new HashMap<>();
         user.put("provider", getRoleIsProvider().getValue());
         FirebaseFirestore.getInstance()
                 .collection("users")
-                .document("111")
+                .document(uid)
                 .set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
