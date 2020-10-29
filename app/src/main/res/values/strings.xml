@@ -1,5 +1,32 @@
 <resources>
-    <string name="app_name">BarterTrader</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- Titles -->
+    <string name="title_app_name">Barter Trader</string>
+    <string name="title_email_placeholder">Email</string>
+    <string name="title_password_placeholder">Password</string>
+    <string name="title_first_name_placeholder">First Name</string>
+    <string name="title_last_name_placeholder">Last Name</string>
+    <string name="title_confirmed_password_placeholder">Confirmed Password</string>
+
+    <string name="title_registration_fragment_label">Registration Fragment</string>
+    <string name="title_login_fragment_label">Login Fragment</string>
+
+    <!-- Messages -->
+    <string name="message_logo">Barter Trader\'s Logo</string>
+
+    <string name="message_not_registered">Not Registered?</string>
+
+    <string name="message_have_an_account">Have an account?</string>
+    <string name="message_agree_to_terms">By clicking on "Register", you hereby acknowledge and agree to our terms and services.</string>
+
+    <!-- Errors -->
+
+    <!-- Actions -->
+    <string name="action_go_to_login">Login</string>
+    <string name="action_register">REGISTER</string>
+    <string name="action_remember_me">Remember Me</string>
+    <string name="action_go_to_reset_password">Forgot Password?</string>
+    <string name="action_login">LOG IN</string>
+    <string name="action_go_to_registration">Create an account.</string>
+    <string name="title_splash_fragment_label">Splash Fragment</string>
+
 </resources>

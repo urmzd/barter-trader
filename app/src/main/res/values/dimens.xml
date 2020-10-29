@@ -1,2 +1,4 @@
 <resources>
+    <dimen name="default_margin">16dp</dimen>
+    <dimen name="header_one_font">22sp</dimen>
 </resources>

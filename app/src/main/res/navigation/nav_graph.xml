@@ -3,11 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/splashFragment">
+    app:startDestination="@id/splashFragment"
+    >
 
     <fragment
         android:id="@+id/splashFragment"
         android:name="ca.dal.bartertrader.SplashFragment"
-        android:label="fragment_blank"
+        android:label="@string/title_splash_fragment_label"
         tools:layout="@layout/fragment_splash" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="ca.dal.bartertrader.SplashFragment"
+        android:label="@string/title_login_fragment_label"
+        tools:layout="@layout/fragment_login"
+        />
+
+    <fragment
+        android:id="@+id/registrationFragment"
+        android:name="ca.dal.bartertrader.SplashFragment"
+        android:label="@string/title_registration_fragment_label"
+        tools:layout="@layout/fragment_registration"
+        />
 </navigation>
