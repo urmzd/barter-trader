@@ -28,5 +28,8 @@
     <string name="action_login">LOG IN</string>
     <string name="action_go_to_registration">Create an account.</string>
     <string name="title_splash_fragment_label">Splash Fragment</string>
+    <string name="title_provider">Provider</string>
+    <string name="title_receiver">Receiver</string>
+    <string name="title_select_role">Please select a default role.</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package ca.dal.bartertrader;
+package ca.dal.bartertrader.presentation.view;
 
 import android.os.Bundle;
 
@@ -8,10 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SplashFragment extends Fragment {
+import ca.dal.bartertrader.R;
 
-    public SplashFragment() {
-    }
+public class SplashFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
