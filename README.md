@@ -45,3 +45,13 @@
 
 ---
 
+### Project Architecture
+
+- Using Clean-Architecture + MVVM (Model View ViewModel)
+- Presentation contains the files that control UI (View + ViewModel Respectively)
+- Domain contains the interfaces of Repositories, request data (models) and use cases (which interact with the repository)
+- Data contains the implementation of Repositories, the response data (models) and the sources used to retrieve data.
+- In general the flow goes as follows, View -> View Model -> Use Case -> Repository -> Data Source
+- Utils and DI are added to ensure clean code is maintainable.
+- Utils contains handlers and other classes to encapsulate common code.
+- DI contains factories to construct the required dependencies and an application wrapper to retrieve the desired dependency.
