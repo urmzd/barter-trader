@@ -3,10 +3,6 @@ package ca.dal.bartertrader.utils.handler.resource;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-enum Status {
-    REJECTED,
-    FULFILLED
-}
 public class Resource<T> {
 
     @NonNull

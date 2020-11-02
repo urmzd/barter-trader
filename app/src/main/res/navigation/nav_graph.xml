@@ -10,19 +10,86 @@
         android:id="@+id/splashFragment"
         android:name="ca.dal.bartertrader.presentation.view.SplashFragment"
         android:label="@string/title_splash_fragment_label"
-        tools:layout="@layout/fragment_splash" />
+        tools:layout="@layout/fragment_splash">
+        <action
+            android:id="@+id/action_splashFragment_to_startUpFragment"
+            app:destination="@id/startUpFragment" />
+        <action
+            android:id="@+id/action_splashFragment_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
         android:name="ca.dal.bartertrader.presentation.view.LoginFragment"
         android:label="@string/title_login_fragment_label"
-        tools:layout="@layout/fragment_login"
-        />
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_passwordResetFragment"
+            app:destination="@id/passwordResetFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/registrationFragment"
         android:name="ca.dal.bartertrader.presentation.view.RegistrationFragment"
         android:label="@string/title_registration_fragment_label"
-        tools:layout="@layout/fragment_registration"
-        />
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registrationFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/providerHomeFragment"
+        android:name="ca.dal.bartertrader.presentation.view.home_provider.ProviderHomeFragment"
+        android:label="@string/title_provider_home_fragment_label"
+        tools:layout="@layout/fragment_provider_home">
+        <action
+            android:id="@+id/action_providerHomeFragment_to_providerHomeFragmentAddPost"
+            app:destination="@id/providerHomeFragmentAddPost" />
+        <action
+            android:id="@+id/action_providerHomeFragment_to_providerHomeFragmentViewPost"
+            app:destination="@id/providerHomeFragmentViewPost" />
+    </fragment>
+    <dialog
+        android:id="@+id/providerHomeFragmentAddPost"
+        android:name="ca.dal.bartertrader.presentation.view.home_provider.ProviderHomeAddPostDialogFragment"
+        android:label="@string/title_provider_home_add_post_dialog_fragment_label"
+        tools:layout="@layout/dialog_add_post">
+        <action
+            android:id="@+id/action_providerHomeFragmentAddPost_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+    </dialog>
+    <dialog
+        android:id="@+id/providerHomeFragmentViewPost"
+        android:name="ca.dal.bartertrader.presentation.view.home_provider.ProviderHomeViewPostDialogFragment"
+        android:label="@string/title_provider_home_view_post_dialog_fragment_label"
+        tools:layout="@layout/dialog_view_post">
+        <action
+            android:id="@+id/action_providerHomeFragmentViewPost_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+    </dialog>
+    <fragment
+        android:id="@+id/startUpFragment"
+        android:name="ca.dal.bartertrader.presentation.view.StartUpFragment"
+        android:label="@string/title_start_up_fragment_label"
+        tools:layout="@layout/fragment_start_up">
+        <action
+            android:id="@+id/action_startUpFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_startUpFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordResetFragment"
+        android:name="ca.dal.bartertrader.presentation.view.PasswordResetFragment"
+        android:label="@string/title_password_reset_fragment_label"
+        tools:layout="@layout/fragment_password_reset" >
+        <action
+            android:id="@+id/action_passwordResetFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_passwordResetFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
+    </fragment>
 </navigation>

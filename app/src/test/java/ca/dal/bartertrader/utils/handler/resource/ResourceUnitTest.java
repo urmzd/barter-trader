@@ -43,10 +43,4 @@ public class ResourceUnitTest {
         assertThat(rejected.getError(), is(exception));
     }
 
-    @Test
-    public void enumsAreDefined() {
-        assertThat(Status.FULFILLED, is(notNullValue()));
-        assertThat(Status.REJECTED, is(notNullValue()));
-    }
-
 }
