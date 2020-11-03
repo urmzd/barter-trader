@@ -59,6 +59,5 @@
 ---
 
 ### NOTES:
-- Navigation should be handled in View Model
 - Use Resource to determine if error has occured
-- Use Event Handler for toasts and other UI RELATED tasks
+- Use Event Handler for toasts, navigation and other UI RELATED tasks
