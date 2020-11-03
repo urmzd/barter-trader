@@ -55,3 +55,10 @@
 - Utils and DI are added to ensure clean code is maintainable.
 - Utils contains handlers and other classes to encapsulate common code.
 - DI contains factories to construct the required dependencies and an application wrapper to retrieve the desired dependency.
+
+---
+
+### NOTES:
+- Navigation should be handled in View Model
+- Use Resource to determine if error has occured
+- Use Event Handler for toasts and other UI RELATED tasks
