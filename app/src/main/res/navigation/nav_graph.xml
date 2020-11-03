@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/providerHomeFragment"
-        android:name="ca.dal.bartertrader.presentation.view.home_provider.ProviderHomeFragment"
+        android:name="ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeFragment"
         android:label="@string/title_provider_home_fragment_label"
         tools:layout="@layout/fragment_provider_home">
         <action
@@ -52,7 +52,7 @@
     </fragment>
     <dialog
         android:id="@+id/providerHomeFragmentAddPost"
-        android:name="ca.dal.bartertrader.presentation.view.home_provider.ProviderHomeAddPostDialogFragment"
+        android:name="ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeAddPostDialogFragment"
         android:label="@string/title_provider_home_add_post_dialog_fragment_label"
         tools:layout="@layout/dialog_add_post">
         <action
@@ -61,7 +61,7 @@
     </dialog>
     <dialog
         android:id="@+id/providerHomeFragmentViewPost"
-        android:name="ca.dal.bartertrader.presentation.view.home_provider.ProviderHomeViewPostDialogFragment"
+        android:name="ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeViewPostDialogFragment"
         android:label="@string/title_provider_home_view_post_dialog_fragment_label"
         tools:layout="@layout/dialog_view_post">
         <action
