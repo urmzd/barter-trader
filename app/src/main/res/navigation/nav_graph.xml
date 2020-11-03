@@ -60,10 +60,10 @@
             app:destination="@id/providerHomeFragment" />
     </dialog>
     <dialog
-        android:id="@+id/providerHomeFragmentViewPost"
-        android:name="ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeViewPostDialogFragment"
+        android:id="@+id/providerHomeFragmentEditPost"
+        android:name="ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeEditPostDialogFragment"
         android:label="@string/title_provider_home_view_post_dialog_fragment_label"
-        tools:layout="@layout/dialog_view_post">
+        tools:layout="@layout/dialog_edit_post">
         <action
             android:id="@+id/action_providerHomeFragmentViewPost_to_providerHomeFragment"
             app:destination="@id/providerHomeFragment" />
