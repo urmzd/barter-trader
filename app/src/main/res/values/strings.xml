@@ -37,5 +37,6 @@
     <string name="title_login_fragment_label">Login Fragment</string>
     <string name="title_start_up_fragment_label">Start Up Fragment Label</string>
     <string name="title_password_reset_fragment_label">Password Reset Fragment Label</string>
+    <string name="title_provider_home_handle_post_fragment_label">Handle Post Fragment Label</string>
 
 </resources>
