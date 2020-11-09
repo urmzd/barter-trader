@@ -4,6 +4,14 @@
 
     <data>
 
+        <variable
+            name="ViewModel"
+            type="ca.dal.bartertrader.presentation.view_model.LoginViewModel" />
+
+        <import type="ca.dal.bartertrader.utils.handler.resource.Status" />
+
+        <import type="android.view.View" />
+
     </data>
 
     <FrameLayout
@@ -22,8 +30,11 @@
                 android:id="@+id/login_logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="92dp"
                 android:contentDescription="@string/message_logo"
                 android:src="@drawable/ic_baseline_loop_112"
+
+                app:layout_constraintHorizontal_bias="0.498"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +49,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/login_logo"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:textColor="@color/colorPrimary"/>
+                android:textColor="@color/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/login_email"
@@ -46,13 +57,17 @@
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/colorPrimary"
                 android:layout_marginTop="@dimen/default_margin"
-                app:layout_constraintTop_toBottomOf="@id/login_app_name">
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:hint="@string/title_email_placeholder"
-                    android:textColor="@color/colorPrimary"/>
+                    android:inputType="textEmailAddress"
+                    android:text="@={ViewModel.email}"
+                    android:textColor="@color/colorPrimary" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -64,24 +79,15 @@
                 android:textColorHint="@color/colorPrimary"
                 android:layout_marginTop="@dimen/default_margin"
                 app:layout_constraintTop_toBottomOf="@id/login_email">
-
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/title_password_placeholder"
                     android:inputType="textPassword"
                     android:textColor="@color/colorPrimary"
+                    android:text="@={ViewModel.password}"
                     />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.checkbox.MaterialCheckBox
-                android:id="@+id/action_remember_me"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:buttonTint="@color/colorPrimary"
-                android:text="@string/action_remember_me"
-                app:layout_constraintLeft_toLeftOf="@id/login_password"
-                app:layout_constraintTop_toBottomOf="@id/login_password" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_forgot_password"
@@ -90,16 +96,20 @@
                 android:layout_height="wrap_content"
                 android:text="@string/action_go_to_reset_password"
                 app:layout_constraintRight_toRightOf="@id/login_password"
+                android:onClick="@{() -> ViewModel.goToPasswordReset()}"
                 app:layout_constraintTop_toBottomOf="@id/login_password" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
                 android:text="@string/action_login"
                 app:cornerRadius="100dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
+                android:enabled="@{ViewModel.formIsValid}"
+                android:onClick="@{() -> ViewModel.login()}"
                 app:layout_constraintTop_toBottomOf="@id/login_forgot_password" />
 
             <TextView
@@ -109,26 +119,28 @@
                 android:text="@string/message_not_registered"
                 app:layout_constraintLeft_toLeftOf="@id/login_button"
                 app:layout_constraintRight_toRightOf="@id/login_button"
-                app:layout_constraintTop_toBottomOf="@id/login_button"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                app:layout_constraintTop_toBottomOf="@id/login_button" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/login_register"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/default_margin"
+                android:onClick="@{() -> ViewModel.goToRegistration()}"
                 android:text="@string/action_go_to_registration"
                 app:layout_constraintLeft_toLeftOf="@id/login_button"
                 app:layout_constraintRight_toRightOf="@id/login_button"
-                app:layout_constraintTop_toBottomOf="@id/login_not_registered" />
+                app:layout_constraintTop_toBottomOf="@id/login_button" />
 
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toTopOf="parent"
+                android:visibility="@{ViewModel.loginStatus == Status.PENDING ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:visibility="gone"
                 app:layout_constraintLeft_toLeftOf="parent" />
 
 

@@ -8,16 +8,18 @@
     <string name="title_confirmed_password_placeholder">Confirmed Password</string>
     <string name="title_provider">Provider</string>
     <string name="title_receiver">Receiver</string>
+    <string name="title_select_role">Please select a default role.</string>
+
 
     <!-- Messages -->
     <string name="message_logo">Barter Trader\'s Logo</string>
-
     <string name="message_not_registered">Not Registered?</string>
-
     <string name="message_have_an_account">Have an account?</string>
     <string name="message_agree_to_terms">By clicking on "Register", you hereby acknowledge and agree to our terms and services.</string>
 
     <!-- Errors -->
+
+    <string name="error_email_invalid">Please enter your email in the format: user@example.com </string>
 
     <!-- Actions -->
     <string name="action_go_to_login">Login</string>
@@ -29,13 +31,17 @@
 
     <!-- Labels (Titles Subclass) -->
     <string name="title_splash_fragment_label">Splash Fragment</string>
-    <string name="title_select_role">Please select a default role.</string>
-    <string name="title_provider_home_fragment_label">Provider Home fragment</string>
-    <string name="title_provider_home_add_post_dialog_fragment_label">Provider Home Add Post Dialog Fragment</string>
-    <string name="title_provider_home_view_post_dialog_fragment_label">Provider Home View Post Dialog Fragment</string>
+    <string name="title_provider_home_fragment_label">Provider Home Fragment</string>
     <string name="title_registration_fragment_label">Registration Fragment</string>
     <string name="title_login_fragment_label">Login Fragment</string>
     <string name="title_start_up_fragment_label">Start Up Fragment Label</string>
     <string name="title_password_reset_fragment_label">Password Reset Fragment Label</string>
+    <string name="title_handle_post_fragment_label">Handle Post Fragment Label</string>
+    <string name="error_password_weak">Password must be 8 letters long and include one of each type character: lowercase, uppercase, special, number.</string>
+    <string name="error_password_empty">Password cannot be empty.</string>
+    <string name="error_password_no_match">Confirmed password does not match password.</string>
+    <string name="message_reset_password">Provider the email associated with your account!</string>
+    <string name="action_go_back">BACK</string>
+    <string name="action_sendEmail">Send Email</string>
 
 </resources>

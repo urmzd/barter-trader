@@ -1,4 +1,6 @@
 package ca.dal.bartertrader.presentation.view_model;
 
-public class SplashViewModel {
+import androidx.lifecycle.ViewModel;
+
+public class SplashViewModel extends ViewModel {
 }

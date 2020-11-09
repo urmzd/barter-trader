@@ -3,29 +3,33 @@ package ca.dal.bartertrader.utils.handler.resource;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class Resource<T> {
+public class Resource<OutputT> {
 
     @NonNull
     private final Status status;
 
     @Nullable
-    private final T data;
+    private final OutputT data;
 
     @Nullable
     private final Throwable error;
 
-    private Resource(@NonNull Status status, @Nullable T data, @Nullable Throwable error) {
+    private Resource(@NonNull Status status, @Nullable OutputT data, @Nullable Throwable error) {
         this.status = status;
         this.data = data;
         this.error = error;
     }
 
-    public static <T> Resource<T> fulfilled(@NonNull T data) {
+    public static <OutputT> Resource<OutputT> fulfilled(@Nullable OutputT data) {
         return new Resource<>(Status.FULFILLED, data, null);
     }
 
-    public static <T> Resource<T> rejected(@NonNull Throwable error) {
+    public static <OutputT> Resource<OutputT> rejected(@NonNull Throwable error) {
         return new Resource<>(Status.REJECTED, null, error);
+    }
+
+    public static <OutputT> Resource<OutputT> pending(@Nullable OutputT data) {
+        return new Resource<>(Status.PENDING, data, null);
     }
 
     @NonNull
@@ -34,7 +38,7 @@ public class Resource<T> {
     }
 
     @Nullable
-    public T getData() {
+    public OutputT getData() {
         return data;
     }
 

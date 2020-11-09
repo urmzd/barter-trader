@@ -8,13 +8,32 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
+import ca.dal.bartertrader.databinding.FragmentProviderHomeBinding;
+import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
+import ca.dal.bartertrader.presentation.view_model.provider_home.ProviderHomeViewModel;
 
 public class ProviderHomeFragment extends Fragment {
+
+    private final ProviderHomeViewModelFactory providerHomeViewModelFactory;
+    private FragmentProviderHomeBinding binding;
+    private ProviderHomeViewModel viewModel;
+
+    public ProviderHomeFragment(ProviderHomeViewModelFactory providerHomeViewModelFactory) {
+        this.providerHomeViewModelFactory = providerHomeViewModelFactory;
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        binding = FragmentProviderHomeBinding.inflate(getLayoutInflater());
+
+        viewModel = new ViewModelProvider(this, providerHomeViewModelFactory).get(ProviderHomeViewModel.class);
+        binding.setLifecycleOwner(this);
+        binding.setViewModel(viewModel);
+
+        return binding.getRoot();
     }
 
     @Override
