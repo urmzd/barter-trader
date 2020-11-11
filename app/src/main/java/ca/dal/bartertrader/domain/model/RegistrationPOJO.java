@@ -2,8 +2,10 @@ package ca.dal.bartertrader.domain.model;
 
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
+import java.io.Serializable;
+
 @IgnoreExtraProperties
-public class RegistrationPOJO {
+public class RegistrationPOJO implements Serializable {
     private String displayName;
     private String email;
     private String password;

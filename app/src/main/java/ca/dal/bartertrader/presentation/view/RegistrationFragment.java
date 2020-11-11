@@ -32,12 +32,12 @@ public class RegistrationFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         viewModel = new ViewModelProvider(this, registrationViewModelFactory).get(RegistrationViewModel.class);
 
         binding = FragmentRegistrationBinding.inflate(getLayoutInflater());
-        binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
+
+        binding.setViewModel(viewModel);
 
         return binding.getRoot();
     }
@@ -46,11 +46,11 @@ public class RegistrationFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         viewModel.getFirstNameIsValid().observe(getViewLifecycleOwner(), validity -> {
-            BindingUtils.setErrorOnTextInputLayout(binding.registrationFirstName, validity, "First name cannot have special character in it.");
+            BindingUtils.setErrorOnTextInputLayout(binding.registrationFirstName, validity, "Names cannot have numbers or special characters in them.");
         });
 
         viewModel.getLastNameIsValid().observe(getViewLifecycleOwner(), validity -> {
-            BindingUtils.setErrorOnTextInputLayout(binding.registrationLastName, validity, "Last name cannot have special character in it.");
+            BindingUtils.setErrorOnTextInputLayout(binding.registrationLastName, validity, "Names cannot have numbers or special characters in them.");
         });
 
         viewModel.getEmailIsValid().observe(getViewLifecycleOwner(), validity -> {

@@ -47,7 +47,7 @@ public class BarterTraderInjector {
 
     // Repositories
     private final FirebaseUserRepository firebaseUserRepository = new FirebaseUserRepositoryFactory(firebaseAuthDataSource, firebaseFirestoreDataSource).create();
-    private final FirebasePostsRepository firebasePostsRepository = new FirebasePostsRepositoryFactory(firebaseStorageDataSource, firebaseFirestoreDataSource).create();
+    private final FirebasePostsRepository firebasePostsRepository = new FirebasePostsRepositoryFactory(firebaseStorageDataSource, firebaseFirestoreDataSource, firebaseAuthDataSource).create();
 
     // Use Cases for User Repository
     private final LoginUseCase loginUseCase = new LoginUseCaseFactory(firebaseUserRepository).create();

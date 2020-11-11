@@ -37,8 +37,9 @@ public class PasswordResetFragment extends Fragment {
         viewModel = new ViewModelProvider(this, passwordResetViewModelFactory).get(PasswordResetViewModel.class);
 
         binding = FragmentPasswordResetBinding.inflate(getLayoutInflater());
-        binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
+
+        binding.setViewModel(viewModel);
 
         return binding.getRoot();
     }

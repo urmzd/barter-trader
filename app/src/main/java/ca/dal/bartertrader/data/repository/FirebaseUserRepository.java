@@ -47,6 +47,7 @@ public class FirebaseUserRepository {
                 .build();
 
         return firebaseAuthDataSource.createUserWithEmailAndPassword(email, password)
+                .subscribeOn(Schedulers.io())
                 .flatMapCompletable(authResult -> Completable.merge(Arrays.asList(
                         firebaseAuthDataSource.updateProfile(authResult.getUser(), profileUpdates),
                         firebaseAuthDataSource.sendEmailVerification(authResult.getUser()),
@@ -55,7 +56,7 @@ public class FirebaseUserRepository {
     }
 
     public Completable verifyEmailExists(String email) {
-        return firebaseAuthDataSource.fetchSignInMethodsForEmail(email);
+        return firebaseAuthDataSource.fetchSignInMethodsForEmail(email).subscribeOn(Schedulers.io());
     }
 
     public LiveData<Resource<FirebaseUser>> getUser() {
@@ -63,6 +64,6 @@ public class FirebaseUserRepository {
     }
 
     public Completable sendPasswordReset(String email) {
-        return firebaseAuthDataSource.sendPasswordResetEmail(email);
+        return firebaseAuthDataSource.sendPasswordResetEmail(email).subscribeOn(Schedulers.io());
     }
 }

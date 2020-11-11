@@ -19,6 +19,7 @@ import ca.dal.bartertrader.utils.handler.live_data.TransformedLiveData;
 import ca.dal.bartertrader.utils.handler.live_data.event.LiveEvent;
 import ca.dal.bartertrader.utils.handler.resource.Resource;
 import ca.dal.bartertrader.utils.handler.resource.Status;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class LoginViewModel extends ViewModel {
@@ -49,6 +50,7 @@ public class LoginViewModel extends ViewModel {
 
     public void login() {
         disposables.add(loginUseCase.execute(new LoginPOJO(email.getValue(), password.getValue(), rememberMe.getValue()))
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(__ -> loginActionEvent.setValue(Resource.pending(null)))
                 .subscribe(authResult -> loginActionEvent.setValue(Resource.fulfilled(authResult)),
                         throwable -> loginActionEvent.setValue((Resource.rejected(throwable)))));
@@ -66,6 +68,7 @@ public class LoginViewModel extends ViewModel {
     public LiveData<Boolean> getEmailIsValid() {
         return emailIsValid;
     }
+
 
     public LiveData<Boolean> getPasswordIsValid() {
         return passwordIsValid;

@@ -17,6 +17,14 @@ public class FirebaseAuthDataSource {
         this.firebaseAuth = firebaseAuth;
     }
 
+    public FirebaseUser getUser() {
+        return firebaseAuth.getCurrentUser();
+    }
+
+    public Completable reloadUser() {
+        return Completable.create(emitter -> CompletableTaskHandler.assign(emitter, firebaseAuth.getCurrentUser().reload()));
+    }
+
     public Single<AuthResult> signInWithEmailAndPassword(String email, String password) {
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, firebaseAuth.signInWithEmailAndPassword(email, password)));
     }
@@ -40,6 +48,5 @@ public class FirebaseAuthDataSource {
     public Completable sendPasswordResetEmail(String email) {
         return Completable.create(emitter -> CompletableTaskHandler.assign(emitter, firebaseAuth.sendPasswordResetEmail(email)));
     }
-
 
 }

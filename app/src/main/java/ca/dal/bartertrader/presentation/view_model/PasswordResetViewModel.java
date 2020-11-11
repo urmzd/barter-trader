@@ -10,8 +10,8 @@ import ca.dal.bartertrader.utils.FormValidatorTools;
 import ca.dal.bartertrader.utils.handler.live_data.event.LiveEvent;
 import ca.dal.bartertrader.utils.handler.resource.Resource;
 import ca.dal.bartertrader.utils.handler.resource.Status;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class PasswordResetViewModel extends ViewModel {
 
@@ -36,7 +36,7 @@ public class PasswordResetViewModel extends ViewModel {
 
     public void sendPasswordReset() {
         disposables.add(resetPasswordUseCase.execute(email.getValue())
-                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(__ -> passwordResetResult.setValue(Resource.pending(null)))
                 .subscribe(
                         () -> passwordResetResult.setValue(Resource.fulfilled(null)),

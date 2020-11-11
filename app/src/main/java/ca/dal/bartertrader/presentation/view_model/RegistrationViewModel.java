@@ -11,16 +11,16 @@ import java.util.List;
 import java.util.Objects;
 
 import ca.dal.bartertrader.domain.model.RegistrationPOJO;
-import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
 import ca.dal.bartertrader.domain.use_case.VerifyEmailExistsUseCase;
+import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
 import ca.dal.bartertrader.utils.FormValidatorTools;
 import ca.dal.bartertrader.utils.functionals.Transformers;
 import ca.dal.bartertrader.utils.handler.live_data.TransformedLiveData;
 import ca.dal.bartertrader.utils.handler.live_data.event.LiveEvent;
 import ca.dal.bartertrader.utils.handler.resource.Resource;
 import ca.dal.bartertrader.utils.handler.resource.Status;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RegistrationViewModel extends ViewModel {
     private final RegisterUseCase registerUserUseCase;
@@ -40,8 +40,8 @@ public class RegistrationViewModel extends ViewModel {
 
     private final MutableLiveData<Boolean> role = new MutableLiveData<>();
 
-    private final LiveData<Boolean> firstNameIsValid = Transformations.map(firstName, FormValidatorTools::isTextAlphaNumeric);
-    private final LiveData<Boolean> lastNameIsValid = Transformations.map(lastName, FormValidatorTools::isTextAlphaNumeric);
+    private final LiveData<Boolean> firstNameIsValid = Transformations.map(firstName, FormValidatorTools::isNameValid);
+    private final LiveData<Boolean> lastNameIsValid = Transformations.map(lastName, FormValidatorTools::isNameValid);
     private final LiveData<Boolean> emailIsValid = Transformations.map(email, FormValidatorTools::isEmailValid);
     private final LiveData<Boolean> passwordIsValid = Transformations.map(password, FormValidatorTools::isPasswordStrong);
     private final LiveData<Boolean> confirmedPasswordIsValid = Transformations.map(confirmedPassword,
@@ -55,13 +55,13 @@ public class RegistrationViewModel extends ViewModel {
     private final LiveEvent<Resource<Void>> registrationResult = new LiveEvent<>();
     private final LiveData<Status> registrationStatus = Transformations.map(registrationResult, Resource::getStatus);
 
-    // Methods
     private final LiveEvent<Void> goToLoginLiveEvent = new LiveEvent<>();
 
     public void register() {
         RegistrationPOJO user = new RegistrationPOJO(firstName.getValue(), lastName.getValue(), email.getValue(), password.getValue(), role.getValue());
+
         disposables.add(registerUserUseCase.execute(user)
-                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(__ -> registrationResult.setValue(Resource.pending(null)))
                 .subscribe(
                         () -> registrationResult.setValue(Resource.fulfilled(null)),

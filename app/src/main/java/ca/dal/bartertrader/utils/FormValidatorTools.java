@@ -18,6 +18,10 @@ public class FormValidatorTools {
         return text.matches("^[a-zA-Z0-9]*$");
     }
 
+    public static Boolean isNameValid(String name) {
+        return name.matches("^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$");
+    }
+
     public static Boolean isPasswordStrong(String password) {
         return password.matches("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#!_?$%]).{8,})");
     }

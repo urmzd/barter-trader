@@ -1,13 +1,11 @@
 package ca.dal.bartertrader.domain.use_case.posts;
 
-import androidx.lifecycle.LiveData;
-
 import ca.dal.bartertrader.data.repository.FirebasePostsRepository;
 import ca.dal.bartertrader.domain.model.PostPOJO;
 import ca.dal.bartertrader.domain.use_case.abstracts.AbstractBaseUseCase;
-import ca.dal.bartertrader.utils.handler.resource.Resource;
+import io.reactivex.rxjava3.core.Completable;
 
-public class SetPostBaseUseCase extends AbstractBaseUseCase<PostPOJO, LiveData<Resource<Void>>> {
+public class SetPostBaseUseCase extends AbstractBaseUseCase<PostPOJO, Completable> {
     private final FirebasePostsRepository firebasePostsRepository;
 
     public SetPostBaseUseCase(FirebasePostsRepository firebasePostsRepository) {
@@ -15,7 +13,7 @@ public class SetPostBaseUseCase extends AbstractBaseUseCase<PostPOJO, LiveData<R
     }
 
     @Override
-    public LiveData<Resource<Void>> execute(PostPOJO input) {
+    public Completable execute(PostPOJO input) {
         return firebasePostsRepository.setPost(input);
     }
 }

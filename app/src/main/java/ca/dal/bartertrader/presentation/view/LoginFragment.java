@@ -35,8 +35,9 @@ public class LoginFragment extends Fragment {
         viewModel = new ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel.class);
 
         binding = FragmentLoginBinding.inflate(getLayoutInflater());
-        binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
+
+        binding.setViewModel(viewModel);
 
         return binding.getRoot();
     }

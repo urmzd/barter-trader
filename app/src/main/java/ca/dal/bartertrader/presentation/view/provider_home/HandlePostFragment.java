@@ -27,16 +27,17 @@ import ca.dal.bartertrader.databinding.FragmentHandlePostBinding;
 import ca.dal.bartertrader.di.view_model.provider_home.HandlePostViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.provider_home.HandlePostViewModel;
 import ca.dal.bartertrader.utils.BindingUtils;
+import ca.dal.bartertrader.utils.handler.resource.Status;
 
 import static androidx.core.content.FileProvider.getUriForFile;
 
 public class HandlePostFragment extends Fragment {
 
-    private FragmentHandlePostBinding binding = null;
+    private FragmentHandlePostBinding binding;
     private HandlePostViewModel viewModel;
+    private Uri imageUri;
     private final HandlePostViewModelFactory handlePostViewModelFactory;
 
-    private Uri imageUri = null;
 
     public HandlePostFragment(HandlePostViewModelFactory handlePostViewModelFactory) {
         this.handlePostViewModelFactory = handlePostViewModelFactory;
@@ -45,10 +46,11 @@ public class HandlePostFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentHandlePostBinding.inflate(getLayoutInflater());
-
         viewModel = new ViewModelProvider(this, handlePostViewModelFactory).get(HandlePostViewModel.class);
+
+        binding = FragmentHandlePostBinding.inflate(getLayoutInflater());
         binding.setLifecycleOwner(getViewLifecycleOwner());
+
         binding.setViewModel(viewModel);
 
         return binding.getRoot();
@@ -60,11 +62,10 @@ public class HandlePostFragment extends Fragment {
         viewModel.getUploadImageFromCameraEvent().observe(getViewLifecycleOwner(), __ -> {
             try {
                 imageUri = createImageFile();
+                validatePermissions(Manifest.permission.CAMERA, imageUri, takePicture::launch);
             } catch (IOException e) {
                 Toast.makeText(getContext(), "Something went wrong... Please try again!", Toast.LENGTH_LONG).show();
-                return;
             }
-            validatePermissions(Manifest.permission.CAMERA, imageUri, takePicture::launch);
         });
 
         viewModel.getUploadImageFromGalleryEvent().observe(getViewLifecycleOwner(), __ -> {
@@ -74,34 +75,45 @@ public class HandlePostFragment extends Fragment {
         viewModel.getTitleIsValid().observe(getViewLifecycleOwner(), validity -> {
             BindingUtils.setErrorOnTextInputLayout(binding.handlePostTitle, validity, "Title cannot be empty");
         });
-    }
 
-    private Uri createImageFile() throws IOException {
-        File imagePath = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        String timeStamp = String.valueOf(System.currentTimeMillis());
-        File post = File.createTempFile(timeStamp, ".jpg", imagePath);
+        viewModel.getPostResults().observe(getViewLifecycleOwner(), result -> {
+            Status resultStatus = result.getStatus();
 
-        return getUriForFile(getContext(), "ca.dal.bartertrader", post);
+            if (resultStatus == Status.FULFILLED) {
+                Toast.makeText(getContext(), "Post successfully created!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if (resultStatus == Status.REJECTED) {
+                Log.e("status error", "set post", result.getError());
+                Toast.makeText(getContext(), result.getError().getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
     }
 
     private final ActivityResultLauncher<String> requestPermissions = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
         if (!isGranted) {
-            Navigation.findNavController(getView()).popBackStack();
             Toast.makeText(getContext(), "Access Denied: Posts Require Permission!", Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(getView()).popBackStack();
         }
-    });
-
-    private final ActivityResultLauncher<String> pickPicture = registerForActivityResult(new ActivityResultContracts.GetContent(), image -> {
-        BindingUtils.setImageUrOnImageView(binding.handlePostSelectedImage, image);
-        viewModel.setImage(image);
     });
 
     private final ActivityResultLauncher<Uri> takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), pictureTaken -> {
         if (pictureTaken) {
-            BindingUtils.setImageUrOnImageView(binding.handlePostSelectedImage, imageUri);
+            //BindingUtils.setImageUrOnImageView(binding.handlePostSelectedImage, imageUri);
             viewModel.setImage(imageUri);
         }
     });
+
+    private final ActivityResultLauncher<String> pickPicture = registerForActivityResult(new ActivityResultContracts.GetContent(), image -> {
+        if (image != null) {
+            //BindingUtils.setImageUrOnImageView(binding.handlePostSelectedImage, image);
+            viewModel.setImage(image);
+        }
+    });
+
+
 
     private <ContractInputT> void validatePermissions(String permission, ContractInputT input, Consumer<ContractInputT> contract) {
         if (getContext().checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED) {
@@ -111,5 +123,13 @@ public class HandlePostFragment extends Fragment {
         } else {
             requestPermissions.launch(permission);
         }
+    }
+
+    private Uri createImageFile() throws IOException {
+        File imagePath = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        String timeStamp = String.valueOf(System.currentTimeMillis());
+        File post = File.createTempFile(timeStamp, ".jpg", imagePath);
+
+        return getUriForFile(getContext(), "ca.dal.bartertrader", post);
     }
 }

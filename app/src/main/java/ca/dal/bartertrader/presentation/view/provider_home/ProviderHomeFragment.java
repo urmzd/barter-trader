@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import ca.dal.bartertrader.databinding.FragmentProviderHomeBinding;
 import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
@@ -28,16 +29,21 @@ public class ProviderHomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProviderHomeBinding.inflate(getLayoutInflater());
+        binding.setLifecycleOwner(this);
 
         viewModel = new ViewModelProvider(this, providerHomeViewModelFactory).get(ProviderHomeViewModel.class);
         binding.setViewModel(viewModel);
-        binding.setLifecycleOwner(this);
 
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        binding.button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToHandlePostFragment());
+            }
+        });
     }
 }

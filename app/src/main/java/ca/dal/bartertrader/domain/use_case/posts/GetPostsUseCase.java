@@ -1,14 +1,13 @@
 package ca.dal.bartertrader.domain.use_case.posts;
 
-import androidx.lifecycle.LiveData;
-
-import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import ca.dal.bartertrader.data.repository.FirebasePostsRepository;
 import ca.dal.bartertrader.domain.use_case.abstracts.AbstractBaseUseCase;
 import ca.dal.bartertrader.utils.handler.resource.Resource;
+import io.reactivex.rxjava3.core.Flowable;
 
-public class GetPostsUseCase extends AbstractBaseUseCase<Integer, LiveData<Resource<QueryDocumentSnapshot>>> {
+public class GetPostsUseCase extends AbstractBaseUseCase<Integer, Flowable<Resource<QuerySnapshot>>> {
 
     private final FirebasePostsRepository firebasePostsRepository;
 
@@ -17,7 +16,7 @@ public class GetPostsUseCase extends AbstractBaseUseCase<Integer, LiveData<Resou
     }
 
     @Override
-    public LiveData<Resource<QueryDocumentSnapshot>> execute(Integer maxNumberOfPosts) {
+    public Flowable<Resource<QuerySnapshot>> execute(Integer maxNumberOfPosts) {
         return firebasePostsRepository.getPosts(maxNumberOfPosts);
     }
 }
