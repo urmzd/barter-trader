@@ -81,11 +81,11 @@ public class HandlePostFragment extends Fragment {
 
             if (resultStatus == Status.FULFILLED) {
                 Toast.makeText(getContext(), "Post successfully created!", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(getView()).popBackStack();
                 return;
             }
 
             if (resultStatus == Status.REJECTED) {
-                Log.e("status error", "set post", result.getError());
                 Toast.makeText(getContext(), result.getError().getMessage(), Toast.LENGTH_LONG).show();
             }
 
@@ -94,25 +94,22 @@ public class HandlePostFragment extends Fragment {
 
     private final ActivityResultLauncher<String> requestPermissions = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
         if (!isGranted) {
-            Toast.makeText(getContext(), "Access Denied: Posts Require Permission!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Access Denied: Posts Require Permission! Please enable it in your app settings.", Toast.LENGTH_SHORT).show();
             Navigation.findNavController(getView()).popBackStack();
         }
     });
 
     private final ActivityResultLauncher<Uri> takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), pictureTaken -> {
         if (pictureTaken) {
-            //BindingUtils.setImageUrOnImageView(binding.handlePostSelectedImage, imageUri);
             viewModel.setImage(imageUri);
         }
     });
 
     private final ActivityResultLauncher<String> pickPicture = registerForActivityResult(new ActivityResultContracts.GetContent(), image -> {
         if (image != null) {
-            //BindingUtils.setImageUrOnImageView(binding.handlePostSelectedImage, image);
             viewModel.setImage(image);
         }
     });
-
 
 
     private <ContractInputT> void validatePermissions(String permission, ContractInputT input, Consumer<ContractInputT> contract) {
