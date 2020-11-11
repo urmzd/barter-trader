@@ -30,8 +30,8 @@ public class ProviderHomeFragment extends Fragment {
         binding = FragmentProviderHomeBinding.inflate(getLayoutInflater());
 
         viewModel = new ViewModelProvider(this, providerHomeViewModelFactory).get(ProviderHomeViewModel.class);
-        binding.setLifecycleOwner(this);
         binding.setViewModel(viewModel);
+        binding.setLifecycleOwner(this);
 
         return binding.getRoot();
     }

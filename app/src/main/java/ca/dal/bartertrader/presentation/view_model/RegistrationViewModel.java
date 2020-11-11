@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 import ca.dal.bartertrader.domain.model.RegistrationPOJO;
-import ca.dal.bartertrader.domain.use_case.RegisterUseUseCase;
+import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
 import ca.dal.bartertrader.domain.use_case.VerifyEmailExistsUseCase;
 import ca.dal.bartertrader.utils.FormValidatorTools;
 import ca.dal.bartertrader.utils.functionals.Transformers;
@@ -23,11 +23,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class RegistrationViewModel extends ViewModel {
-    private final RegisterUseUseCase registerUserUseCase;
+    private final RegisterUseCase registerUserUseCase;
     private final VerifyEmailExistsUseCase verifyEmailExistsUseCase;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-    public RegistrationViewModel(RegisterUseUseCase registerUserUseCase, VerifyEmailExistsUseCase verifyEmailExistsUseCase) {
+    public RegistrationViewModel(RegisterUseCase registerUserUseCase, VerifyEmailExistsUseCase verifyEmailExistsUseCase) {
         this.registerUserUseCase = registerUserUseCase;
         this.verifyEmailExistsUseCase = verifyEmailExistsUseCase;
     }

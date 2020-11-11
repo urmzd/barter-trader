@@ -22,6 +22,6 @@ public class PasswordResetViewModelFactory implements ViewModelProvider.Factory 
             return (T) new PasswordResetViewModel(resetPasswordUseCase);
         }
 
-        throw new IllegalArgumentException("Unknown PasswordResetViewModel was provided!");
+        throw new IllegalArgumentException("PasswordResetViewModel was not provided!");
     }
 }

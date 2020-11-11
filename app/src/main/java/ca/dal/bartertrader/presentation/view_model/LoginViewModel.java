@@ -12,23 +12,22 @@ import java.util.Arrays;
 import java.util.List;
 
 import ca.dal.bartertrader.domain.model.LoginPOJO;
-import ca.dal.bartertrader.domain.use_case.LoginUserUseCase;
+import ca.dal.bartertrader.domain.use_case.users.LoginUseCase;
 import ca.dal.bartertrader.utils.FormValidatorTools;
 import ca.dal.bartertrader.utils.functionals.Transformers;
 import ca.dal.bartertrader.utils.handler.live_data.TransformedLiveData;
 import ca.dal.bartertrader.utils.handler.live_data.event.LiveEvent;
 import ca.dal.bartertrader.utils.handler.resource.Resource;
 import ca.dal.bartertrader.utils.handler.resource.Status;
-import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class LoginViewModel extends ViewModel {
 
-    private final LoginUserUseCase loginUserUseCase;
+    private final LoginUseCase loginUseCase;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-    public LoginViewModel(LoginUserUseCase loginUserUseCase) {
-        this.loginUserUseCase = loginUserUseCase;
+    public LoginViewModel(LoginUseCase loginUseCase) {
+        this.loginUseCase = loginUseCase;
     }
 
     public final MutableLiveData<String> email = new MutableLiveData<>();
@@ -49,7 +48,7 @@ public class LoginViewModel extends ViewModel {
     private final LiveData<Status> loginStatus = Transformations.map(loginActionEvent, Resource::getStatus);
 
     public void login() {
-        disposables.add(loginUserUseCase.execute(new LoginPOJO(email.getValue(), password.getValue(), rememberMe.getValue()))
+        disposables.add(loginUseCase.execute(new LoginPOJO(email.getValue(), password.getValue(), rememberMe.getValue()))
                 .doOnSubscribe(__ -> loginActionEvent.setValue(Resource.pending(null)))
                 .subscribe(authResult -> loginActionEvent.setValue(Resource.fulfilled(authResult)),
                         throwable -> loginActionEvent.setValue((Resource.rejected(throwable)))));

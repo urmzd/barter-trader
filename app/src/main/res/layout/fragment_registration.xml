@@ -12,15 +12,11 @@
 
     </data>
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:theme="@style/AppTheme">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="@dimen/default_margin">
+            android:padding="@dimen/default_spacing"
+            android:theme="@style/AppTheme">
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/registration_first_name"
@@ -43,7 +39,7 @@
                 android:id="@+id/registration_last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_spacing"
                 app:layout_constraintTop_toBottomOf="@id/registration_first_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -59,7 +55,7 @@
                 android:id="@+id/registration_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_spacing"
                 app:layout_constraintTop_toBottomOf="@id/registration_last_name">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -75,7 +71,7 @@
                 android:id="@+id/registration_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_spacing"
                 app:endIconMode="password_toggle"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -94,7 +90,7 @@
                 android:id="@+id/registration_confirmed_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_spacing"
                 app:endIconMode="password_toggle"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -113,7 +109,7 @@
                 android:id="@+id/registration_radio_roles_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_spacing"
                 android:text="@string/title_select_role"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/registration_confirmed_password" />
@@ -146,7 +142,7 @@
                 android:id="@+id/registration_register"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/default_margin"
+                android:layout_marginTop="@dimen/default_spacing"
                 android:text="@string/action_register"
                 android:enabled="@{ViewModel.formIsValid}"
                 android:onClick="@{() -> ViewModel.register()}"
@@ -196,5 +192,4 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
 </layout>

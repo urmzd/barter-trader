@@ -13,7 +13,7 @@ public class FormValidatorToolsUnitTest {
     }
 
     @Test
-    public void doPasswordsMatchReturnsTrue () {
+    public void doPasswordsMatchReturnsTrue() {
         assertThat(FormValidatorTools.doPasswordsMatch("Test", "Test"), is(true));
     }
 
@@ -36,7 +36,7 @@ public class FormValidatorToolsUnitTest {
     }
 
     @Test
-    public void isEmailValidReturnsTrue(){
+    public void isEmailValidReturnsTrue() {
         assertThat(FormValidatorTools.isEmailValid("user@domain.ca"), is(true));
     }
 

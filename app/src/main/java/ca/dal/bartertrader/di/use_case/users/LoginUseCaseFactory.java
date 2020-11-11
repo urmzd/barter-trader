@@ -1,10 +1,10 @@
-package ca.dal.bartertrader.di.use_case;
+package ca.dal.bartertrader.di.use_case.users;
 
 import ca.dal.bartertrader.data.repository.FirebaseUserRepository;
 import ca.dal.bartertrader.di.Factory;
-import ca.dal.bartertrader.domain.use_case.LoginUserUseCase;
+import ca.dal.bartertrader.domain.use_case.users.LoginUseCase;
 
-public class LoginUseCaseFactory implements Factory<LoginUserUseCase> {
+public class LoginUseCaseFactory implements Factory<LoginUseCase> {
     private final FirebaseUserRepository firebaseUserRepository;
 
     public LoginUseCaseFactory(FirebaseUserRepository firebaseUserRepository) {
@@ -12,7 +12,7 @@ public class LoginUseCaseFactory implements Factory<LoginUserUseCase> {
     }
 
     @Override
-    public LoginUserUseCase create() {
-        return new LoginUserUseCase(firebaseUserRepository);
+    public LoginUseCase create() {
+        return new LoginUseCase(firebaseUserRepository);
     }
 }

@@ -11,4 +11,14 @@
         <item name="colorError">@color/colorError</item>S
     </style>
 
+
+    <style name="ActionButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog.Icon">
+        <item name="iconPadding">0dp</item>
+        <item name="iconGravity">end</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
 </resources>

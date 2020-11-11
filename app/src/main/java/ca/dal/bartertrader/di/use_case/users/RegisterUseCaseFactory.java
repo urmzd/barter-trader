@@ -1,10 +1,10 @@
-package ca.dal.bartertrader.di.use_case;
+package ca.dal.bartertrader.di.use_case.users;
 
 import ca.dal.bartertrader.data.repository.FirebaseUserRepository;
 import ca.dal.bartertrader.di.Factory;
-import ca.dal.bartertrader.domain.use_case.RegisterUseUseCase;
+import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
 
-public class RegisterUseCaseFactory implements Factory<RegisterUseUseCase> {
+public class RegisterUseCaseFactory implements Factory<RegisterUseCase> {
     private final FirebaseUserRepository firebaseUserRepository;
 
     public RegisterUseCaseFactory(FirebaseUserRepository firebaseUserRepository) {
@@ -12,7 +12,7 @@ public class RegisterUseCaseFactory implements Factory<RegisterUseUseCase> {
     }
 
     @Override
-    public RegisterUseUseCase create() {
-        return new RegisterUseUseCase(firebaseUserRepository);
+    public RegisterUseCase create() {
+        return new RegisterUseCase(firebaseUserRepository);
     }
 }

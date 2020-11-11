@@ -40,8 +40,11 @@
     <string name="error_password_weak">Password must be 8 letters long and include one of each type character: lowercase, uppercase, special, number.</string>
     <string name="error_password_empty">Password cannot be empty.</string>
     <string name="error_password_no_match">Confirmed password does not match password.</string>
-    <string name="message_reset_password">Provider the email associated with your account!</string>
+    <string name="message_reset_password">Provide the email associated with your account!</string>
     <string name="action_go_back">BACK</string>
     <string name="action_sendEmail">Send Email</string>
+    <string name="title_search_placeholder">Search...</string>
+    <string name="temp_image_placeholder">Temporary Image</string>
+    <string name="message_dummy_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin convallis lorem ac nunc convallis, ut gravida orci varius. Curabitur laoreet massa id purus posuere, et blandit risus egestas. Cras rutrum semper fermentum. Proin ut auctor augue, eget ullamcorper ante. Ut dictum diam vitae purus porta, sit amet consectetur dolor hendrerit. Praesent ac nulla porta purus rutrum tincidunt ac et ligula. Pellentesque pulvinar sed urna in faucibus. Praesent id tellus a mi aliquam vehicula condimentum at lorem.</string>
 
 </resources>

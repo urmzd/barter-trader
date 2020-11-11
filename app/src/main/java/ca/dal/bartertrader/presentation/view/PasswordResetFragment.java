@@ -50,7 +50,7 @@ public class PasswordResetFragment extends Fragment {
         });
 
         viewModel.getGoToLoginEvent().observe(getViewLifecycleOwner(), __ -> {
-            Navigation.findNavController(getView()).navigate(PasswordResetFragmentDirections.actionPasswordResetFragmentToRegistrationFragment());
+            Navigation.findNavController(getView()).popBackStack();
         });
 
         viewModel.getPasswordResetResult().observe(getViewLifecycleOwner(), result -> {

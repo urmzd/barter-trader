@@ -1,4 +1,4 @@
-package ca.dal.bartertrader.di.use_case;
+package ca.dal.bartertrader.di.use_case.users;
 
 import ca.dal.bartertrader.data.repository.FirebaseUserRepository;
 import ca.dal.bartertrader.di.Factory;

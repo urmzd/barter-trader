@@ -1,4 +1,4 @@
-package ca.dal.bartertrader.domain.use_case;
+package ca.dal.bartertrader.domain.use_case.posts;
 
 import androidx.lifecycle.LiveData;
 

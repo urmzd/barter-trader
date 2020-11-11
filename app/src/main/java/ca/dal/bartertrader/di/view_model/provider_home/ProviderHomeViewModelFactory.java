@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import ca.dal.bartertrader.domain.use_case.GetPostsUseCase;
+import ca.dal.bartertrader.domain.use_case.posts.GetPostsUseCase;
 import ca.dal.bartertrader.presentation.view_model.provider_home.ProviderHomeViewModel;
 
 public class ProviderHomeViewModelFactory implements ViewModelProvider.Factory {
@@ -21,6 +21,6 @@ public class ProviderHomeViewModelFactory implements ViewModelProvider.Factory {
             return (T) new ProviderHomeViewModel(getPostsUseCase);
         }
 
-        throw new IllegalArgumentException("Uknown ProviderHomeViewModel was provided!");
+        throw new IllegalArgumentException("ProviderHomeViewModel was not provided!");
     }
 }

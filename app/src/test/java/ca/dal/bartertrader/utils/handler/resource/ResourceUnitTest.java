@@ -20,7 +20,7 @@ public class ResourceUnitTest {
         data = "Test";
         exception = new IndexOutOfBoundsException();
 
-        success  = Resource.fulfilled(data);
+        success = Resource.fulfilled(data);
         rejected = Resource.rejected(exception);
     }
 
