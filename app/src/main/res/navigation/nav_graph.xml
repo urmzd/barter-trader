@@ -54,6 +54,9 @@
         <action
             android:id="@+id/action_providerHomeFragment_to_handlePostFragment"
             app:destination="@id/handlePostFragment" />
+        <action
+            android:id="@+id/action_providerHomeFragment_to_splashFragment"
+            app:destination="@id/splashFragment" />
     </fragment>
     <fragment
         android:id="@+id/startUpFragment"
