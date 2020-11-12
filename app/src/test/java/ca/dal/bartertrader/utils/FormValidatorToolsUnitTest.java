@@ -60,4 +60,16 @@ public class FormValidatorToolsUnitTest {
         assertThat(FormValidatorTools.isTextValid("Test"), is(true));
     }
 
+    @Test
+    public void isNameValidReturnsFalse() {
+        assertThat(FormValidatorTools.isNameValid("!1293mzd"), is(false));
+    }
+
+    @Test
+    public void isNameValidReturnsTrue() {
+        assertThat(FormValidatorTools.isNameValid("urmzd"), is(true));
+        assertThat(FormValidatorTools.isNameValid("M'Donald"), is(true));
+        assertThat(FormValidatorTools.isNameValid("John-Doe"), is(true));
+    }
+
 }
