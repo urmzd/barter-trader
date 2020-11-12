@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import ca.dal.bartertrader.domain.model.RegistrationPOJO;
+import ca.dal.bartertrader.domain.model.NewUserModel;
 import ca.dal.bartertrader.domain.use_case.VerifyEmailExistsUseCase;
 import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
 import ca.dal.bartertrader.utils.FormValidatorTools;
@@ -58,7 +58,7 @@ public class RegistrationViewModel extends ViewModel {
     private final LiveEvent<Void> goToLoginLiveEvent = new LiveEvent<>();
 
     public void register() {
-        RegistrationPOJO user = new RegistrationPOJO(firstName.getValue(), lastName.getValue(), email.getValue(), password.getValue(), role.getValue());
+        NewUserModel user = new NewUserModel(firstName.getValue(), lastName.getValue(), email.getValue(), password.getValue(), role.getValue());
 
         disposables.add(registerUserUseCase.execute(user)
                 .observeOn(AndroidSchedulers.mainThread())

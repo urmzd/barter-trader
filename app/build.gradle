@@ -58,7 +58,7 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
     implementation "androidx.fragment:fragment:$fragment_version"
-    debugImplementation ("androidx.fragment:fragment-testing:$fragment_version"){
+    debugImplementation("androidx.fragment:fragment-testing:$fragment_version") {
         exclude group: 'androidx.test', module: 'monitor'
     }
 
@@ -82,8 +82,12 @@ dependencies {
     implementation "androidx.paging:paging-runtime:$paging_version"
 
     testImplementation 'junit:junit:4.13.1'
+    testImplementation "androidx.paging:paging-common:$paging_version"
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation "androidx.paging:paging-rxjava3:$paging_version"
 
     implementation "io.reactivex.rxjava3:rxjava:3.0.7"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'

@@ -5,14 +5,14 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 import java.io.Serializable;
 
 @IgnoreExtraProperties
-public class LoginPOJO implements Serializable {
+public class UserModel implements Serializable {
     private String email;
     private String password;
 
-    public LoginPOJO() {
+    public UserModel() {
     }
 
-    public LoginPOJO(String email, String password, Boolean rememberMe) {
+    public UserModel(String email, String password, Boolean rememberMe) {
         this.email = email;
         this.password = password;
     }

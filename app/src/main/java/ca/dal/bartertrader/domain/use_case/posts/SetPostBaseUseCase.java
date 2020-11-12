@@ -1,11 +1,11 @@
 package ca.dal.bartertrader.domain.use_case.posts;
 
 import ca.dal.bartertrader.data.repository.FirebasePostsRepository;
-import ca.dal.bartertrader.domain.model.PostPOJO;
+import ca.dal.bartertrader.domain.model.PostModel;
 import ca.dal.bartertrader.domain.use_case.abstracts.AbstractBaseUseCase;
 import io.reactivex.rxjava3.core.Completable;
 
-public class SetPostBaseUseCase extends AbstractBaseUseCase<PostPOJO, Completable> {
+public class SetPostBaseUseCase extends AbstractBaseUseCase<PostModel, Completable> {
     private final FirebasePostsRepository firebasePostsRepository;
 
     public SetPostBaseUseCase(FirebasePostsRepository firebasePostsRepository) {
@@ -13,7 +13,7 @@ public class SetPostBaseUseCase extends AbstractBaseUseCase<PostPOJO, Completabl
     }
 
     @Override
-    public Completable execute(PostPOJO input) {
+    public Completable execute(PostModel input) {
         return firebasePostsRepository.setPost(input);
     }
 }

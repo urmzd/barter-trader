@@ -5,10 +5,9 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-
 import io.reactivex.rxjava3.core.CompletableEmitter;
 
-public class CompletableTaskHandler<T> implements OnCompleteListener<T> {
+public class CompletableTaskHandler<ResourceT> implements OnCompleteListener<ResourceT> {
 
     private final CompletableEmitter emitter;
     private static Task<Object> task;

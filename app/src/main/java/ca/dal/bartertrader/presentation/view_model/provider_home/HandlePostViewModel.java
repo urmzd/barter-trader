@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import ca.dal.bartertrader.domain.model.PostPOJO;
+import ca.dal.bartertrader.domain.model.PostModel;
 import ca.dal.bartertrader.domain.use_case.posts.SetPostBaseUseCase;
 import ca.dal.bartertrader.utils.FormValidatorTools;
 import ca.dal.bartertrader.utils.functionals.Transformers;
@@ -54,9 +54,9 @@ public class HandlePostViewModel extends ViewModel {
     }
 
     public void setPost() {
-        PostPOJO newPost = new PostPOJO(image.getValue(), title.getValue(), description.getValue());
+        PostModel newPostModel = new PostModel(image.getValue(), title.getValue(), description.getValue());
         compositeDisposable.add(
-                setPostBaseUseCase.execute(newPost)
+                setPostBaseUseCase.execute(newPostModel)
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(__ -> postResults.setValue(Resource.pending(null)))
                         .subscribe(() -> postResults.setValue(Resource.fulfilled(null)), throwable -> postResults.setValue(Resource.rejected(throwable)))

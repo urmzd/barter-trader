@@ -7,17 +7,17 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 import java.io.Serializable;
 
 @IgnoreExtraProperties
-public class PostPOJO implements Serializable {
+public class PostModel implements Serializable {
 
     private Uri image;
     private String title;
     private String description;
 
-    public PostPOJO() {
+    public PostModel() {
 
     }
 
-    public PostPOJO(Uri image, String title, String description) {
+    public PostModel(Uri image, String title, String description) {
         this.image = image;
         this.title = title;
         this.description = description;

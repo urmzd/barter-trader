@@ -8,11 +8,11 @@ import com.google.android.gms.tasks.Task;
 
 import io.reactivex.rxjava3.core.SingleEmitter;
 
-public class SingleTaskHandler<T> implements OnSuccessListener<T>, OnFailureListener {
+public class SingleTaskHandler<ResourceT> implements OnSuccessListener<ResourceT>, OnFailureListener {
 
-    private final SingleEmitter<? super T> emitter;
+    private final SingleEmitter<? super ResourceT> emitter;
 
-    private SingleTaskHandler(SingleEmitter<? super T> emitter) {
+    private SingleTaskHandler(SingleEmitter<? super ResourceT> emitter) {
         this.emitter = emitter;
     }
 
@@ -30,7 +30,7 @@ public class SingleTaskHandler<T> implements OnSuccessListener<T>, OnFailureList
     }
 
     @Override
-    public void onSuccess(T data) {
+    public void onSuccess(ResourceT data) {
         emitter.onSuccess(data);
     }
 }

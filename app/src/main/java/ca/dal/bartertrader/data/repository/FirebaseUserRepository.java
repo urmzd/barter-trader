@@ -1,7 +1,5 @@
 package ca.dal.bartertrader.data.repository;
 
-import androidx.lifecycle.LiveData;
-
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
@@ -10,8 +8,8 @@ import java.util.Arrays;
 
 import ca.dal.bartertrader.data.data_source.FirebaseAuthDataSource;
 import ca.dal.bartertrader.data.data_source.FirebaseFirestoreDataSource;
-import ca.dal.bartertrader.domain.model.LoginPOJO;
-import ca.dal.bartertrader.domain.model.RegistrationPOJO;
+import ca.dal.bartertrader.domain.model.NewUserModel;
+import ca.dal.bartertrader.domain.model.UserModel;
 import ca.dal.bartertrader.utils.handler.live_data.event.LiveEvent;
 import ca.dal.bartertrader.utils.handler.resource.Resource;
 import io.reactivex.rxjava3.core.Completable;
@@ -29,14 +27,14 @@ public class FirebaseUserRepository {
         this.firebaseFirestoreDataSource = firebaseFirestoreDataSource;
     }
 
-    public Single<AuthResult> login(LoginPOJO loginCredentials) {
+    public Single<AuthResult> login(UserModel loginCredentials) {
         String email = loginCredentials.getEmail();
         String password = loginCredentials.getPassword();
 
         return firebaseAuthDataSource.signInWithEmailAndPassword(email, password).subscribeOn(Schedulers.io());
     }
 
-    public Completable register(RegistrationPOJO registrationDetails) {
+    public Completable register(NewUserModel registrationDetails) {
         String displayName = registrationDetails.getDisplayName();
         String email = registrationDetails.getEmail();
         String password = registrationDetails.getPassword();
@@ -59,11 +57,19 @@ public class FirebaseUserRepository {
         return firebaseAuthDataSource.fetchSignInMethodsForEmail(email).subscribeOn(Schedulers.io());
     }
 
-    public LiveData<Resource<FirebaseUser>> getUser() {
+    public Single<FirebaseUser> getUser() {
         return null;
     }
 
     public Completable sendPasswordReset(String email) {
         return firebaseAuthDataSource.sendPasswordResetEmail(email).subscribeOn(Schedulers.io());
+    }
+
+    public Completable swapRoles() {
+
+        /* return firebaseAuthDataSource.reloadUser().subscribeOn(Schedulers.io())
+
+         */
+        return null;
     }
 }
