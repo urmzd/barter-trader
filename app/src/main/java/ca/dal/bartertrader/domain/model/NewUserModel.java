@@ -23,7 +23,7 @@ public class NewUserModel implements Serializable {
     }
 
     public String getDisplayName() {
-        return email;
+        return displayName;
     }
 
     public String getEmail() {
