@@ -6,8 +6,8 @@ import com.google.firebase.FirebaseApp;
 
 public class BarterTradeApplication extends Application {
 
-
     public BarterTraderInjector injector;
+
     @Override
     public void onCreate() {
         super.onCreate();

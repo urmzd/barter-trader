@@ -40,6 +40,5 @@ public class ProviderHomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         binding.addPost.setOnClickListener(v -> Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToHandlePostFragment()));
-        binding.switchRole.setOnClickListener(v -> Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToSplashFragment()));
     }
 }
