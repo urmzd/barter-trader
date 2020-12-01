@@ -4,6 +4,10 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <import type="ca.dal.bartertrader.utils.handler.resource.Status" />
+
         <variable
             name="ViewModel"
             type="ca.dal.bartertrader.presentation.view_model.provider_home.ProviderHomeViewModel" />
@@ -46,7 +50,9 @@
                 android:layout_margin="@dimen/default_spacing"
                 android:src="@drawable/ic_baseline_swap_vert_24"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/add_post" />
+                app:layout_constraintTop_toBottomOf="@+id/add_post"
+                android:onClick="@{() -> ViewModel.switchRole()}"
+                android:contentDescription="@string/label_switch_role" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/add_post"
@@ -58,7 +64,19 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
                 app:layout_constraintVertical_bias="1.0"
-                app:layout_constraintVertical_chainStyle="packed" />
+                app:layout_constraintVertical_chainStyle="packed"
+                android:onClick="@{() -> ViewModel.addPost()}"
+                android:contentDescription="@string/label_add_post" />
+
+            <ProgressBar
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="@{ViewModel.switchRoleStatus == Status.PENDING ? View.VISIBLE : View.GONE}"
+                />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

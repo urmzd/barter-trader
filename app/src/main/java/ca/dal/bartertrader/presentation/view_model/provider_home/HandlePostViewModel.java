@@ -26,7 +26,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 public class HandlePostViewModel extends ViewModel {
 
     private final SetPostBaseUseCase setPostBaseUseCase;
-    private final CompositeDisposable compositeDisposable = new CompositeDisposable();
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     public HandlePostViewModel(SetPostBaseUseCase setPostBaseUseCase) {
         this.setPostBaseUseCase = setPostBaseUseCase;
@@ -55,7 +55,7 @@ public class HandlePostViewModel extends ViewModel {
 
     public void setPost() {
         PostModel newPostModel = new PostModel(image.getValue(), title.getValue(), description.getValue());
-        compositeDisposable.add(
+        disposables.add(
                 setPostBaseUseCase.execute(newPostModel)
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(__ -> postResults.setValue(Resource.pending(null)))
@@ -100,4 +100,9 @@ public class HandlePostViewModel extends ViewModel {
         return postStatus;
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        disposables.clear();
+    }
 }

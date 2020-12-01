@@ -27,15 +27,11 @@ public class FirebaseFirestoreDataSource {
         this.postCollection = firebaseFirestore.collection("posts");
     }
 
-    public Completable createNewUser(String uid, Boolean role) {
+    public Completable createUser(String uid, Boolean role) {
         return Completable.create(emitter -> CompletableTaskHandler.assign(emitter, userCollection.document(uid).set(new FirebaseUserModel(role), SetOptions.merge())));
     }
 
-    public Single<DocumentReference> addNewPost(@NonNull PostModel postModel, @NonNull String authUid) {
-        postModel.setAuthUid(authUid);
-
-        Log.d("post", postModel.toString());
-        Log.d("authId", authUid);
+    public Single<DocumentReference> addPost(@NonNull PostModel postModel, @NonNull String authUid) {
         postModel.setAuthUid(authUid);
 
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, postCollection.add(postModel)));
@@ -45,7 +41,7 @@ public class FirebaseFirestoreDataSource {
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, userCollection.document(authUid).get()));
     }
 
-    public Completable swapRole(FirebaseUserModel user) {
+    public Completable switchRole(FirebaseUserModel user) {
         return Completable.create(emitter -> CompletableTaskHandler.assign(emitter, userCollection.document(user.getAuthUid()).update("provider", !user.isProvider())));
     }
 

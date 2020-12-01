@@ -1,9 +1,11 @@
 package ca.dal.bartertrader.presentation.view.provider_home;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +16,8 @@ import androidx.navigation.Navigation;
 import ca.dal.bartertrader.databinding.FragmentProviderHomeBinding;
 import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.provider_home.ProviderHomeViewModel;
+import ca.dal.bartertrader.utils.handler.resource.Status;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class ProviderHomeFragment extends Fragment {
 
@@ -39,6 +43,22 @@ public class ProviderHomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        binding.addPost.setOnClickListener(v -> Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToHandlePostFragment()));
+        viewModel.getAddPostEvent().observe(getViewLifecycleOwner(), __-> {
+            Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToHandlePostFragment());
+        });
+
+        viewModel.getSwitchRoleResults().observe(getViewLifecycleOwner(), result -> {
+            Status resultStatus = result.getStatus();
+
+            if (resultStatus == Status.FULFILLED) {
+                Toast.makeText(getContext(), "SWITCHED!", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToSplashFragment());
+                return;
+            }
+
+            if (resultStatus == Status.REJECTED) {
+                Toast.makeText(getContext(), result.getError().getMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }

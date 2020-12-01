@@ -1,9 +1,12 @@
 package ca.dal.bartertrader.data.model;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
+
+import java.sql.Time;
 
 @IgnoreExtraProperties
 public class FirebaseUserModel {
@@ -16,6 +19,8 @@ public class FirebaseUserModel {
     @ServerTimestamp
     private Timestamp timestamp;
 
+    private FirebaseUser firebaseUser;
+
     public FirebaseUserModel() {
     }
 
@@ -24,9 +29,15 @@ public class FirebaseUserModel {
         this.timestamp = null;
     }
 
-    public FirebaseUserModel(Boolean provider, Timestamp timeStamp) {
+    public FirebaseUserModel(Boolean provider, Timestamp timestamp) {
         this.provider = provider;
-        this.timestamp = timeStamp;
+        this.timestamp = timestamp;
+    }
+
+    public FirebaseUserModel(Boolean provider, Timestamp timestamp, String authUid) {
+        this.provider = provider;
+        this.timestamp = timestamp;
+        this.authUid = authUid;
     }
 
     public Boolean isProvider() {
@@ -39,5 +50,9 @@ public class FirebaseUserModel {
 
     public String getAuthUid() {
         return authUid;
+    }
+
+    public void setFirebaseUser(FirebaseUser firebaseUser) {
+        this.firebaseUser = firebaseUser;
     }
 }

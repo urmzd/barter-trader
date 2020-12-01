@@ -21,6 +21,7 @@ import ca.dal.bartertrader.di.use_case.posts.GetPostsUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.posts.SetPostUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.users.LoginUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.users.RegisterUseCaseFactory;
+import ca.dal.bartertrader.di.use_case.users.SwitchRoleUseCaseFactory;
 import ca.dal.bartertrader.di.view_model.LoginViewModelFactory;
 import ca.dal.bartertrader.di.view_model.PasswordResetViewModelFactory;
 import ca.dal.bartertrader.di.view_model.RegistrationViewModelFactory;
@@ -32,6 +33,7 @@ import ca.dal.bartertrader.domain.use_case.posts.GetPostsUseCase;
 import ca.dal.bartertrader.domain.use_case.posts.SetPostBaseUseCase;
 import ca.dal.bartertrader.domain.use_case.users.LoginUseCase;
 import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
+import ca.dal.bartertrader.domain.use_case.users.SwitchRoleUseCase;
 
 public class BarterTraderInjector {
 
@@ -54,6 +56,7 @@ public class BarterTraderInjector {
     private final RegisterUseCase registerUserUseCase = new RegisterUseCaseFactory(firebaseUserRepository).create();
     private final ResetPasswordUseCase resetPasswordUseCase = new ResetPasswordUseCaseFactory(firebaseUserRepository).create();
     private final VerifyEmailExistsUseCase verifyEmailExistsUseCase = new VerifyEmailExistsUseCaseFactory(firebaseUserRepository).create();
+    private final SwitchRoleUseCase switchRoleUseCase = new SwitchRoleUseCaseFactory(firebaseUserRepository).create();
 
     // Use Cases for Post Repository
     private final SetPostBaseUseCase setPostUseCase = new SetPostUseCaseFactory(firebasePostsRepository).create();
@@ -63,7 +66,7 @@ public class BarterTraderInjector {
     private final LoginViewModelFactory loginViewModelFactory = new LoginViewModelFactory(loginUseCase);
     private final RegistrationViewModelFactory registrationViewModelFactory = new RegistrationViewModelFactory(registerUserUseCase, verifyEmailExistsUseCase);
     private final PasswordResetViewModelFactory passwordResetViewModelFactory = new PasswordResetViewModelFactory(resetPasswordUseCase);
-    private final ProviderHomeViewModelFactory providerHomeViewModelFactory = new ProviderHomeViewModelFactory(getPostsUseCase);
+    private final ProviderHomeViewModelFactory providerHomeViewModelFactory = new ProviderHomeViewModelFactory(getPostsUseCase, switchRoleUseCase);
     private final HandlePostViewModelFactory handlePostViewModelFactory = new HandlePostViewModelFactory(setPostUseCase);
 
     // Fragment Factories
