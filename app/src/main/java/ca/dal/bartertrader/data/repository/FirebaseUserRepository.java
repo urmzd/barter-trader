@@ -8,8 +8,9 @@ import java.util.Arrays;
 
 import ca.dal.bartertrader.data.data_source.FirebaseAuthDataSource;
 import ca.dal.bartertrader.data.data_source.FirebaseFirestoreDataSource;
-import ca.dal.bartertrader.domain.model.NewUserModel;
-import ca.dal.bartertrader.domain.model.UserModel;
+import ca.dal.bartertrader.data.model.FirebaseUserModel;
+import ca.dal.bartertrader.domain.model.LoginModel;
+import ca.dal.bartertrader.domain.model.RegistrationModel;
 import ca.dal.bartertrader.utils.handler.live_data.event.LiveEvent;
 import ca.dal.bartertrader.utils.handler.resource.Resource;
 import io.reactivex.rxjava3.core.Completable;
@@ -27,18 +28,18 @@ public class FirebaseUserRepository {
         this.firebaseFirestoreDataSource = firebaseFirestoreDataSource;
     }
 
-    public Single<AuthResult> login(UserModel loginCredentials) {
+    public Single<AuthResult> login(LoginModel loginCredentials) {
         String email = loginCredentials.getEmail();
         String password = loginCredentials.getPassword();
 
         return firebaseAuthDataSource.signInWithEmailAndPassword(email, password).subscribeOn(Schedulers.io());
     }
 
-    public Completable register(NewUserModel registrationDetails) {
+    public Completable register(RegistrationModel registrationDetails) {
         String displayName = registrationDetails.getDisplayName();
         String email = registrationDetails.getEmail();
         String password = registrationDetails.getPassword();
-        Boolean role = registrationDetails.getRole();
+        Boolean role = registrationDetails.isProvider();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(displayName)
@@ -58,7 +59,7 @@ public class FirebaseUserRepository {
     }
 
     public Single<FirebaseUser> getUser() {
-        return null;
+        return firebaseAuthDataSource.reloadUser().subscribeOn(Schedulers.io()).andThen(Single.just(firebaseAuthDataSource.getUser()));
     }
 
     public Completable sendPasswordReset(String email) {
@@ -67,9 +68,11 @@ public class FirebaseUserRepository {
 
     public Completable swapRoles() {
 
-        /* return firebaseAuthDataSource.reloadUser().subscribeOn(Schedulers.io())
-
-         */
-        return null;
+        return firebaseAuthDataSource.reloadUser().subscribeOn(Schedulers.io())
+                .andThen(firebaseFirestoreDataSource.getUser(firebaseAuthDataSource.getUser().getUid()))
+                .flatMapCompletable(documentSnapshot -> {
+                    FirebaseUserModel user = documentSnapshot.toObject(FirebaseUserModel.class);
+                    return firebaseFirestoreDataSource.swapRole(user);
+                });
     }
 }

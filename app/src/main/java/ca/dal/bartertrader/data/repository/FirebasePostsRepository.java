@@ -27,18 +27,12 @@ public class FirebasePostsRepository {
     public Single<Resource<QuerySnapshot>> getPosts() {
 
         return null;
-/*        return firebaseAuthDataSource.reloadUser()
-                .subscribeOn(Schedulers.io())
-                .andThen(Single.defer(() -> firebaseFirestoreDataSource.getPosts(firebaseAuthDataSource.getUser().getUid())))
-                .*/
     }
 
     public Completable setPost(PostModel postModel) {
-        Uri imageUri = postModel.getImage();
-
         return firebaseAuthDataSource.reloadUser()
                 .subscribeOn(Schedulers.io())
                 .andThen(Single.defer(() -> firebaseFirestoreDataSource.addNewPost(postModel, firebaseAuthDataSource.getUser().getUid())))
-                .flatMapCompletable(documentReference -> firebaseStorageDataSource.putPostImageFile(documentReference.getId(), imageUri));
+                .flatMapCompletable(documentReference -> firebaseStorageDataSource.putPostImageFile(documentReference.getId(), postModel.getImage()));
     }
 }

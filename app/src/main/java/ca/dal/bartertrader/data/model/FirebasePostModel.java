@@ -1,5 +1,6 @@
 package ca.dal.bartertrader.data.model;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
@@ -15,7 +16,7 @@ public class FirebasePostModel extends FirestorePostModel {
         this.image = image;
     }
 
-    public FirebasePostModel(String postId, String authUid, String title, String description, Long timestamp, byte[] image) {
+    public FirebasePostModel(String postId, String authUid, String title, String description, Timestamp timestamp, byte[] image) {
         super(postId, authUid, title, description, timestamp);
         this.image = image;
     }

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import ca.dal.bartertrader.domain.model.UserModel;
+import ca.dal.bartertrader.domain.model.LoginModel;
 import ca.dal.bartertrader.domain.use_case.users.LoginUseCase;
 import ca.dal.bartertrader.utils.FormValidatorTools;
 import ca.dal.bartertrader.utils.functionals.Transformers;
@@ -49,7 +49,7 @@ public class LoginViewModel extends ViewModel {
     private final LiveData<Status> loginStatus = Transformations.map(loginActionEvent, Resource::getStatus);
 
     public void login() {
-        disposables.add(loginUseCase.execute(new UserModel(email.getValue(), password.getValue(), rememberMe.getValue()))
+        disposables.add(loginUseCase.execute(new LoginModel(email.getValue(), password.getValue(), rememberMe.getValue()))
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(__ -> loginActionEvent.setValue(Resource.pending(null)))
                 .subscribe(authResult -> loginActionEvent.setValue(Resource.fulfilled(authResult)),

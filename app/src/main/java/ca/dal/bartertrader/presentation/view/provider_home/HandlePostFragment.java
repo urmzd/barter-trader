@@ -86,6 +86,7 @@ public class HandlePostFragment extends Fragment {
             }
 
             if (resultStatus == Status.REJECTED) {
+                Log.d("HP_ERR", result.getError().getMessage());
                 Toast.makeText(getContext(), result.getError().getMessage(), Toast.LENGTH_LONG).show();
             }
 

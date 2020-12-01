@@ -1,5 +1,6 @@
 package ca.dal.bartertrader.data.model;
 
+import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 
@@ -14,12 +15,12 @@ public class FirestorePostModel implements Serializable {
     private String authUid;
     private String title;
     private String description;
-    private Long timestamp;
+    private Timestamp timestamp;
 
     public FirestorePostModel() {
     }
 
-    public FirestorePostModel(String postId, String authUid, String title, String description, Long timestamp) {
+    public FirestorePostModel(String postId, String authUid, String title, String description, Timestamp timestamp) {
         this.postId = postId;
 
         this.authUid = authUid;
@@ -44,7 +45,7 @@ public class FirestorePostModel implements Serializable {
         return description;
     }
 
-    public Long getTimestamp() {
+    public Timestamp getTimestamp() {
         return timestamp;
     }
 }

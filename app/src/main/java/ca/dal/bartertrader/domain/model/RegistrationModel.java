@@ -5,21 +5,22 @@ import com.google.firebase.firestore.IgnoreExtraProperties;
 import java.io.Serializable;
 
 @IgnoreExtraProperties
-public class NewUserModel implements Serializable {
+public class RegistrationModel implements Serializable {
+
     private String displayName;
     private String email;
     private String password;
-    private Boolean role;
+    private Boolean provider;
 
-    public NewUserModel() {
+    public RegistrationModel() {
 
     }
 
-    public NewUserModel(String firstName, String lastName, String email, String password, Boolean role) {
+    public RegistrationModel(String firstName, String lastName, String email, String password, Boolean provider) {
         this.displayName = String.format("%s %s", firstName, lastName);
         this.email = email;
         this.password = password;
-        this.role = role;
+        this.provider = provider;
     }
 
     public String getDisplayName() {
@@ -34,7 +35,7 @@ public class NewUserModel implements Serializable {
         return password;
     }
 
-    public Boolean getRole() {
-        return role;
+    public Boolean isProvider() {
+        return provider;
     }
 }

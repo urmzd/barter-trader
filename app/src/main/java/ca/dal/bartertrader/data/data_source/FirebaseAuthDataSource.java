@@ -26,6 +26,7 @@ public class FirebaseAuthDataSource {
     }
 
     public Single<AuthResult> signInWithEmailAndPassword(String email, String password) {
+        firebaseAuth.signOut();
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, firebaseAuth.signInWithEmailAndPassword(email, password)));
     }
 

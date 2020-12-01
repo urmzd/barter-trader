@@ -1,11 +1,11 @@
 package ca.dal.bartertrader.domain.use_case.users;
 
 import ca.dal.bartertrader.data.repository.FirebaseUserRepository;
-import ca.dal.bartertrader.domain.model.NewUserModel;
+import ca.dal.bartertrader.domain.model.RegistrationModel;
 import ca.dal.bartertrader.domain.use_case.abstracts.AbstractBaseUseCase;
 import io.reactivex.rxjava3.core.Completable;
 
-public class RegisterUseCase extends AbstractBaseUseCase<NewUserModel, Completable> {
+public class RegisterUseCase extends AbstractBaseUseCase<RegistrationModel, Completable> {
 
     private final FirebaseUserRepository firebaseUserRepository;
 
@@ -14,7 +14,7 @@ public class RegisterUseCase extends AbstractBaseUseCase<NewUserModel, Completab
     }
 
     @Override
-    public Completable execute(NewUserModel information) {
+    public Completable execute(RegistrationModel information) {
         return firebaseUserRepository.register(information);
     }
 }
