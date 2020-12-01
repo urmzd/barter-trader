@@ -30,10 +30,6 @@ public class PasswordResetViewModel extends ViewModel {
 
     private final LiveEvent<Void> goToLoginEvent = new LiveEvent<>();
 
-    public void goToLogin() {
-        goToLoginEvent.call();
-    }
-
     public void sendPasswordReset() {
         disposables.add(resetPasswordUseCase.execute(email.getValue())
                 .observeOn(AndroidSchedulers.mainThread())

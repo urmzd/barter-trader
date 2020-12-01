@@ -52,7 +52,6 @@ public class ProviderHomeFragment extends Fragment {
 
             if (resultStatus == Status.FULFILLED) {
                 Toast.makeText(getContext(), "SWITCHED!", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToSplashFragment());
                 return;
             }
 

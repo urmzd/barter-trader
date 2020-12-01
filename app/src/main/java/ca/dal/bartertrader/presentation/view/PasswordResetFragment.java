@@ -50,10 +50,6 @@ public class PasswordResetFragment extends Fragment {
             BindingUtils.setErrorOnTextInputLayout(binding.passwordResetEmail, isValid, getString(R.string.error_email_invalid));
         });
 
-        viewModel.getGoToLoginEvent().observe(getViewLifecycleOwner(), __ -> {
-            Navigation.findNavController(getView()).popBackStack();
-        });
-
         viewModel.getPasswordResetResult().observe(getViewLifecycleOwner(), result -> {
             Status status = result.getStatus();
             Toast toastToShow = Toast.makeText(getContext(), "Email successfully sent!", Toast.LENGTH_SHORT);
