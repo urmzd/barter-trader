@@ -11,7 +11,6 @@
         layout="@layout/toolbar_standard" />
 
     <ScrollView
-        android:isScrollContainer="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
