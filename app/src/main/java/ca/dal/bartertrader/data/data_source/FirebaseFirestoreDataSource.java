@@ -1,5 +1,6 @@
 package ca.dal.bartertrader.data.data_source;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -50,6 +51,10 @@ public class FirebaseFirestoreDataSource {
 
     public Single<QuerySnapshot> getPosts(String authUid) {
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, postCollection.whereEqualTo("authUid", authUid).get()));
+    }
+
+    public Task<QuerySnapshot> getMyPosts(String authUid) {
+        return postCollection.whereEqualTo("authUid", authUid).get();
     }
 
     public Completable swapToRole(String authUid, Boolean role) {

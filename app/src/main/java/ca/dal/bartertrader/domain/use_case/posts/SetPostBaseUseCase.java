@@ -1,5 +1,8 @@
 package ca.dal.bartertrader.domain.use_case.posts;
 
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import ca.dal.bartertrader.data.repository.FirebasePostsRepository;
 import ca.dal.bartertrader.domain.model.PostModel;
 import ca.dal.bartertrader.domain.use_case.abstracts.AbstractBaseUseCase;
@@ -15,5 +18,10 @@ public class SetPostBaseUseCase extends AbstractBaseUseCase<PostModel, Completab
     @Override
     public Completable execute(PostModel input) {
         return firebasePostsRepository.setPost(input);
+    }
+
+    @Override
+    public Task<QuerySnapshot> executeMyPost() {
+        return null;
     }
 }

@@ -2,6 +2,7 @@ package ca.dal.bartertrader.data.repository;
 
 import android.net.Uri;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import ca.dal.bartertrader.data.data_source.FirebaseAuthDataSource;
@@ -25,9 +26,16 @@ public class FirebasePostsRepository {
     }
 
     public Single<Resource<QuerySnapshot>> getPosts() {
-
         return null;
-/*        return firebaseAuthDataSource.reloadUser()
+       /* return firebaseAuthDataSource.reloadUser()
+                .subscribeOn(Schedulers.io())
+                .andThen(Single.defer(() -> firebaseFirestoreDataSource.getPosts(firebaseAuthDataSource.getUser().getUid())))
+                .*/
+    }
+
+    public Task<QuerySnapshot> getMyPost() {
+        return firebaseFirestoreDataSource.getMyPosts(firebaseAuthDataSource.getUser().getUid());
+       /* return firebaseAuthDataSource.reloadUser()
                 .subscribeOn(Schedulers.io())
                 .andThen(Single.defer(() -> firebaseFirestoreDataSource.getPosts(firebaseAuthDataSource.getUser().getUid())))
                 .*/

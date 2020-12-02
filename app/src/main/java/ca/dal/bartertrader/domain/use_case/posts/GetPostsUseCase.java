@@ -1,5 +1,6 @@
 package ca.dal.bartertrader.domain.use_case.posts;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import ca.dal.bartertrader.data.repository.FirebasePostsRepository;
@@ -18,5 +19,10 @@ public class GetPostsUseCase extends AbstractBaseUseCase<Void, Single<Resource<Q
     @Override
     public Single<Resource<QuerySnapshot>> execute(Void request) {
         return firebasePostsRepository.getPosts();
+    }
+
+    @Override
+    public Task<QuerySnapshot> executeMyPost() {
+        return firebasePostsRepository.getMyPost();
     }
 }

@@ -8,7 +8,6 @@ public class FirebasePostModel extends FirestorePostModel {
     private byte[] image;
 
     public FirebasePostModel() {
-
     }
 
     public FirebasePostModel(byte[] image) {
