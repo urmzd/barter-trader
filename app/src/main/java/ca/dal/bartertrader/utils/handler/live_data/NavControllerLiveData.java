@@ -172,10 +172,6 @@ public class NavControllerLiveData extends LiveData<NavController> implements Na
 
         @Override
         public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                Log.d("urmzd1", controller.getGraph().toString());
-                Log.d("urmzd2", this.controller.getGraph().toString());
-                Log.d("urmzd3", destination.getParent().toString());
-
                 if (controller.getGraph().getId() != destination.getParent().getId()) {
 
                         bottomNavigationView.setSelectedItemId(destination.getParent().getId());
