@@ -45,7 +45,7 @@ public class RegistrationViewModel extends ViewModel {
     private final LiveData<Boolean> emailIsValid = Transformations.map(email, FormValidatorTools::isEmailValid);
     private final LiveData<Boolean> passwordIsValid = Transformations.map(password, FormValidatorTools::isPasswordStrong);
     private final LiveData<Boolean> confirmedPasswordIsValid = Transformations.map(confirmedPassword,
-            confirmedPassword -> FormValidatorTools.doPasswordsMatch(password.getValue(), confirmedPassword)
+            confirmedPassword -> FormValidatorTools.doPasswordsMatch(Objects.toString(password.getValue(), ""), confirmedPassword)
     );
     private final LiveData<Boolean> roleIsValid = Transformations.map(role, Objects::nonNull);
 

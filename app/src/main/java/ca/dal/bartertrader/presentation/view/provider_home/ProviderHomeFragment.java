@@ -1,7 +1,6 @@
 package ca.dal.bartertrader.presentation.view.provider_home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import ca.dal.bartertrader.databinding.FragmentProviderHomeBinding;
 import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.provider_home.ProviderHomeViewModel;
 import ca.dal.bartertrader.utils.handler.resource.Status;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class ProviderHomeFragment extends Fragment {
 
@@ -44,7 +42,7 @@ public class ProviderHomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel.getAddPostEvent().observe(getViewLifecycleOwner(), __-> {
-            Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToHandlePostFragment());
+            Navigation.findNavController(requireView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToHandlePostFragment());
         });
 
         viewModel.getSwitchRoleResults().observe(getViewLifecycleOwner(), result -> {

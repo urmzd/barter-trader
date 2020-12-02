@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +55,13 @@ public class HandlePostFragment extends Fragment {
         return binding.getRoot();
     }
 
+    private final ActivityResultLauncher<String> requestPermissions = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+        if (!isGranted) {
+            Toast.makeText(getContext(), "Access Denied: Posts Require Permission! Please enable it in your app settings.", Toast.LENGTH_SHORT).show();
+            Navigation.findNavController(getView()).navigateUp();
+        }
+    });
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
@@ -81,7 +87,7 @@ public class HandlePostFragment extends Fragment {
 
             if (resultStatus == Status.FULFILLED) {
                 Toast.makeText(getContext(), "Post successfully created!", Toast.LENGTH_SHORT).show();
-                Navigation.findNavController(getView()).popBackStack();
+                Navigation.findNavController(getView()).navigateUp();
                 return;
             }
 
@@ -91,13 +97,6 @@ public class HandlePostFragment extends Fragment {
 
         });
     }
-
-    private final ActivityResultLauncher<String> requestPermissions = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
-        if (!isGranted) {
-            Toast.makeText(getContext(), "Access Denied: Posts Require Permission! Please enable it in your app settings.", Toast.LENGTH_SHORT).show();
-            Navigation.findNavController(getView()).popBackStack();
-        }
-    });
 
     private final ActivityResultLauncher<Uri> takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), pictureTaken -> {
         if (pictureTaken) {

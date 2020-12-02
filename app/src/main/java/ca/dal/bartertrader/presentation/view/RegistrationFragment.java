@@ -66,7 +66,7 @@ public class RegistrationFragment extends Fragment {
         });
 
         viewModel.getGoToLoginLiveEvent().observe(getViewLifecycleOwner(), __ -> {
-            Navigation.findNavController(getView()).navigate(RegistrationFragmentDirections.actionRegistrationFragmentToLoginFragment());
+            Navigation.findNavController(getView()).navigateUp();
         });
 
         viewModel.getRegistrationResult().observe(getViewLifecycleOwner(), response -> {
@@ -74,7 +74,7 @@ public class RegistrationFragment extends Fragment {
 
             if (status == Status.FULFILLED) {
                 Toast.makeText(getContext(), "Registration Successful! An email was sent to your account!", Toast.LENGTH_LONG).show();
-                Navigation.findNavController(getView()).navigate(RegistrationFragmentDirections.actionRegistrationFragmentToLoginFragment());
+                Navigation.findNavController(getView()).navigateUp();
                 return;
             }
 

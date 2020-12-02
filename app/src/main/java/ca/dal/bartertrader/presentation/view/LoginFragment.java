@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import ca.dal.bartertrader.R;
 import ca.dal.bartertrader.databinding.FragmentLoginBinding;
 import ca.dal.bartertrader.di.view_model.LoginViewModelFactory;
+import ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeFragment;
 import ca.dal.bartertrader.presentation.view_model.LoginViewModel;
 import ca.dal.bartertrader.utils.BindingUtils;
 import ca.dal.bartertrader.utils.handler.resource.Status;
@@ -45,11 +46,11 @@ public class LoginFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         viewModel.getGoToPasswordResetLiveEvent().observe(getViewLifecycleOwner(), __ -> {
-            Navigation.findNavController(getView()).navigate(LoginFragmentDirections.actionLoginFragmentToPasswordResetFragment());
+            Navigation.findNavController(requireView()).navigate(LoginFragmentDirections.actionLoginFragmentToPasswordResetFragment());
         });
 
         viewModel.getGoToRegistrationLiveEvent().observe(getViewLifecycleOwner(), __ -> {
-            Navigation.findNavController(getView()).navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment());
+            Navigation.findNavController(requireView()).navigate(LoginFragmentDirections.actionLoginFragmentToRegistrationFragment());
         });
 
         viewModel.getEmailIsValid().observe(getViewLifecycleOwner(), validity -> {
@@ -66,7 +67,7 @@ public class LoginFragment extends Fragment {
 
                 if (user.getData().getUser().isEmailVerified()) {
                     Toast.makeText(getContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(getView()).navigate(LoginFragmentDirections.actionLoginFragmentToProviderHomeFragment());
+                    Navigation.findNavController(requireView()).navigate(LoginFragmentDirections.actionLoginFragmentToProviderNavGraph());
                     return;
                 }
 

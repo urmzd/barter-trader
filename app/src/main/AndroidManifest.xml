@@ -20,7 +20,8 @@
         <activity
             android:theme="@style/AppTheme"
             android:name=".MainActivity"
-            android:label="@string/title_app_name">
+            android:label="@string/title_app_name"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -2,15 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/btm_nav_home"
+        android:id="@+id/auth_nav_graph"
         android:enabled="true"
-        android:icon="@drawable/ic_baseline_home_24"
-        android:title="@string/title_btm_nav_home" />
-
+        android:title="@string/title_auth_menu_item"
+        />
     <item
-        android:id="@+id/btm_nav_profile"
+        android:id="@+id/some_nav_graph"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_btm_nav_profile" />
+
+    <item
+        android:id="@+id/provider_nav_graph"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_home_24"
+        android:title="@string/title_btm_nav_home" />
 
 </menu>

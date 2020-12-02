@@ -50,5 +50,7 @@
     <string name="label_add_post">Add Post FAB</string>
     <string name="title_btm_nav_home">Home</string>
     <string name="title_btm_nav_profile">Profile</string>
+    <string name="label_auth_flow">Account</string>
+    <string name="title_auth_menu_item">Auth</string>
 
 </resources>
