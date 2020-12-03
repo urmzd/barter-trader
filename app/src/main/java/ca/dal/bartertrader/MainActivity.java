@@ -1,29 +1,18 @@
 package ca.dal.bartertrader;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
-import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.google.android.gms.common.util.ArrayUtils;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import ca.dal.bartertrader.utils.handler.live_data.NavControllerLiveData;
 
@@ -34,8 +23,7 @@ public class MainActivity extends FragmentActivity {
     private BottomNavigationView bottomNavigationView;
     private MaterialToolbar toolbar;
 
-    private static final int[] NAV_GRAPH_IDS = new int[]{R.navigation.auth_nav_graph, R.navigation.provider_nav_graph};
-
+    private static final int[] NAV_GRAPH_IDS = new int[]{R.navigation.auth_nav_graph, R.navigation.provider_nav_graph, R.navigation.profile_nav_graph};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +33,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        appBarConfiguration = new AppBarConfiguration.Builder(R.id.loginFragment, R.id.providerHomeFragment).build();
+        appBarConfiguration = new AppBarConfiguration.Builder(R.id.loginFragment, R.id.providerHomeFragment, R.id.profileFragment).build();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolbar = findViewById(R.id.toolbar_standard);
 

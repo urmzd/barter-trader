@@ -7,7 +7,7 @@
         android:title="@string/title_auth_menu_item"
         />
     <item
-        android:id="@+id/some_nav_graph"
+        android:id="@+id/profile_nav_graph"
         android:enabled="true"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_btm_nav_profile" />
