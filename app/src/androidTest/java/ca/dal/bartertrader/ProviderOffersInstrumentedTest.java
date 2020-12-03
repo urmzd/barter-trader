@@ -3,12 +3,14 @@ package ca.dal.bartertrader;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.test.espresso.UiController;
 import androidx.test.espresso.ViewAction;
 import androidx.test.espresso.action.ViewActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -154,4 +156,53 @@ public class ProviderOffersInstrumentedTest {
         onView(withText("Exchange Review Form")).check(matches(isDisplayed()));
     }
 
+    @Test
+    public void onSubmitReview() throws InterruptedException {
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(2,
+                new ViewAction() {
+                    @Override
+                    public Matcher<View> getConstraints() {
+                        return null;
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "On review click";
+                    }
+
+                    @Override
+                    public void perform(UiController uiController, View view) {
+                        view.findViewById(R.id.review_button).performClick();
+
+                    }
+                }));
+        Thread.sleep(2000);
+        onView(withId(R.id.review_input)).perform(typeText("This is a test a test review"));
+        onView(withId(R.id.star_rating_input)).perform(click());
+        onView(withId(R.id.confirm_review_button)).perform(click());
+        Thread.sleep(5000);
+
+        final TextView[] completeText = new TextView[1];
+        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(2,
+                new ViewAction() {
+                    @Override
+                    public Matcher<View> getConstraints() {
+                        return null;
+                    }
+
+                    @Override
+                    public String getDescription() {
+                        return "On review click";
+                    }
+
+                    @Override
+                    public void perform(UiController uiController, View view) {
+                        completeText[0] = view.findViewById(R.id.complete_text);
+                    }
+                }));
+        Thread.sleep(1000);
+        assertEquals(completeText[0].getVisibility(), View.VISIBLE);
+    }
+
 }
+
