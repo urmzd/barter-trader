@@ -1,6 +1,7 @@
 package ca.dal.bartertrader.presentation.view_model.provider_home;
 
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
