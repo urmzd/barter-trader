@@ -1,8 +1,5 @@
 package ca.dal.bartertrader.data.repository;
 
-import android.util.Log;
-
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
 import java.util.Arrays;
@@ -25,11 +22,18 @@ public class FirebaseUserRepository {
         this.firebaseFirestoreDataSource = firebaseFirestoreDataSource;
     }
 
-    public Single<AuthResult> login(LoginModel loginCredentials) {
+    public Single<FirebaseUserModel> login(LoginModel loginCredentials) {
         String email = loginCredentials.getEmail();
         String password = loginCredentials.getPassword();
 
-        return firebaseAuthDataSource.signInWithEmailAndPassword(email, password).subscribeOn(Schedulers.io());
+        return firebaseAuthDataSource.signInWithEmailAndPassword(email, password)
+                .flatMap(user -> firebaseFirestoreDataSource.getUser(firebaseAuthDataSource.getUser().getUid()))
+                .map(documentSnapshot -> {
+                    FirebaseUserModel user = documentSnapshot.toObject(FirebaseUserModel.class);
+                    user.setFirebaseUser(firebaseAuthDataSource.getUser());
+                    return user;
+                })
+                .subscribeOn(Schedulers.io());
     }
 
     public Completable register(RegistrationModel registrationDetails) {
@@ -64,9 +68,7 @@ public class FirebaseUserRepository {
         return firebaseAuthDataSource.reloadUser().subscribeOn(Schedulers.io())
                 .andThen(firebaseFirestoreDataSource.getUser(firebaseAuthDataSource.getUser().getUid()))
                 .flatMapCompletable(documentSnapshot -> {
-                    Log.d("documentSnap", documentSnapshot.getData().toString());
                     FirebaseUserModel user = documentSnapshot.toObject(FirebaseUserModel.class);
-                    Log.d("documentSnapID", user.getAuthUid());
                     return firebaseFirestoreDataSource.switchRole(user);
                 });
     }

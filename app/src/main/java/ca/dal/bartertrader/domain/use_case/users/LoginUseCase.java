@@ -1,13 +1,12 @@
 package ca.dal.bartertrader.domain.use_case.users;
 
-import com.google.firebase.auth.AuthResult;
-
+import ca.dal.bartertrader.data.model.FirebaseUserModel;
 import ca.dal.bartertrader.data.repository.FirebaseUserRepository;
 import ca.dal.bartertrader.domain.model.LoginModel;
 import ca.dal.bartertrader.domain.use_case.abstracts.AbstractBaseUseCase;
 import io.reactivex.rxjava3.core.Single;
 
-public class LoginUseCase extends AbstractBaseUseCase<LoginModel, Single<AuthResult>> {
+public class LoginUseCase extends AbstractBaseUseCase<LoginModel, Single<FirebaseUserModel>> {
 
     private final FirebaseUserRepository firebaseUserRepository;
 
@@ -16,7 +15,7 @@ public class LoginUseCase extends AbstractBaseUseCase<LoginModel, Single<AuthRes
     }
 
     @Override
-    public Single<AuthResult> execute(LoginModel credentials) {
+    public Single<FirebaseUserModel> execute(LoginModel credentials) {
         return firebaseUserRepository.login(credentials);
     }
 }
