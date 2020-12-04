@@ -37,6 +37,18 @@ public class FirebaseFirestoreDataSource {
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, postCollection.add(postModel)));
     }
 
+    public Completable updatePost(@NonNull PostModel postModel, @NonNull String authUid, @NonNull String postUid)
+    {
+        postModel.setAuthUid(authUid);
+        return Completable.create(emitter -> CompletableTaskHandler.assign(emitter,
+                postCollection.document(postUid).update(
+                        "image", postModel.getImage(),
+                        "title", postModel.getTitle(),
+                        "description", postModel.getDescription()
+                )
+        ));
+    }
+
     public Single<DocumentSnapshot> getUser(String authUid) {
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, userCollection.document(authUid).get()));
     }

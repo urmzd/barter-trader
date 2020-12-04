@@ -75,13 +75,32 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/default_spacing"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edit_post_select_camera">
+            app:layout_constraintTop_toBottomOf="@+id/edit_post_location">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Title"
                 android:text="@={ViewModel.title}" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edit_post_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/edit_post_select_camera">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+
+                android:layout_height="wrap_content"
+                android:hint="Location"
+                android:text="@={ViewModel.location}"
+                android:textAlignment="center" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -113,6 +132,8 @@
             android:layout_width="match_parent"
             android:gravity="bottom"
             android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:selectionRequired="true"
             app:layout_constraintBottom_toTopOf="@+id/confirm_button"
             app:layout_constraintHeight_min="wrap"
             app:layout_constraintLeft_toLeftOf="parent"

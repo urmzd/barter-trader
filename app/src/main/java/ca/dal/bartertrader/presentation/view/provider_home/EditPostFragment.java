@@ -26,6 +26,7 @@ import ca.dal.bartertrader.databinding.FragmentEditPostBinding;
 import ca.dal.bartertrader.di.view_model.provider_home.EditPostViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.provider_home.EditPostViewModel;
 import ca.dal.bartertrader.utils.BindingUtils;
+import ca.dal.bartertrader.utils.LocationServiceManager;
 import ca.dal.bartertrader.utils.handler.resource.Status;
 
 import static androidx.core.content.FileProvider.getUriForFile;
@@ -52,14 +53,21 @@ public class EditPostFragment extends Fragment {
 
         binding.setViewModel(viewModel);
 
-        /**
+        /** Bundle format
+         * imageUri : uri
          * title : string
          * description : string
-         *
+         * lat : double
+         * lon : double
          */
+
         String title = getArguments().getString("title");
         String description = getArguments().getString("description");
-        viewModel.setExistingPostData(title, description);
+        Uri imageUri = getArguments().getParcelable("imageUri");
+        double lat = getArguments().getDouble("lat");
+        double lon = getArguments().getDouble("lon");
+
+        viewModel.setExistingPostData(title, description, imageUri, lat, lon);
 
         return binding.getRoot();
     }
@@ -105,6 +113,12 @@ public class EditPostFragment extends Fragment {
             }
 
         });
+        LocationServiceManager locMan = LocationServiceManager.getInstance();
+        if ( locMan != null)
+        {
+            double lat = locMan.getCurrentLat();
+            double lon = locMan.getCurrentLon();
+        }
     }
 
     private final ActivityResultLauncher<Uri> takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), pictureTaken -> {

@@ -1,5 +1,7 @@
 package ca.dal.bartertrader.data.repository;
 
+import androidx.annotation.NonNull;
+
 import com.google.firebase.firestore.QuerySnapshot;
 
 import ca.dal.bartertrader.data.data_source.FirebaseAuthDataSource;
@@ -33,4 +35,14 @@ public class FirebasePostsRepository {
                 .andThen(Single.defer(() -> firebaseFirestoreDataSource.addPost(postModel, firebaseAuthDataSource.getUser().getUid())))
                 .flatMapCompletable(documentReference -> firebaseStorageDataSource.putPostImageFile(documentReference.getId(), postModel.getImage()));
     }
+
+
+    public Completable updatePost(PostModel postModel, @NonNull String postUid) {
+        return firebaseAuthDataSource.reloadUser()
+                .subscribeOn(Schedulers.io())
+                .andThen( firebaseFirestoreDataSource.updatePost(postModel, firebaseAuthDataSource.getUser().getUid(), postUid));
+
+    }
+
+
 }

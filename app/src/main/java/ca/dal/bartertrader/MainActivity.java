@@ -1,5 +1,9 @@
 package ca.dal.bartertrader;
 
+import android.content.Context;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,8 +27,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
+import ca.dal.bartertrader.utils.LocationServiceManager;
 import ca.dal.bartertrader.utils.handler.live_data.NavControllerLiveData;
 
 public class MainActivity extends FragmentActivity {
@@ -48,6 +54,11 @@ public class MainActivity extends FragmentActivity {
         appBarConfiguration = new AppBarConfiguration.Builder(R.id.loginFragment, R.id.providerHomeFragment).build();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         toolbar = findViewById(R.id.toolbar_standard);
+
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        LocationServiceManager locationService = new LocationServiceManager(locationManager, geocoder);
+        locationService.startRequestingLocationUpdates();
 
         if (savedInstanceState == null) {
             setNavigationUI();
