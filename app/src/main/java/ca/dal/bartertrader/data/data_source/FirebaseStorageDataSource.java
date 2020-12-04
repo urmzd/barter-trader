@@ -2,12 +2,16 @@ package ca.dal.bartertrader.data.data_source;
 
 import android.net.Uri;
 
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.List;
 
 import ca.dal.bartertrader.utils.handler.async.CompletableTaskHandler;
 import ca.dal.bartertrader.utils.handler.async.SingleTaskHandler;
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 public class FirebaseStorageDataSource {
@@ -30,4 +34,7 @@ public class FirebaseStorageDataSource {
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, currentPostReference.getBytes(TWO_MEGABYTES)));
     }
 
+    public Single<List<byte[]>> getPostsImageBytes(QuerySnapshot snapshots) {
+        return Observable.fromIterable(snapshots).flatMapSingle(snapshot -> getPostImageBytes(snapshot.getId())).toList();
+    }
 }

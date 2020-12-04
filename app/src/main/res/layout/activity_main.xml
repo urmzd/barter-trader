@@ -6,21 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include
-        android:id="@+id/activity_toolbar"
-        layout="@layout/toolbar_standard" />
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:fillViewport="true"
+
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintTop_toBottomOf="@id/activity_toolbar">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/nav_host_container"
             android:name="androidx.navigation.fragment.NavHostFragment"
+            app:navGraph="@navigation/auth_nav_graph"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

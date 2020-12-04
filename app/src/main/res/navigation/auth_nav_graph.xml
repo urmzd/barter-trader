@@ -5,12 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/auth_nav_graph"
     app:startDestination="@id/loginFragment">
-    <include app:graph="@navigation/provider_nav_graph"/>
+
+    <include app:graph="@navigation/user_nav_graph" />
+
     <fragment
         android:id="@+id/registrationFragment"
         android:name="ca.dal.bartertrader.presentation.view.RegistrationFragment"
         android:label="@string/title_registration_fragment_label"
         tools:layout="@layout/fragment_registration" />
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="ca.dal.bartertrader.presentation.view.LoginFragment"
@@ -23,9 +26,14 @@
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment" />
         <action
-            android:id="@+id/action_loginFragment_to_providerNavGraph"
-            app:destination="@id/provider_nav_graph" />
+            android:id="@+id/action_loginFragment_to_user_nav_graph"
+            app:destination="@id/user_nav_graph">
+            <argument
+                android:name="provider"
+                app:argType="boolean" />
+        </action>
     </fragment>
+
     <fragment
         android:id="@+id/passwordResetFragment"
         android:name="ca.dal.bartertrader.presentation.view.PasswordResetFragment"
