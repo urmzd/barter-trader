@@ -36,7 +36,7 @@
     <string name="title_login_fragment_label">Login</string>
     <string name="title_start_up_fragment_label">Start Up</string>
     <string name="title_password_reset_fragment_label">Password Reset</string>
-    <string name="title_handle_post_fragment_label">Handle Post</string>
+    <string name="title_handle_post_fragment_label">Modify Post</string>
     <string name="error_password_weak">Password must be 8 letters long and include one of each type character: lowercase, uppercase, special, number.</string>
     <string name="error_password_empty">Password cannot be empty.</string>
     <string name="error_password_no_match">Confirmed password does not match password.</string>

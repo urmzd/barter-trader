@@ -55,6 +55,9 @@ public class MainActivity extends FragmentActivity {
             if (destination.getParent().getId() == R.id.auth_nav_graph) {
                 bottomNav.setVisibility(View.GONE);
             } else {
+                if (destination.getId() == R.id.handlePostFragment) {
+                    bottomNav.setVisibility(View.GONE);
+                }
                 bottomNav.setVisibility(View.VISIBLE);
             }
         });

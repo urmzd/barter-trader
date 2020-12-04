@@ -17,6 +17,18 @@ public class PostModel implements Serializable {
     private Uri image;
     private String title;
     private String description;
+
+    private String postId;
+
+    @Exclude
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
+    }
+
     private double lat;
     private double lon;
 

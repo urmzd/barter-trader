@@ -13,8 +13,9 @@ import java.util.List;
 import java.util.Objects;
 
 import ca.dal.bartertrader.domain.model.PostModel;
-import ca.dal.bartertrader.domain.use_case.posts.SetPostBaseUseCase;
+import ca.dal.bartertrader.domain.use_case.posts.SetPostUseCase;
 import ca.dal.bartertrader.utils.FormValidatorTools;
+import ca.dal.bartertrader.utils.LocationServiceManager;
 import ca.dal.bartertrader.utils.functionals.Transformers;
 import ca.dal.bartertrader.utils.handler.live_data.TransformedLiveData;
 import ca.dal.bartertrader.utils.handler.live_data.event.LiveEvent;
@@ -25,14 +26,19 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class HandlePostViewModel extends ViewModel {
 
-    private final SetPostBaseUseCase setPostBaseUseCase;
+    private final SetPostUseCase setPostUseCase;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
-    public HandlePostViewModel(SetPostBaseUseCase setPostBaseUseCase) {
-        this.setPostBaseUseCase = setPostBaseUseCase;
+    private String postUid;
+    private double lat;
+    private double lon;
+
+    public HandlePostViewModel(SetPostUseCase setPostUseCase) {
+        this.setPostUseCase = setPostUseCase;
     }
 
     public final MutableLiveData<String> title = new MutableLiveData<>();
+    public final MutableLiveData<String> location = new MutableLiveData<>();
     public final MutableLiveData<String> description = new MutableLiveData<>();
     public final MutableLiveData<Uri> image = new MutableLiveData<>();
 
@@ -53,16 +59,41 @@ public class HandlePostViewModel extends ViewModel {
         image.setValue(imageUri);
     }
 
-    public void setPost() {
-        PostModel newPostModel = new PostModel(image.getValue(), title.getValue(), description.getValue(), 0, 0);
+    public void setLocation(String city, String province)
+    {
+        location.setValue(city + ", " + province);
+    }
+
+    // Storing the original post's uid, needed for updating firebase
+    public void setPostUid(String postUid)
+    {
+        this.postUid = postUid;
+    }
+
+    public void updatePost() {
+        PostModel newPostModel = new PostModel(image.getValue(), title.getValue(), description.getValue(), lat, lon);
         disposables.add(
-                setPostBaseUseCase.execute(newPostModel)
+                setPostUseCase.execute(newPostModel)
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnSubscribe(__ -> postResults.setValue(Resource.pending(null)))
                         .subscribe(() -> postResults.setValue(Resource.fulfilled(null)), throwable -> postResults.setValue(Resource.rejected(throwable)))
         );
     }
 
+    public void setExistingPostData(String existingTitle, String existingDescription, Uri imageUri, double lat, double lon)
+    {
+        title.setValue(existingTitle);
+        description.setValue(existingDescription);
+        image.setValue(imageUri);
+        this.lat = lat;
+        this.lon = lon;
+
+        LocationServiceManager lsm = LocationServiceManager.getInstance();
+        if (lsm != null)
+        {
+            setLocation(lsm.getCityFromCoords(lon, lat), lsm.getProvinceFromCoords(lon, lat));
+        }
+    }
 
     public LiveEvent<Void> getUploadImageFromCameraEvent() {
         return uploadImageFromCameraEvent;
