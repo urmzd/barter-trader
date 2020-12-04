@@ -33,9 +33,6 @@ public class MainActivity extends FragmentActivity {
 
 
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            Log.d("destinationUrmzd", String.valueOf(destination.getParent()));
-            Log.d("destinationUrmzd", String.valueOf(controller.getCurrentDestination()));
-
             if (destination.getParent().getId() == R.id.auth_nav_graph) {
                 bottomNav.setVisibility(View.GONE);
             } else {
