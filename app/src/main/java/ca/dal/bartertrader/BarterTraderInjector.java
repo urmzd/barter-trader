@@ -27,6 +27,7 @@ import ca.dal.bartertrader.di.view_model.PasswordResetViewModelFactory;
 import ca.dal.bartertrader.di.view_model.RegistrationViewModelFactory;
 import ca.dal.bartertrader.di.view_model.provider_home.HandlePostViewModelFactory;
 import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
+import ca.dal.bartertrader.di.view_model.receiver_home.ReceiverHomeViewModelFactory;
 import ca.dal.bartertrader.domain.use_case.ResetPasswordUseCase;
 import ca.dal.bartertrader.domain.use_case.VerifyEmailExistsUseCase;
 import ca.dal.bartertrader.domain.use_case.posts.GetPostsUseCase;
@@ -68,7 +69,8 @@ public class BarterTraderInjector {
     private final PasswordResetViewModelFactory passwordResetViewModelFactory = new PasswordResetViewModelFactory(resetPasswordUseCase);
     private final ProviderHomeViewModelFactory providerHomeViewModelFactory = new ProviderHomeViewModelFactory(getPostsUseCase, switchRoleUseCase);
     private final HandlePostViewModelFactory handlePostViewModelFactory = new HandlePostViewModelFactory(setPostUseCase);
+    private final ReceiverHomeViewModelFactory receiverHomeViewModelFactory = new ReceiverHomeViewModelFactory(getPostsUseCase);
 
     // Fragment Factories
-    public final CustomFragmentFactory customFragmentFactory = new CustomFragmentFactory(loginViewModelFactory, registrationViewModelFactory, passwordResetViewModelFactory, providerHomeViewModelFactory, handlePostViewModelFactory);
+    public final CustomFragmentFactory customFragmentFactory = new CustomFragmentFactory(loginViewModelFactory, registrationViewModelFactory, passwordResetViewModelFactory, providerHomeViewModelFactory, handlePostViewModelFactory, receiverHomeViewModelFactory);
 }

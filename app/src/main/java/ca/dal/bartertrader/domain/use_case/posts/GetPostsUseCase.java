@@ -17,6 +17,6 @@ public class GetPostsUseCase extends AbstractBaseUseCase<Void, Single<Resource<Q
 
     @Override
     public Single<Resource<QuerySnapshot>> execute(Void request) {
-        return firebasePostsRepository.getPosts();
+        return null;
     }
 }
