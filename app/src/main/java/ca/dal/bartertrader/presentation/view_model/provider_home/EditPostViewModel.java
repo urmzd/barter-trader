@@ -32,6 +32,8 @@ public class EditPostViewModel extends ViewModel {
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     private String postUid;
+    private double lat;
+    private double lon;
 
     public EditPostViewModel(UpdatePostBaseUseCase updatePostBaseUseCase) {
         this.updatePostBaseUseCase = updatePostBaseUseCase;
@@ -71,7 +73,7 @@ public class EditPostViewModel extends ViewModel {
     }
 
     public void updatePost() {
-        PostModel newPostModel = new PostModel(image.getValue(), title.getValue(), description.getValue());
+        PostModel newPostModel = new PostModel(image.getValue(), title.getValue(), description.getValue(), lat, lon);
         Pair<PostModel,String> execInput = Pair.create(newPostModel, postUid);
         disposables.add(
                 updatePostBaseUseCase.execute(execInput)
@@ -86,6 +88,8 @@ public class EditPostViewModel extends ViewModel {
         title.setValue(existingTitle);
         description.setValue(existingDescription);
         image.setValue(imageUri);
+        this.lat = lat;
+        this.lon = lon;
 
         LocationServiceManager lsm = LocationServiceManager.getInstance();
         if (lsm != null)

@@ -58,7 +58,10 @@ public class EditPostFragment extends Fragment {
          * title : string
          * description : string
          * lat : double
-         * lon : double
+         * lon :
+         *
+         * // Original post uid
+         * postUid : string
          */
 
         String title = getArguments().getString("title");
@@ -66,6 +69,7 @@ public class EditPostFragment extends Fragment {
         Uri imageUri = getArguments().getParcelable("imageUri");
         double lat = getArguments().getDouble("lat");
         double lon = getArguments().getDouble("lon");
+        String postUid = getArguments().getString("postUid");
 
         viewModel.setExistingPostData(title, description, imageUri, lat, lon);
 

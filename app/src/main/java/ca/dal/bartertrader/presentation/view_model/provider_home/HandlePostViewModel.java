@@ -54,7 +54,7 @@ public class HandlePostViewModel extends ViewModel {
     }
 
     public void setPost() {
-        PostModel newPostModel = new PostModel(image.getValue(), title.getValue(), description.getValue());
+        PostModel newPostModel = new PostModel(image.getValue(), title.getValue(), description.getValue(), 0, 0);
         disposables.add(
                 setPostBaseUseCase.execute(newPostModel)
                         .observeOn(AndroidSchedulers.mainThread())
