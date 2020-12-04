@@ -12,12 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import ca.dal.bartertrader.R;
 import ca.dal.bartertrader.databinding.FragmentLoginBinding;
 import ca.dal.bartertrader.di.view_model.LoginViewModelFactory;
-import ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeFragment;
 import ca.dal.bartertrader.presentation.view_model.LoginViewModel;
 import ca.dal.bartertrader.utils.BindingUtils;
+import ca.dal.bartertrader.utils.NavigationUtils;
 import ca.dal.bartertrader.utils.handler.resource.Status;
 
 public class LoginFragment extends Fragment {
@@ -45,6 +47,8 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.loginFragment);
+
         viewModel.getGoToPasswordResetLiveEvent().observe(getViewLifecycleOwner(), __ -> {
             Navigation.findNavController(requireView()).navigate(LoginFragmentDirections.actionLoginFragmentToPasswordResetFragment());
         });
@@ -61,13 +65,14 @@ public class LoginFragment extends Fragment {
             BindingUtils.setErrorOnTextInputLayout(binding.loginPassword, validity, getString(R.string.error_password_empty));
         });
 
-
         viewModel.getLoginActionEvent().observe(getViewLifecycleOwner(), user -> {
             if (user.getStatus() == Status.FULFILLED) {
 
-                if (user.getData().getUser().isEmailVerified()) {
+                if (user.getData().getFirebaseUser().isEmailVerified()) {
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("provider", user.getData().getProvider());
+                    Navigation.findNavController(requireView()).navigate(R.id.user_nav_graph, bundle);
                     Toast.makeText(getContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
-                    Navigation.findNavController(requireView()).navigate(LoginFragmentDirections.actionLoginFragmentToProviderNavGraph());
                     return;
                 }
 

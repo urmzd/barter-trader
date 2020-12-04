@@ -1,13 +1,12 @@
 package ca.dal.bartertrader.data.data_source;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
@@ -54,7 +53,25 @@ public class FirebaseFirestoreDataSource {
     }
 
     public Completable switchRole(FirebaseUserModel user) {
-        return Completable.create(emitter -> CompletableTaskHandler.assign(emitter, userCollection.document(user.getAuthUid()).update("provider", !user.isProvider())));
+        return Completable.create(emitter -> CompletableTaskHandler.assign(emitter, userCollection.document(user.getAuthUid()).update("provider", !user.getProvider())));
     }
 
+    public Single<QuerySnapshot> getPosts(DocumentSnapshot startAfter, String title) {
+        Query queryToMake = postCollection.limit(10);
+        if (startAfter == null) {
+            final Query finalQueryToMake = queryToMake;
+            return Single.create(emitter -> SingleTaskHandler.assign(emitter, finalQueryToMake.get()));
+        }
+        if (startAfter != null) {
+            final Query finalQueryToMake = queryToMake;
+            return Single.create(emitter -> SingleTaskHandler.assign(emitter, finalQueryToMake.startAfter(startAfter).get()));
+        }
+
+        if (title != null) {
+            queryToMake = queryToMake.whereGreaterThanOrEqualTo("title", title);
+        }
+
+        Query finalQueryToMake = queryToMake;
+        return Single.create(emitter -> SingleTaskHandler.assign(emitter, finalQueryToMake.get()));
+    }
 }

@@ -5,12 +5,11 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.google.firebase.auth.AuthResult;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import ca.dal.bartertrader.data.model.FirebaseUserModel;
 import ca.dal.bartertrader.domain.model.LoginModel;
 import ca.dal.bartertrader.domain.use_case.users.LoginUseCase;
 import ca.dal.bartertrader.utils.FormValidatorTools;
@@ -45,7 +44,7 @@ public class LoginViewModel extends ViewModel {
     private final LiveEvent<Void> goToRegistrationLiveEvent = new LiveEvent<Void>();
     private final LiveEvent<Void> goToPasswordResetLiveEvent = new LiveEvent<Void>();
 
-    private final LiveEvent<Resource<AuthResult>> loginActionEvent = new LiveEvent<>();
+    private final LiveEvent<Resource<FirebaseUserModel>> loginActionEvent = new LiveEvent<>();
     private final LiveData<Status> loginStatus = Transformations.map(loginActionEvent, Resource::getStatus);
 
     public void login() {
@@ -86,7 +85,7 @@ public class LoginViewModel extends ViewModel {
         return goToPasswordResetLiveEvent;
     }
 
-    public LiveEvent<Resource<AuthResult>> getLoginActionEvent() {
+    public LiveEvent<Resource<FirebaseUserModel>> getLoginActionEvent() {
         return loginActionEvent;
     }
 
