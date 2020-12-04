@@ -6,8 +6,6 @@ import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
 
-import java.sql.Time;
-
 @IgnoreExtraProperties
 public class FirebaseUserModel {
 
@@ -40,12 +38,12 @@ public class FirebaseUserModel {
         this.authUid = authUid;
     }
 
-    public Boolean isProvider() {
-        return provider;
-    }
-
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    public Boolean getProvider() {
+        return provider;
     }
 
     public String getAuthUid() {
@@ -54,5 +52,9 @@ public class FirebaseUserModel {
 
     public void setFirebaseUser(FirebaseUser firebaseUser) {
         this.firebaseUser = firebaseUser;
+    }
+
+    public FirebaseUser getFirebaseUser() {
+        return firebaseUser;
     }
 }

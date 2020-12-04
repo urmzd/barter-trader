@@ -12,9 +12,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
+import ca.dal.bartertrader.R;
 import ca.dal.bartertrader.databinding.FragmentProviderHomeBinding;
 import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.provider_home.ProviderHomeViewModel;
+import ca.dal.bartertrader.utils.NavigationUtils;
 import ca.dal.bartertrader.utils.handler.resource.Status;
 
 public class ProviderHomeFragment extends Fragment {
@@ -41,7 +45,9 @@ public class ProviderHomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        viewModel.getAddPostEvent().observe(getViewLifecycleOwner(), __-> {
+        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.providerHomeFragment);
+
+        viewModel.getAddPostEvent().observe(getViewLifecycleOwner(), __ -> {
             Navigation.findNavController(requireView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToHandlePostFragment());
         });
 
@@ -49,7 +55,8 @@ public class ProviderHomeFragment extends Fragment {
             Status resultStatus = result.getStatus();
 
             if (resultStatus == Status.FULFILLED) {
-                Toast.makeText(getContext(), "SWITCHED!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Role switched!", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(getView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToReceiverHomeFragment());
                 return;
             }
 

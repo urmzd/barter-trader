@@ -16,12 +16,17 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/default_spacing"
         android:theme="@style/AppTheme">
 
-        <TextView
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_standard"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
             android:id="@+id/handle_post_upload_message"
+            android:padding="@dimen/default_spacing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -30,7 +35,7 @@
             app:layout_constraintBottom_toTopOf="@id/handle_post_selected_image"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
         <ImageView
             android:id="@+id/handle_post_selected_image"
@@ -70,10 +75,10 @@
             app:layout_constraintTop_toBottomOf="@id/handle_post_selected_image" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="@dimen/default_spacing"
             android:id="@+id/handle_post_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/default_spacing"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/handle_post_select_camera">
 
@@ -86,6 +91,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            android:layout_margin="@dimen/default_spacing"
             android:id="@+id/handle_post_description"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -109,6 +115,8 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
+            android:layout_margin="@dimen/default_spacing"
+
             android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

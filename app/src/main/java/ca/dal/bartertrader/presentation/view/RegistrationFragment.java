@@ -12,11 +12,14 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import ca.dal.bartertrader.R;
 import ca.dal.bartertrader.databinding.FragmentRegistrationBinding;
 import ca.dal.bartertrader.di.view_model.RegistrationViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.RegistrationViewModel;
 import ca.dal.bartertrader.utils.BindingUtils;
+import ca.dal.bartertrader.utils.NavigationUtils;
 import ca.dal.bartertrader.utils.handler.resource.Status;
 
 public class RegistrationFragment extends Fragment {
@@ -44,6 +47,7 @@ public class RegistrationFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.loginFragment);
 
         viewModel.getFirstNameIsValid().observe(getViewLifecycleOwner(), validity -> {
             BindingUtils.setErrorOnTextInputLayout(binding.registrationFirstName, validity, "Names cannot have numbers or special characters in them.");

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_nav_graph"
+    app:startDestination="@id/switchHandler">
+
+    <argument
+        android:name="provider"
+        app:argType="boolean" />
+
+    <fragment
+        android:id="@+id/switchHandler"
+        android:name="ca.dal.bartertrader.presentation.view.SwitchHandlerFragment"
+        tools:layout="@layout/fragment_switch_handler">
+        <argument
+            android:name="provider"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_switchHandler_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+        <action
+            android:id="@+id/action_switchHandler_to_receiverHomeFragment"
+            app:destination="@id/receiverHomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/receiverHomeFragment"
+        android:name="ca.dal.bartertrader.presentation.view.receiver_home.ReceiverHomeFragment"
+        android:label="@string/label_receiver_homepage"
+        tools:layout="@layout/fragment_receiver_home">
+        <action
+            android:id="@+id/action_receiverHomeFragment_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/providerHomeFragment"
+        android:name="ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeFragment"
+        android:label="@string/title_provider_home_fragment_label"
+        tools:layout="@layout/fragment_provider_home">
+        <action
+            android:id="@+id/action_providerHomeFragment_to_handlePostFragment"
+            app:destination="@id/handlePostFragment" />
+        <action
+            android:id="@+id/action_providerHomeFragment_to_receiverHomeFragment"
+            app:destination="@id/receiverHomeFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/handlePostFragment"
+        android:name="ca.dal.bartertrader.presentation.view.provider_home.HandlePostFragment"
+        android:label="@string/title_handle_post_fragment_label"
+        tools:layout="@layout/fragment_handle_post" />
+
+</navigation>

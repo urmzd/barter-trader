@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 
 import ca.dal.bartertrader.R;
@@ -18,6 +19,7 @@ import ca.dal.bartertrader.databinding.FragmentPasswordResetBinding;
 import ca.dal.bartertrader.di.view_model.PasswordResetViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.PasswordResetViewModel;
 import ca.dal.bartertrader.utils.BindingUtils;
+import ca.dal.bartertrader.utils.NavigationUtils;
 import ca.dal.bartertrader.utils.handler.resource.Status;
 
 public class PasswordResetFragment extends Fragment {
@@ -45,6 +47,8 @@ public class PasswordResetFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.loginFragment);
+
         viewModel.getEmailIsValid().observe(getViewLifecycleOwner(), isValid -> {
             BindingUtils.setErrorOnTextInputLayout(binding.passwordResetEmail, isValid, getString(R.string.error_email_invalid));
         });
