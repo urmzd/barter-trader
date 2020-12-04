@@ -31,7 +31,7 @@ import ca.dal.bartertrader.di.view_model.receiver_home.ReceiverHomeViewModelFact
 import ca.dal.bartertrader.domain.use_case.ResetPasswordUseCase;
 import ca.dal.bartertrader.domain.use_case.VerifyEmailExistsUseCase;
 import ca.dal.bartertrader.domain.use_case.posts.GetPostsUseCase;
-import ca.dal.bartertrader.domain.use_case.posts.SetPostBaseUseCase;
+import ca.dal.bartertrader.domain.use_case.posts.SetPostUseCase;
 import ca.dal.bartertrader.domain.use_case.users.LoginUseCase;
 import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
 import ca.dal.bartertrader.domain.use_case.users.SwitchRoleUseCase;
@@ -60,8 +60,9 @@ public class BarterTraderInjector {
     private final SwitchRoleUseCase switchRoleUseCase = new SwitchRoleUseCaseFactory(firebaseUserRepository).create();
 
     // Use Cases for Post Repository
-    private final SetPostBaseUseCase setPostUseCase = new SetPostUseCaseFactory(firebasePostsRepository).create();
+    private final SetPostUseCase setPostUseCase = new SetPostUseCaseFactory(firebasePostsRepository).create();
     private final GetPostsUseCase getPostsUseCase = new GetPostsUseCaseFactory(firebasePostsRepository).create();
+
 
     // View Model Factories
     private final LoginViewModelFactory loginViewModelFactory = new LoginViewModelFactory(loginUseCase);

@@ -2,9 +2,9 @@ package ca.dal.bartertrader.di.use_case.posts;
 
 import ca.dal.bartertrader.data.repository.FirebasePostsRepository;
 import ca.dal.bartertrader.di.Factory;
-import ca.dal.bartertrader.domain.use_case.posts.SetPostBaseUseCase;
+import ca.dal.bartertrader.domain.use_case.posts.SetPostUseCase;
 
-public class SetPostUseCaseFactory implements Factory<SetPostBaseUseCase> {
+public class SetPostUseCaseFactory implements Factory<SetPostUseCase> {
     private final FirebasePostsRepository firebasePostsRepository;
 
     public SetPostUseCaseFactory(FirebasePostsRepository firebasePostsRepository) {
@@ -12,7 +12,7 @@ public class SetPostUseCaseFactory implements Factory<SetPostBaseUseCase> {
     }
 
     @Override
-    public SetPostBaseUseCase create() {
-        return new SetPostBaseUseCase(firebasePostsRepository);
+    public SetPostUseCase create() {
+        return new SetPostUseCase(firebasePostsRepository);
     }
 }
