@@ -23,7 +23,6 @@ import java.util.Locale;
 import java.util.Set;
 
 import ca.dal.bartertrader.utils.LocationServiceManager;
-import ca.dal.bartertrader.utils.handler.live_data.NavControllerLiveData;
 
 public class MainActivity extends FragmentActivity {
 
@@ -42,9 +41,7 @@ public class MainActivity extends FragmentActivity {
         LocationServiceManager locationService = new LocationServiceManager(locationManager, geocoder);
         locationService.startRequestingLocationUpdates();
 
-        if (savedInstanceState == null) {
-            setNavigationUI();
-        }
+        setNavigationUp();
     }
 
     public void setNavigationUp() {
