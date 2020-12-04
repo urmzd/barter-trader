@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="ca.dal.bartertrader.utils.handler.resource.Status" />
+
+        <import type="android.view.View" />
+
+        <variable
+            name="ViewModel"
+            type="ca.dal.bartertrader.presentation.view_model.HandleReviewViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:padding="@dimen/default_spacing"
+        android:theme="@style/AppTheme">
+
+        <TextView
+            android:id="@+id/handle_review_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Exchange Review Form"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/handle_review_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:layout_marginBottom="@dimen/default_spacing"
+            app:layout_constraintBottom_toTopOf="@+id/confirm_button"
+            app:layout_constraintHeight_min="wrap"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/handle_review_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/review_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:hint="Add Review Here..."
+                android:inputType="textMultiLine"
+                android:minLines="2"
+                android:text="@={ViewModel.review}"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RatingBar
+            android:id="@+id/star_rating_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/handle_review_input"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/default_spacing"
+            android:rating="@={ViewModel.rating}"/>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/confirm_review_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_spacing"
+            android:text="CONFIRM"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:onClick="@{() -> ViewModel.setReview()}"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
