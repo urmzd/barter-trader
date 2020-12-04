@@ -49,6 +49,7 @@
             app:destination="@id/receiverHomeFragment" />
     </fragment>
 
+
     <fragment
         android:id="@+id/handlePostFragment"
         android:name="ca.dal.bartertrader.presentation.view.provider_home.HandlePostFragment"

@@ -18,18 +18,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
-import com.google.android.material.appbar.MaterialToolbar;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.function.Consumer;
 
-import ca.dal.bartertrader.R;
 import ca.dal.bartertrader.databinding.FragmentHandlePostBinding;
 import ca.dal.bartertrader.di.view_model.provider_home.HandlePostViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.provider_home.HandlePostViewModel;
 import ca.dal.bartertrader.utils.BindingUtils;
-import ca.dal.bartertrader.utils.NavigationUtils;
+import ca.dal.bartertrader.utils.LocationServiceManager;
 import ca.dal.bartertrader.utils.handler.resource.Status;
 
 import static androidx.core.content.FileProvider.getUriForFile;
@@ -56,6 +53,26 @@ public class HandlePostFragment extends Fragment {
 
         binding.setViewModel(viewModel);
 
+        /** Bundle format
+         * imageUri : uri
+         * title : string
+         * description : string
+         * lat : double
+         * lon :
+         *
+         * // Original post uid
+         * postUid : string
+         */
+
+        String title = getArguments().getString("title");
+        String description = getArguments().getString("description");
+        Uri imageUri = getArguments().getParcelable("imageUri");
+        double lat = getArguments().getDouble("lat");
+        double lon = getArguments().getDouble("lon");
+        String postUid = getArguments().getString("postUid");
+
+        viewModel.setExistingPostData(title, description, imageUri, lat, lon);
+
         return binding.getRoot();
     }
 
@@ -68,8 +85,6 @@ public class HandlePostFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.providerHomeFragment);
-
         viewModel.getUploadImageFromCameraEvent().observe(getViewLifecycleOwner(), __ -> {
             try {
                 imageUri = createImageFile();
@@ -101,6 +116,12 @@ public class HandlePostFragment extends Fragment {
             }
 
         });
+        LocationServiceManager locMan = LocationServiceManager.getInstance();
+        if ( locMan != null)
+        {
+            double lat = locMan.getCurrentLat();
+            double lon = locMan.getCurrentLon();
+        }
     }
 
     private final ActivityResultLauncher<Uri> takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), pictureTaken -> {
