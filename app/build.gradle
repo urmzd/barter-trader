@@ -92,4 +92,5 @@ dependencies {
     implementation "io.reactivex.rxjava3:rxjava:3.0.7"
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
+    androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.3.0'
 }

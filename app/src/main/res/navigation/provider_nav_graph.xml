@@ -12,10 +12,33 @@
         <action
             android:id="@+id/action_providerHomeFragment_to_handlePostFragment"
             app:destination="@id/handlePostFragment" />
+        <action
+            android:id="@+id/action_providerHomeFragment_to_providerOfferFragment"
+            app:destination="@id/providerOfferFragment" />
     </fragment>
     <fragment
         android:id="@+id/handlePostFragment"
         android:name="ca.dal.bartertrader.presentation.view.provider_home.HandlePostFragment"
         android:label="@string/title_handle_post_fragment_label"
         tools:layout="@layout/fragment_handle_post" />
+
+    <fragment
+        android:id="@+id/providerOfferFragment"
+        android:name="ca.dal.bartertrader.presentation.view.ProviderOfferFragment"
+        android:label="Provider Offer Fragment Label"
+        tools:layout="@layout/fragment_provider_offers">
+        <action
+            android:id="@+id/action_providerOfferFragment_to_handleReviewFragment"
+            app:destination="@id/handleReviewFragment">
+            <argument
+                android:name="offerModel"
+                app:argType="ca.dal.bartertrader.domain.model.OfferModel"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/handleReviewFragment"
+        android:name="ca.dal.bartertrader.presentation.view.HandleReviewFragment"
+        android:label="Handle Review Fragment Label"
+        tools:layout="@layout/fragment_provider_handle_review"/>
+
 </navigation>
