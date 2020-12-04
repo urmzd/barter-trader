@@ -9,6 +9,8 @@
         android:name="provider"
         app:argType="boolean" />
 
+    <include app:graph="@navigation/profile_nav_graph"/>
+
     <fragment
         android:id="@+id/switchHandler"
         android:name="ca.dal.bartertrader.presentation.view.SwitchHandlerFragment"
