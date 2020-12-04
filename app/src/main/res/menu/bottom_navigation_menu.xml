@@ -5,4 +5,9 @@
         android:enabled="true"
         android:icon="@drawable/ic_baseline_home_24"
         android:title="@string/title_user_nav" />
+    <item
+        android:id="@+id/profile_nav_graph"
+        android:enabled="true"
+        android:icon="@drawable/ic_baseline_person_24"
+        android:title="@string/title_btm_nav_profile"/>
 </menu>
