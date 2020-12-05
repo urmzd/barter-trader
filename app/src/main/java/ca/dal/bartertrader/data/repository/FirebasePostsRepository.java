@@ -3,6 +3,7 @@ package ca.dal.bartertrader.data.repository;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
@@ -30,11 +31,11 @@ public class FirebasePostsRepository {
         return firebaseStorageDataSource.getPostsImageBytes(snapshots).subscribeOn(Schedulers.io());
     }
 
+    public Task<QuerySnapshot> getPosts() {
+        return firebaseFirestoreDataSource.getPosts(firebaseAuthDataSource.getUser().getUid());
+    }
+
     public Single<QuerySnapshot> getPosts(DocumentSnapshot snapshot, String title) {
-        // posts from firestore
-        // + posts from storage
-        // current posts
-        // previous posts
         return firebaseAuthDataSource.reloadUser().subscribeOn(Schedulers.io())
                 .andThen(Single.defer(() -> firebaseFirestoreDataSource.getPosts(snapshot, title)));
     }
