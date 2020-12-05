@@ -20,7 +20,6 @@ public class FirebasePostModel extends FirestorePostModel {
     private Timestamp timestamp;
 
     public FirebasePostModel() {
-
     }
 
     public FirebasePostModel(String postId, String authUid, String title, String description, Timestamp timestamp) {
