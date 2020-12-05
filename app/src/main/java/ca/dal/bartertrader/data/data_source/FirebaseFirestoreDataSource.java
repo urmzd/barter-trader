@@ -1,7 +1,7 @@
 package ca.dal.bartertrader.data.data_source;
 
 import androidx.annotation.NonNull;
-
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -88,6 +88,10 @@ public class FirebaseFirestoreDataSource {
         return Completable.create(emitter -> CompletableTaskHandler.assign(emitter,
                 reviewCollection.add(newReview)
         ));
+    }
+
+    public Task<QuerySnapshot> getPosts(String authUid) {
+        return postCollection.whereEqualTo("authUid", authUid).get();
     }
 
     public void setOfferComplete(String offerId) {

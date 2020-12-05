@@ -3,7 +3,6 @@ package ca.dal.bartertrader.domain.model;
 import android.net.Uri;
 
 import com.google.firebase.Timestamp;
-import com.google.firebase.firestore.DocumentId;
 import com.google.firebase.firestore.Exclude;
 import com.google.firebase.firestore.IgnoreExtraProperties;
 import com.google.firebase.firestore.ServerTimestamp;
@@ -17,6 +16,7 @@ public class PostModel implements Serializable {
     private Uri image;
     private String title;
     private String description;
+    private String imageName;
 
     private String postId;
 
@@ -66,8 +66,24 @@ public class PostModel implements Serializable {
 
     public double getLon() { return lon; }
 
+    public void setImage(Uri image) {
+        this.image = image;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Timestamp getTimestamp() {
         return timestamp;
+    }
+
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getAuthUid() {
@@ -76,5 +92,13 @@ public class PostModel implements Serializable {
 
     public void setAuthUid(String authUid) {
         this.authUid = authUid;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }
