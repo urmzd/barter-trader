@@ -4,14 +4,18 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
 
+import ca.dal.bartertrader.di.view_model.HandleReviewViewModelFactory;
 import ca.dal.bartertrader.di.view_model.LoginViewModelFactory;
 import ca.dal.bartertrader.di.view_model.PasswordResetViewModelFactory;
+import ca.dal.bartertrader.di.view_model.ProviderOfferViewModelFactory;
 import ca.dal.bartertrader.di.view_model.RegistrationViewModelFactory;
 import ca.dal.bartertrader.di.view_model.provider_home.HandlePostViewModelFactory;
 import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
 import ca.dal.bartertrader.di.view_model.receiver_home.ReceiverHomeViewModelFactory;
+import ca.dal.bartertrader.presentation.view.HandleReviewFragment;
 import ca.dal.bartertrader.presentation.view.LoginFragment;
 import ca.dal.bartertrader.presentation.view.PasswordResetFragment;
+import ca.dal.bartertrader.presentation.view.ProviderOfferFragment;
 import ca.dal.bartertrader.presentation.view.RegistrationFragment;
 import ca.dal.bartertrader.presentation.view.SwitchHandlerFragment;
 import ca.dal.bartertrader.presentation.view.provider_home.HandlePostFragment;
@@ -25,14 +29,18 @@ public class CustomFragmentFactory extends FragmentFactory {
     private final ProviderHomeViewModelFactory providerHomeViewModelFactory;
     private final HandlePostViewModelFactory handlePostViewModelFactory;
     private final ReceiverHomeViewModelFactory receiverHomeViewModelFactory;
+    private final HandleReviewViewModelFactory handleReviewViewModelFactory;
+    private final ProviderOfferViewModelFactory providerOfferViewModelFactory;
 
-    public CustomFragmentFactory(LoginViewModelFactory loginViewModelFactory, RegistrationViewModelFactory registrationViewModelFactory, PasswordResetViewModelFactory passwordResetViewModelFactory, ProviderHomeViewModelFactory providerHomeViewModelFactory, HandlePostViewModelFactory handlePostViewModelFactory, ReceiverHomeViewModelFactory receiverHomeViewModelFactory) {
+    public CustomFragmentFactory(LoginViewModelFactory loginViewModelFactory, RegistrationViewModelFactory registrationViewModelFactory, PasswordResetViewModelFactory passwordResetViewModelFactory, ProviderHomeViewModelFactory providerHomeViewModelFactory, HandlePostViewModelFactory handlePostViewModelFactory, ReceiverHomeViewModelFactory receiverHomeViewModelFactory, HandleReviewViewModelFactory handleReviewViewModelFactory, ProviderOfferViewModelFactory providerOfferViewModelFactory) {
         this.loginViewModelFactory = loginViewModelFactory;
         this.registrationViewModelFactory = registrationViewModelFactory;
         this.passwordResetViewModelFactory = passwordResetViewModelFactory;
         this.providerHomeViewModelFactory = providerHomeViewModelFactory;
         this.handlePostViewModelFactory = handlePostViewModelFactory;
         this.receiverHomeViewModelFactory = receiverHomeViewModelFactory;
+        this.handleReviewViewModelFactory = handleReviewViewModelFactory;
+        this.providerOfferViewModelFactory = providerOfferViewModelFactory;
     }
 
     @NonNull
@@ -65,6 +73,14 @@ public class CustomFragmentFactory extends FragmentFactory {
 
         if (className.equals(SwitchHandlerFragment.class.getName())) {
             return new SwitchHandlerFragment();
+        }
+
+        if (className.equals(HandleReviewFragment.class.getName())) {
+            return new HandleReviewFragment(handleReviewViewModelFactory);
+        }
+
+        if (className.equals(ProviderOfferFragment.class.getName())) {
+            return new ProviderOfferFragment(providerOfferViewModelFactory);
         }
 
         return super.instantiate(classLoader, className);
