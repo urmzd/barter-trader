@@ -8,22 +8,29 @@ import ca.dal.bartertrader.data.data_source.FirebaseAuthDataSource;
 import ca.dal.bartertrader.data.data_source.FirebaseFirestoreDataSource;
 import ca.dal.bartertrader.data.data_source.FirebaseStorageDataSource;
 import ca.dal.bartertrader.data.repository.FirebasePostsRepository;
+import ca.dal.bartertrader.data.repository.FirebaseReviewRepository;
 import ca.dal.bartertrader.data.repository.FirebaseUserRepository;
+import ca.dal.bartertrader.data.repository.ProviderOfferRepositoryCallback;
 import ca.dal.bartertrader.di.data_source.FirebaseAuthDataSourceFactory;
 import ca.dal.bartertrader.di.data_source.FirebaseFirestoreDataSourceFactory;
 import ca.dal.bartertrader.di.data_source.FirebaseStorageDataSourceFactory;
 import ca.dal.bartertrader.di.fragment.CustomFragmentFactory;
 import ca.dal.bartertrader.di.repository.FirebasePostsRepositoryFactory;
+import ca.dal.bartertrader.di.repository.FirebaseReviewRepositoryFactory;
 import ca.dal.bartertrader.di.repository.FirebaseUserRepositoryFactory;
+import ca.dal.bartertrader.di.repository.ProviderOfferRepositoryCallbackFactory;
 import ca.dal.bartertrader.di.use_case.ResetPasswordUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.VerifyEmailExistsUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.posts.GetPostsUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.posts.SetPostUseCaseFactory;
+import ca.dal.bartertrader.di.use_case.reviews.SetReviewUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.users.LoginUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.users.RegisterUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.users.SwitchRoleUseCaseFactory;
+import ca.dal.bartertrader.di.view_model.HandleReviewViewModelFactory;
 import ca.dal.bartertrader.di.view_model.LoginViewModelFactory;
 import ca.dal.bartertrader.di.view_model.PasswordResetViewModelFactory;
+import ca.dal.bartertrader.di.view_model.ProviderOfferViewModelFactory;
 import ca.dal.bartertrader.di.view_model.RegistrationViewModelFactory;
 import ca.dal.bartertrader.di.view_model.provider_home.HandlePostViewModelFactory;
 import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
@@ -32,6 +39,7 @@ import ca.dal.bartertrader.domain.use_case.ResetPasswordUseCase;
 import ca.dal.bartertrader.domain.use_case.VerifyEmailExistsUseCase;
 import ca.dal.bartertrader.domain.use_case.posts.GetPostsUseCase;
 import ca.dal.bartertrader.domain.use_case.posts.SetPostUseCase;
+import ca.dal.bartertrader.domain.use_case.reviews.SetReviewUseCase;
 import ca.dal.bartertrader.domain.use_case.users.LoginUseCase;
 import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
 import ca.dal.bartertrader.domain.use_case.users.SwitchRoleUseCase;
@@ -51,6 +59,9 @@ public class BarterTraderInjector {
     // Repositories
     private final FirebaseUserRepository firebaseUserRepository = new FirebaseUserRepositoryFactory(firebaseAuthDataSource, firebaseFirestoreDataSource).create();
     private final FirebasePostsRepository firebasePostsRepository = new FirebasePostsRepositoryFactory(firebaseStorageDataSource, firebaseFirestoreDataSource, firebaseAuthDataSource).create();
+    private final FirebaseReviewRepository firebaseReviewRepository = new FirebaseReviewRepositoryFactory(firebaseStorageDataSource, firebaseFirestoreDataSource, firebaseAuthDataSource).create();
+
+    private final ProviderOfferRepositoryCallback providerOfferRepositoryCallback = new ProviderOfferRepositoryCallbackFactory(firebaseFirestore, firebaseAuthDataSource).create();
 
     // Use Cases for User Repository
     private final LoginUseCase loginUseCase = new LoginUseCaseFactory(firebaseUserRepository).create();
@@ -62,7 +73,7 @@ public class BarterTraderInjector {
     // Use Cases for Post Repository
     private final SetPostUseCase setPostUseCase = new SetPostUseCaseFactory(firebasePostsRepository).create();
     private final GetPostsUseCase getPostsUseCase = new GetPostsUseCaseFactory(firebasePostsRepository).create();
-
+    private final SetReviewUseCase setReviewUseCase = new SetReviewUseCaseFactory(firebaseReviewRepository).create();
 
     // View Model Factories
     private final LoginViewModelFactory loginViewModelFactory = new LoginViewModelFactory(loginUseCase);
@@ -71,7 +82,10 @@ public class BarterTraderInjector {
     private final ProviderHomeViewModelFactory providerHomeViewModelFactory = new ProviderHomeViewModelFactory(getPostsUseCase, switchRoleUseCase);
     private final HandlePostViewModelFactory handlePostViewModelFactory = new HandlePostViewModelFactory(setPostUseCase);
     private final ReceiverHomeViewModelFactory receiverHomeViewModelFactory = new ReceiverHomeViewModelFactory(getPostsUseCase);
+    private final HandleReviewViewModelFactory handleReviewViewModelFactory = new HandleReviewViewModelFactory(setReviewUseCase);
+    private final ProviderOfferViewModelFactory providerOfferViewModelFactory = new ProviderOfferViewModelFactory(providerOfferRepositoryCallback);
 
     // Fragment Factories
-    public final CustomFragmentFactory customFragmentFactory = new CustomFragmentFactory(loginViewModelFactory, registrationViewModelFactory, passwordResetViewModelFactory, providerHomeViewModelFactory, handlePostViewModelFactory, receiverHomeViewModelFactory);
+    public final CustomFragmentFactory customFragmentFactory = new CustomFragmentFactory(loginViewModelFactory, registrationViewModelFactory, passwordResetViewModelFactory, providerHomeViewModelFactory, handlePostViewModelFactory, receiverHomeViewModelFactory, handleReviewViewModelFactory, providerOfferViewModelFactory);
+
 }

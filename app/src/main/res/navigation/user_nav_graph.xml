@@ -9,8 +9,6 @@
         android:name="provider"
         app:argType="boolean" />
 
-    <include app:graph="@navigation/profile_nav_graph"/>
-
     <fragment
         android:id="@+id/switchHandler"
         android:name="ca.dal.bartertrader.presentation.view.SwitchHandlerFragment"
@@ -47,6 +45,18 @@
         <action
             android:id="@+id/action_providerHomeFragment_to_receiverHomeFragment"
             app:destination="@id/receiverHomeFragment" />
+        <action
+            android:id="@+id/action_providerHomeFragment_to_providerOffersFragment"
+            app:destination="@id/providerOffersFragment" />
+    </fragment>
+
+    <fragment android:id="@+id/providerOffersFragment"
+        android:name="ca.dal.bartertrader.presentation.view.ProviderOfferFragment"
+        android:label="@string/label_provider_offers"
+        tools:layout="@layout/fragment_provider_offers">
+        <action
+            android:id="@+id/action_providerOffersFragment_to_handleReviewFragment"
+            app:destination="@id/handleReviewFragment" />
     </fragment>
 
 
@@ -55,5 +65,11 @@
         android:name="ca.dal.bartertrader.presentation.view.provider_home.HandlePostFragment"
         android:label="@string/title_handle_post_fragment_label"
         tools:layout="@layout/fragment_handle_post" />
+
+    <fragment
+        android:id="@+id/handleReviewFragment"
+        android:name="ca.dal.bartertrader.presentation.view.HandleReviewFragment"
+        android:label="Handle Review Fragment Label"
+        tools:layout="@layout/fragment_provider_handle_review"/>
 
 </navigation>

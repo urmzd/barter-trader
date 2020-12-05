@@ -13,10 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import ca.dal.bartertrader.R;
 import ca.dal.bartertrader.databinding.FragmentProviderHomeBinding;
 import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFactory;
+import ca.dal.bartertrader.presentation.view.ProviderOfferFragmentDirections;
 import ca.dal.bartertrader.presentation.view_model.provider_home.ProviderHomeViewModel;
 import ca.dal.bartertrader.utils.NavigationUtils;
 import ca.dal.bartertrader.utils.handler.resource.Status;
@@ -64,5 +66,15 @@ public class ProviderHomeFragment extends Fragment {
                 Toast.makeText(getContext(), result.getError().getMessage(), Toast.LENGTH_LONG).show();
             }
         });
+
+        FloatingActionButton viewOffers = view.findViewById(R.id.view_provider_offers);
+
+        viewOffers.setOnClickListener(v -> {
+            Navigation.findNavController(requireView()).navigate(
+                    ProviderHomeFragmentDirections.actionProviderHomeFragmentToProviderOffersFragment()
+            );
+        });
+
+
     }
 }
