@@ -5,10 +5,6 @@
     android:id="@+id/user_nav_graph"
     app:startDestination="@id/switchHandler">
 
-    <argument
-        android:name="provider"
-        app:argType="boolean" />
-
     <fragment
         android:id="@+id/switchHandler"
         android:name="ca.dal.bartertrader.presentation.view.SwitchHandlerFragment"
@@ -29,9 +25,6 @@
         android:name="ca.dal.bartertrader.presentation.view.receiver_home.ReceiverHomeFragment"
         android:label="@string/label_receiver_homepage"
         tools:layout="@layout/fragment_receiver_home">
-        <action
-            android:id="@+id/action_receiverHomeFragment_to_providerHomeFragment"
-            app:destination="@id/providerHomeFragment" />
     </fragment>
 
     <fragment

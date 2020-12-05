@@ -69,9 +69,7 @@ public class LoginFragment extends Fragment {
             if (user.getStatus() == Status.FULFILLED) {
 
                 if (user.getData().getFirebaseUser().isEmailVerified()) {
-                    Bundle bundle = new Bundle();
-                    bundle.putBoolean("provider", user.getData().getProvider());
-                    Navigation.findNavController(requireView()).navigate(R.id.user_nav_graph, bundle);
+                    Navigation.findNavController(requireView()).navigate(LoginFragmentDirections.actionLoginFragmentToUserNavGraph());
                     Toast.makeText(getContext(), "Login Successful!", Toast.LENGTH_SHORT).show();
                     return;
                 }

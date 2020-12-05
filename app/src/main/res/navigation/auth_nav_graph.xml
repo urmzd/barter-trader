@@ -29,9 +29,6 @@
         <action
             android:id="@+id/action_loginFragment_to_user_nav_graph"
             app:destination="@id/user_nav_graph">
-            <argument
-                android:name="provider"
-                app:argType="boolean" />
         </action>
     </fragment>
 

@@ -7,6 +7,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import ca.dal.bartertrader.data.data_source.FirebaseAuthDataSource;
 import ca.dal.bartertrader.data.data_source.FirebaseFirestoreDataSource;
 import ca.dal.bartertrader.data.data_source.FirebaseStorageDataSource;
+import ca.dal.bartertrader.data.model.FirebaseUserModel;
 import ca.dal.bartertrader.data.repository.FirebasePostsRepository;
 import ca.dal.bartertrader.data.repository.FirebaseReviewRepository;
 import ca.dal.bartertrader.data.repository.FirebaseUserRepository;
@@ -43,6 +44,7 @@ import ca.dal.bartertrader.domain.use_case.reviews.SetReviewUseCase;
 import ca.dal.bartertrader.domain.use_case.users.LoginUseCase;
 import ca.dal.bartertrader.domain.use_case.users.RegisterUseCase;
 import ca.dal.bartertrader.domain.use_case.users.SwitchRoleUseCase;
+import io.reactivex.rxjava3.core.Single;
 
 public class BarterTraderInjector {
 
@@ -87,5 +89,9 @@ public class BarterTraderInjector {
 
     // Fragment Factories
     public final CustomFragmentFactory customFragmentFactory = new CustomFragmentFactory(loginViewModelFactory, registrationViewModelFactory, passwordResetViewModelFactory, providerHomeViewModelFactory, handlePostViewModelFactory, receiverHomeViewModelFactory, handleReviewViewModelFactory, providerOfferViewModelFactory);
+    
+    public Single<FirebaseUserModel> getUser() {
+        return firebaseUserRepository.getUser();
+    }
 
 }
