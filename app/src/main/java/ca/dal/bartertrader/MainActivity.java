@@ -57,8 +57,9 @@ public class MainActivity extends FragmentActivity {
             } else {
                 if (destination.getId() == R.id.handlePostFragment) {
                     bottomNav.setVisibility(View.GONE);
+                } else {
+                    bottomNav.setVisibility(View.VISIBLE);
                 }
-                bottomNav.setVisibility(View.VISIBLE);
             }
         });
     }

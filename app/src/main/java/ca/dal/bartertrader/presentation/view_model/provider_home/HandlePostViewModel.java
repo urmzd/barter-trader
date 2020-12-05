@@ -61,7 +61,7 @@ public class HandlePostViewModel extends ViewModel {
 
     public void setLocation(String city, String province)
     {
-        location.setValue(city + ", " + province);
+        location.setValue(String.format("%s, %s", city, province));
     }
 
     // Storing the original post's uid, needed for updating firebase

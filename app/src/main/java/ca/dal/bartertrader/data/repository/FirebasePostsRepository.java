@@ -40,19 +40,16 @@ public class FirebasePostsRepository {
     }
 
     public Completable setPost(PostModel postModel) {
-        return firebaseAuthDataSource.reloadUser()
-                .subscribeOn(Schedulers.io())
-                .andThen(Single.defer(() -> firebaseFirestoreDataSource.addPost(postModel, firebaseAuthDataSource.getUser().getUid())))
-                .flatMapCompletable(documentReference -> firebaseStorageDataSource.putPostImageFile(documentReference.getId(), postModel.getImage()));
+        if (postModel.getPostId() != null) {
+            return firebaseAuthDataSource.reloadUser()
+                    .subscribeOn(Schedulers.io())
+                    .andThen(firebaseFirestoreDataSource.setPost(postModel))
+                    .andThen(firebaseStorageDataSource.putPostImageFile(postModel.getPostId(), postModel.getImage()));
+        } else {
+            return firebaseAuthDataSource.reloadUser()
+                    .subscribeOn(Schedulers.io())
+                    .andThen(Single.defer(() -> firebaseFirestoreDataSource.addPost(postModel, firebaseAuthDataSource.getUser().getUid())))
+                    .flatMapCompletable(documentReference -> firebaseStorageDataSource.putPostImageFile(documentReference.getId(), postModel.getImage()));
+        }
     }
-
-
-    public Completable updatePost(PostModel postModel, @NonNull String postUid) {
-        return firebaseAuthDataSource.reloadUser()
-                .subscribeOn(Schedulers.io())
-                .andThen( firebaseFirestoreDataSource.updatePost(postModel, firebaseAuthDataSource.getUser().getUid(), postUid));
-
-    }
-
-
 }
