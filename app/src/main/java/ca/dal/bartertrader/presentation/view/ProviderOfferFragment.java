@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +15,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.appbar.MaterialToolbar;
+
 import java.util.ArrayList;
 
 import ca.dal.bartertrader.R;
@@ -23,6 +26,7 @@ import ca.dal.bartertrader.databinding.FragmentProviderOffersBinding;
 import ca.dal.bartertrader.di.view_model.ProviderOfferViewModelFactory;
 import ca.dal.bartertrader.domain.model.OfferModel;
 import ca.dal.bartertrader.presentation.view_model.ProviderOfferViewModel;
+import ca.dal.bartertrader.utils.NavigationUtils;
 import ca.dal.bartertrader.utils.listeners.OfferListener;
 
 public class ProviderOfferFragment extends Fragment implements OfferListener {
@@ -53,6 +57,7 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.providerHomeFragment);
 
         getOffers();
         initRecyclerView();
@@ -81,6 +86,7 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
                 binding.setIsLoading(false);
             });
         }
+
     }
 
     private void addProduct(OfferModel addedProduct) {
