@@ -5,13 +5,18 @@ import androidx.annotation.NonNull;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ca.dal.bartertrader.data.model.FirebaseUserModel;
 import ca.dal.bartertrader.domain.model.PostModel;
+import ca.dal.bartertrader.domain.model.ReviewModel;
 import ca.dal.bartertrader.utils.handler.async.CompletableTaskHandler;
 import ca.dal.bartertrader.utils.handler.async.SingleTaskHandler;
 import io.reactivex.rxjava3.core.Completable;
@@ -20,10 +25,14 @@ import io.reactivex.rxjava3.core.Single;
 public class FirebaseFirestoreDataSource {
     private final CollectionReference userCollection;
     private final CollectionReference postCollection;
+    private final CollectionReference reviewCollection;
+    private final CollectionReference offersCollection;
 
     public FirebaseFirestoreDataSource(FirebaseFirestore firebaseFirestore) {
         this.userCollection = firebaseFirestore.collection("users");
         this.postCollection = firebaseFirestore.collection("posts");
+        this.reviewCollection = firebaseFirestore.collection("reviews");
+        this.offersCollection = firebaseFirestore.collection("offers");
     }
 
     public Completable createUser(String uid, Boolean role) {
@@ -65,5 +74,24 @@ public class FirebaseFirestoreDataSource {
 
         Query finalQueryToMake = queryToMake;
         return Single.create(emitter -> SingleTaskHandler.assign(emitter, finalQueryToMake.get()));
+    }
+
+    public Completable addNewReview(ReviewModel reviewModel, String uid) {
+        Map<String, Object> newReview = new HashMap<>();
+
+        newReview.put("timestamp", FieldValue.serverTimestamp());
+        newReview.put("message", reviewModel.getReviewText());
+        newReview.put("rating", reviewModel.getRating());
+        newReview.put("from", reviewModel.getFrom());
+        newReview.put("to", reviewModel.getRecipientId());
+
+        return Completable.create(emitter -> CompletableTaskHandler.assign(emitter,
+                reviewCollection.add(newReview)
+        ));
+    }
+
+    public void setOfferComplete(String offerId) {
+        DocumentReference offerReference = offersCollection.document(offerId);
+        offerReference.update("status", "COMPLETE");
     }
 }

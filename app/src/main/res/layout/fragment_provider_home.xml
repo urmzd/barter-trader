@@ -46,6 +46,16 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/view_provider_offers"
+                android:layout_width="wrap_content"
+                android:layout_height="563dp"
+                android:layout_margin="@dimen/default_spacing"
+                android:contentDescription="@string/label_add_post"
+                android:src="@drawable/ic_baseline_local_offer_24"
+                app:layout_constraintBottom_toTopOf="@+id/add_post"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/add_post"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -67,4 +67,9 @@
     <string name="chip_category_hobbies_and_crafts">Hobbies/Crafts</string>
     <string name="chip_category_misc">Misc</string>
 
+    <!--  Provider Offer temporary labels  -->
+    <string name="added">added</string>
+    <string name="modified">modified</string>
+    <string name="label_provider_offers">Provider Offers</string>
+
 </resources>
