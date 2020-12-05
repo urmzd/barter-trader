@@ -26,8 +26,6 @@ import ca.dal.bartertrader.utils.LocationServiceManager;
 
 public class MainActivity extends FragmentActivity {
 
-    private static final int[] NAV_GRAPH_IDS = new int[]{R.navigation.auth_nav_graph, R.navigation.user_nav_graph};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         BarterTraderInjector injector = ((BarterTradeApplication) getApplication()).injector;
