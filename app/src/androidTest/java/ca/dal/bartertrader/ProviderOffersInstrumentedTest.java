@@ -57,38 +57,32 @@ public class ProviderOffersInstrumentedTest {
 
     @Test
     public void checkReceiverTitleDisplayed() {
-        onView(allOf(withId(R.id.receiver_title), withText("Offer: room2"))).check(matches(isDisplayed()));
+        onView(allOf(withId(R.id.receiver_title), withText("Offer: room4"))).check(matches(isDisplayed()));
     }
 
 
     @Test
     public void checkProviderTitleDisplayed() {
-        onView(withText("Your post: Test item")).check(matches(isDisplayed()));
+        onView(withText("Your post: Room")).check(matches(isDisplayed()));
     }
 
     @Test
     public void onAcceptClick() throws InterruptedException {
-        final TextView[] acceptText = clickAccept(0);
-        assertEquals(acceptText[0].getVisibility(), View.VISIBLE);
-    }
-
-    @Test
-    public void onDeclineClick() throws InterruptedException {
-        final TextView[] declineText = clickDecline(1);
+        final TextView[] declineText = clickDecline(0);
         assertEquals(declineText[0].getVisibility(), View.VISIBLE);
     }
 
     @Test
-    public void onReviewClick() throws InterruptedException {
-        clickAccept(2);
-        clickReview(2);
-        onView(withText("Exchange Review Form")).check(matches(isDisplayed()));
+    public void onDeclineClick() throws InterruptedException {
+        final TextView[] declineText = clickDecline(0);
+        assertEquals(declineText[0].getVisibility(), View.VISIBLE);
     }
+
 
     @Test
     public void onSubmitReview() throws InterruptedException {
-        clickAccept(3);
-        clickReview(3);
+        clickAccept(1);
+        clickReview(1);
         onView(withId(R.id.review_input)).perform(typeText("This is a test a test review"), closeSoftKeyboard());
         onView(withId(R.id.star_rating_input)).perform(click());
         onView(withId(R.id.confirm_review_button)).perform(click());
