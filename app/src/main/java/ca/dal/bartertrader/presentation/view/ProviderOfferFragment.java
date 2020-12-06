@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,8 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.ArrayList;
 
@@ -57,7 +54,7 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.providerHomeFragment);
+        NavigationUtils.setUpToolBar(getView(), binding.toolbar, R.id.providerHomeFragment);
 
         getOffers();
         initRecyclerView();

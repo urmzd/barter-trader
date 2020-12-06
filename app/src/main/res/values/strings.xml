@@ -7,7 +7,7 @@
     <string name="title_last_name_placeholder">Last Name</string>
     <string name="title_confirmed_password_placeholder">Confirmed Password</string>
     <string name="title_provider">Provider</string>
-    <string name="title_receiver_nav">Home</string>
+    <string name="title_receiver">Receiver</string>
     <string name="title_select_role">Please select a default role.</string>
 
 
@@ -71,5 +71,6 @@
     <string name="added">added</string>
     <string name="modified">modified</string>
     <string name="label_provider_offers">Provider Offers</string>
+    <string name="post_image">Post Image</string>
 
 </resources>

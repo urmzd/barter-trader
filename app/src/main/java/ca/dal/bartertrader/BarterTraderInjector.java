@@ -94,4 +94,8 @@ public class BarterTraderInjector {
         return firebaseUserRepository.getUser();
     }
 
+    public ReceiverHomeViewModelFactory getReceiverHomeViewModelFactory(){
+        return receiverHomeViewModelFactory;
+    }
+
 }

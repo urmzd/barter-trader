@@ -1,15 +1,13 @@
 package ca.dal.bartertrader.presentation.view.provider_home;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +17,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
-import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.ArrayList;
 
 import ca.dal.bartertrader.R;
 import ca.dal.bartertrader.databinding.FragmentProviderHomeBinding;
@@ -92,7 +87,7 @@ public class ProviderHomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.providerHomeFragment);
+        NavigationUtils.setUpToolBar(getView(), binding.toolbar, R.id.providerHomeFragment);
 
         viewModel.getAddPostEvent().observe(getViewLifecycleOwner(), __ -> {
             Navigation.findNavController(requireView()).navigate(ProviderHomeFragmentDirections.actionProviderHomeFragmentToHandlePostFragment());

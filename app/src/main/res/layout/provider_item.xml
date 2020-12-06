@@ -1,97 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-    </data>
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/default_spacing">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/default_spacing"
-        android:theme="@style/AppTheme">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
+        <ImageView
+            android:id="@+id/card_image"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:contentDescription="@string/temp_image_placeholder"
+            android:scaleType="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_baseline_image_24" />
+
+        <TextView
+            android:id="@+id/card_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_spacing"
+            android:padding="5dp"
+            android:text="Title"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/card_image" />
+
+        <TextView
+            android:id="@+id/card_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_spacing"
+            android:drawablePadding="2dp"
+            android:padding="5dp"
+            android:text="MM/DD/YYYY"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textColor="?android:attr/textColorSecondary"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_title" />
+
+        <TextView
+            android:id="@+id/card_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_spacing"
+            android:padding="5dp"
+            android:text="@string/message_dummy_text"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+            android:textColor="?android:attr/textColorSecondary"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/card_date" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/card_edit_action"
+            style="@style/ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_spacing"
+            android:minHeight="0dp"
+            android:text="EDIT"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/card_description" />
 
-                <ImageView
-                    android:id="@+id/card_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:contentDescription="@string/temp_image_placeholder"
-                    android:scaleType="center"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/ic_baseline_image_24" />
-
-                <TextView
-                    android:id="@+id/card_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Title"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/card_image" />
-
-                <TextView
-                    android:id="@+id/card_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="2dp"
-                    android:padding="5dp"
-                    android:text="MM/DD/YYYY"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
-                    android:textColor="?android:attr/textColorSecondary"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_title" />
-
-                <TextView
-                    android:id="@+id/card_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="@string/message_dummy_text"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-                    android:textColor="?android:attr/textColorSecondary"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_date" />
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/card_edit_action"
-                    style="@style/ActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
-                    android:minHeight="0dp"
-                    android:text="EDIT"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/card_description" />
-
-                <com.google.android.material.button.MaterialButton
-                    style="@style/ActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/default_spacing"
-                    app:icon="@drawable/ic_baseline_delete_24"
-                    app:iconTint="@color/colorError"
-                    app:layout_constraintBottom_toBottomOf="@id/card_edit_action"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/card_edit_action" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
+        <com.google.android.material.button.MaterialButton
+            style="@style/ActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_spacing"
+            app:icon="@drawable/ic_baseline_delete_24"
+            app:iconTint="@color/colorError"
+            app:layout_constraintBottom_toBottomOf="@id/card_edit_action"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/card_edit_action" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</layout>
+
+
+</com.google.android.material.card.MaterialCardView>

@@ -14,11 +14,10 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
-import com.google.android.material.appbar.MaterialToolbar;
 
 import java.io.File;
 import java.io.IOException;
@@ -78,7 +77,7 @@ public class HandlePostFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.providerHomeFragment);
+        NavigationUtils.setUpToolBar(getView(), binding.toolbar, R.id.providerHomeFragment);
         viewModel.getUploadImageFromCameraEvent().observe(getViewLifecycleOwner(), __ -> {
             try {
                 imageUri = createImageFile();
