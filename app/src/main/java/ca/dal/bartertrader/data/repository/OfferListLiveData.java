@@ -20,16 +20,12 @@ import ca.dal.bartertrader.domain.model.OfferModel;
 import ca.dal.bartertrader.domain.model.OfferStatus;
 
 public class OfferListLiveData extends LiveData<Operation> implements EventListener<QuerySnapshot> {
-    private final String TAG = "OfferListLiveData";
-
-    private Query query;
+    private final Query query;
     private ListenerRegistration listenerRegistration;
-    private String currentUserId;
 
 
-    OfferListLiveData(Query query, String currentUserId) {
+    OfferListLiveData(Query query) {
         this.query = query;
-        this.currentUserId = currentUserId;
     }
 
     @Override
@@ -74,17 +70,17 @@ public class OfferListLiveData extends LiveData<Operation> implements EventListe
             DocumentSnapshot providerDoc = (DocumentSnapshot) objects.get(0);
             DocumentSnapshot receiverDoc = (DocumentSnapshot) objects.get(1);
 
-            if (providerDoc.get("authUid").equals(currentUserId)) {
-                OfferModel addedProduct = new OfferModel(
-                        offerId,
-                        providerDoc.toObject(FirestorePostModel.class),
-                        receiverDoc.toObject(FirestorePostModel.class),
-                        OfferStatus.valueOf(status)
-                );
 
-                Operation operation = new Operation(addedProduct, changeType);
-                setValue(operation);
-            }
+            OfferModel addedOffer = new OfferModel(
+                    offerId,
+                    providerDoc.toObject(FirestorePostModel.class),
+                    receiverDoc.toObject(FirestorePostModel.class),
+                    OfferStatus.valueOf(status)
+            );
+
+            Operation operation = new Operation(addedOffer, changeType);
+            setValue(operation);
+
         });
     }
 

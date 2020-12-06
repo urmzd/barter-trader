@@ -15,7 +15,7 @@ public class ProviderOfferViewModel extends ViewModel {
     }
 
     public OfferListLiveData getProductListLiveData() {
-        return providerOfferRepositoryCallback.getProductListLiveData();
+        return providerOfferRepositoryCallback.getOfferListLiveData();
     }
 
     public void setStatus(OfferModel offer, String status) {
@@ -24,8 +24,7 @@ public class ProviderOfferViewModel extends ViewModel {
 
 
     public interface OfferRepository {
-        OfferListLiveData getProductListLiveData();
-
+        OfferListLiveData getOfferListLiveData();
         void setStatus(OfferModel offer, String status);
     }
 

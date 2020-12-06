@@ -15,8 +15,6 @@ import ca.dal.bartertrader.domain.model.OfferStatus;
 import ca.dal.bartertrader.utils.listeners.OfferListener;
 
 public class ProviderOfferAdapter extends RecyclerView.Adapter<ProviderOfferAdapter.OfferViewHolder> {
-    private final String TAG = "ProviderOfferAdapter";
-
     private OfferListener offerListener;
     private ArrayList<OfferModel> offers;
 

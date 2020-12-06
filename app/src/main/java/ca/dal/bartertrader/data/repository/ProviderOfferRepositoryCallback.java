@@ -10,30 +10,26 @@ import ca.dal.bartertrader.domain.model.OfferModel;
 import ca.dal.bartertrader.presentation.view_model.ProviderOfferViewModel;
 
 public class ProviderOfferRepositoryCallback implements ProviderOfferViewModel.OfferRepository {
-
     private FirebaseAuthDataSource firebaseAuthDataSource;
-    private FirebaseFirestore firebaseFirestore;
-    private CollectionReference productsRef;
-    private Query query;
+    private CollectionReference offersRef;
 
 
     public ProviderOfferRepositoryCallback(FirebaseFirestore firebaseFirestore, FirebaseAuthDataSource firebaseAuthDataSource) {
         this.firebaseAuthDataSource = firebaseAuthDataSource;
-        this.firebaseFirestore = firebaseFirestore;
-        this.productsRef = this.firebaseFirestore.collection("offers");
+        this.offersRef = firebaseFirestore.collection("offers");
     }
 
 
     @Override
-    public OfferListLiveData getProductListLiveData() {
-        query = productsRef.orderBy("receiverPost");
-        return new OfferListLiveData(query, firebaseAuthDataSource.getUser().getUid());
+    public OfferListLiveData getOfferListLiveData() {
+        Query query = offersRef.whereEqualTo("providerId", firebaseAuthDataSource.getUser().getUid());
+        return new OfferListLiveData(query);
     }
 
     public void setStatus(OfferModel offer, String status) {
-        productsRef.document(offer.getId()).update("status", status);
+        offersRef.document(offer.getId()).update("status", status);
         if (status.equals("ACCEPTED")) {
-            productsRef.document(offer.getId()).addSnapshotListener((value, error) -> {
+            offersRef.document(offer.getId()).addSnapshotListener((value, error) -> {
                 if (error == null) {
                     DocumentReference receiverPost = (DocumentReference) value.get("receiverPost");
 
