@@ -62,7 +62,6 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
         OfferListLiveData offerListLiveData = viewModel.getProductListLiveData();
 
         if (offerListLiveData != null) {
-            binding.setIsLoading(true);
             offerListLiveData.observe(getViewLifecycleOwner(), operation -> {
                 switch (operation.getType()) {
                     case R.string.added:
@@ -77,7 +76,6 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
                         offerAdapter.notifyItemChanged(offers.indexOf(modifiedProduct));
                         break;
                 }
-                binding.setIsLoading(false);
             });
         }
 
