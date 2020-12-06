@@ -21,6 +21,7 @@ import ca.dal.bartertrader.presentation.view.SwitchHandlerFragment;
 import ca.dal.bartertrader.presentation.view.provider_home.HandlePostFragment;
 import ca.dal.bartertrader.presentation.view.provider_home.ProviderHomeFragment;
 import ca.dal.bartertrader.presentation.view.receiver_home.ReceiverHomeFragment;
+import ca.dal.bartertrader.presentation.view.receiver_home.ReceiverHomePostFilterFragment;
 
 public class CustomFragmentFactory extends FragmentFactory {
     private final LoginViewModelFactory loginViewModelFactory;
@@ -81,6 +82,10 @@ public class CustomFragmentFactory extends FragmentFactory {
 
         if (className.equals(ProviderOfferFragment.class.getName())) {
             return new ProviderOfferFragment(providerOfferViewModelFactory);
+        }
+
+        if (className.equals(ReceiverHomePostFilterFragment.class.getName())) {
+            return new ReceiverHomePostFilterFragment(receiverHomeViewModelFactory);
         }
 
         return super.instantiate(classLoader, className);

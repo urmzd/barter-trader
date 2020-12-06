@@ -15,6 +15,7 @@ import ca.dal.bartertrader.data.repository.ProviderOfferRepositoryCallback;
 import ca.dal.bartertrader.di.data_source.FirebaseAuthDataSourceFactory;
 import ca.dal.bartertrader.di.data_source.FirebaseFirestoreDataSourceFactory;
 import ca.dal.bartertrader.di.data_source.FirebaseStorageDataSourceFactory;
+import ca.dal.bartertrader.di.data_source.ReceiverPostPagingSourceFactory;
 import ca.dal.bartertrader.di.fragment.CustomFragmentFactory;
 import ca.dal.bartertrader.di.repository.FirebasePostsRepositoryFactory;
 import ca.dal.bartertrader.di.repository.FirebaseReviewRepositoryFactory;
@@ -22,6 +23,7 @@ import ca.dal.bartertrader.di.repository.FirebaseUserRepositoryFactory;
 import ca.dal.bartertrader.di.repository.ProviderOfferRepositoryCallbackFactory;
 import ca.dal.bartertrader.di.use_case.ResetPasswordUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.VerifyEmailExistsUseCaseFactory;
+import ca.dal.bartertrader.di.use_case.posts.GetPagedPostsUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.posts.GetPostsUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.posts.SetPostUseCaseFactory;
 import ca.dal.bartertrader.di.use_case.reviews.SetReviewUseCaseFactory;
@@ -38,6 +40,7 @@ import ca.dal.bartertrader.di.view_model.provider_home.ProviderHomeViewModelFact
 import ca.dal.bartertrader.di.view_model.receiver_home.ReceiverHomeViewModelFactory;
 import ca.dal.bartertrader.domain.use_case.ResetPasswordUseCase;
 import ca.dal.bartertrader.domain.use_case.VerifyEmailExistsUseCase;
+import ca.dal.bartertrader.domain.use_case.posts.GetPagedPostsUseCase;
 import ca.dal.bartertrader.domain.use_case.posts.GetPostsUseCase;
 import ca.dal.bartertrader.domain.use_case.posts.SetPostUseCase;
 import ca.dal.bartertrader.domain.use_case.reviews.SetReviewUseCase;
@@ -58,9 +61,12 @@ public class BarterTraderInjector {
     private final FirebaseStorageDataSource firebaseStorageDataSource = new FirebaseStorageDataSourceFactory(firebaseStorage).create();
     private final FirebaseFirestoreDataSource firebaseFirestoreDataSource = new FirebaseFirestoreDataSourceFactory(firebaseFirestore).create();
 
+    // Paged Data Source
+    private final ReceiverPostPagingSourceFactory receiverPostPagingSourceFactory = new ReceiverPostPagingSourceFactory(firebaseStorage, firebaseFirestore, null);
+
     // Repositories
     private final FirebaseUserRepository firebaseUserRepository = new FirebaseUserRepositoryFactory(firebaseAuthDataSource, firebaseFirestoreDataSource).create();
-    private final FirebasePostsRepository firebasePostsRepository = new FirebasePostsRepositoryFactory(firebaseStorageDataSource, firebaseFirestoreDataSource, firebaseAuthDataSource).create();
+    private final FirebasePostsRepository firebasePostsRepository = new FirebasePostsRepositoryFactory(firebaseStorageDataSource, firebaseFirestoreDataSource, firebaseAuthDataSource, receiverPostPagingSourceFactory).create();
     private final FirebaseReviewRepository firebaseReviewRepository = new FirebaseReviewRepositoryFactory(firebaseStorageDataSource, firebaseFirestoreDataSource, firebaseAuthDataSource).create();
 
     private final ProviderOfferRepositoryCallback providerOfferRepositoryCallback = new ProviderOfferRepositoryCallbackFactory(firebaseFirestore, firebaseAuthDataSource).create();
@@ -76,6 +82,7 @@ public class BarterTraderInjector {
     private final SetPostUseCase setPostUseCase = new SetPostUseCaseFactory(firebasePostsRepository).create();
     private final GetPostsUseCase getPostsUseCase = new GetPostsUseCaseFactory(firebasePostsRepository).create();
     private final SetReviewUseCase setReviewUseCase = new SetReviewUseCaseFactory(firebaseReviewRepository).create();
+    private final GetPagedPostsUseCase getPagedPostsUseCase = new GetPagedPostsUseCaseFactory(firebasePostsRepository).create();
 
     // View Model Factories
     private final LoginViewModelFactory loginViewModelFactory = new LoginViewModelFactory(loginUseCase);
@@ -83,7 +90,7 @@ public class BarterTraderInjector {
     private final PasswordResetViewModelFactory passwordResetViewModelFactory = new PasswordResetViewModelFactory(resetPasswordUseCase);
     private final ProviderHomeViewModelFactory providerHomeViewModelFactory = new ProviderHomeViewModelFactory(getPostsUseCase, switchRoleUseCase);
     private final HandlePostViewModelFactory handlePostViewModelFactory = new HandlePostViewModelFactory(setPostUseCase);
-    private final ReceiverHomeViewModelFactory receiverHomeViewModelFactory = new ReceiverHomeViewModelFactory(getPostsUseCase);
+    private final ReceiverHomeViewModelFactory receiverHomeViewModelFactory = new ReceiverHomeViewModelFactory(getPagedPostsUseCase, switchRoleUseCase);
     private final HandleReviewViewModelFactory handleReviewViewModelFactory = new HandleReviewViewModelFactory(setReviewUseCase);
     private final ProviderOfferViewModelFactory providerOfferViewModelFactory = new ProviderOfferViewModelFactory(providerOfferRepositoryCallback);
 
@@ -92,6 +99,10 @@ public class BarterTraderInjector {
     
     public Single<FirebaseUserModel> getUser() {
         return firebaseUserRepository.getUser();
+    }
+
+    public ReceiverHomeViewModelFactory getReceiverHomeViewModelFactory(){
+        return receiverHomeViewModelFactory;
     }
 
 }

@@ -1,7 +1,6 @@
 package ca.dal.bartertrader.presentation.view;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,27 +13,21 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import ca.dal.bartertrader.BarterTradeApplication;
 import ca.dal.bartertrader.R;
-import ca.dal.bartertrader.data.data_source.FirebaseAuthDataSource;
 import ca.dal.bartertrader.data.model.FirebaseUserModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.core.Single;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.disposables.Disposable;
-import io.reactivex.rxjava3.disposables.DisposableContainer;
 
 public class SwitchHandlerFragment extends Fragment {
-
     CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Single<FirebaseUserModel> authDataSource = ((BarterTradeApplication) getActivity().getApplication()).injector.getUser();
+        Single<FirebaseUserModel> user = ((BarterTradeApplication) getActivity().getApplication()).injector.getUser();
 
-        Log.d("URMZD","WE GOT HERE");
-        compositeDisposable.add(authDataSource.observeOn(AndroidSchedulers.mainThread()).subscribe((firebaseUserModel, throwable) -> {
-            Log.d("URMZD", String.valueOf(firebaseUserModel.getProvider()));
+        compositeDisposable.add(user.observeOn(AndroidSchedulers.mainThread()).subscribe((firebaseUserModel, throwable) -> {
             if (firebaseUserModel != null) {
                 boolean provider = firebaseUserModel.getProvider();
 
@@ -48,7 +41,6 @@ public class SwitchHandlerFragment extends Fragment {
                 NavHostFragment.findNavController(this).popBackStack(R.id.profileFragment, true);
             }
         }));
-
 
     }
 

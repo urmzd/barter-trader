@@ -6,8 +6,8 @@
         android:id="@+id/receiver_search"
         android:icon="@drawable/ic_baseline_search_24"
         android:title="@string/title_search"
-        app:actionViewClass="android.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView" />
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
 
     <item
         android:id="@+id/receiver_filter"
@@ -19,6 +19,6 @@
         android:id="@+id/receiver_notifications"
         android:icon="@drawable/ic_baseline_notifications_24"
         android:title="@string/label_notifications"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>

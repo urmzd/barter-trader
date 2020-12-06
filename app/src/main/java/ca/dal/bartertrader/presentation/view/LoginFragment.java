@@ -8,11 +8,10 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-
-import com.google.android.material.appbar.MaterialToolbar;
 
 import ca.dal.bartertrader.R;
 import ca.dal.bartertrader.databinding.FragmentLoginBinding;
@@ -47,7 +46,7 @@ public class LoginFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        NavigationUtils.setUpToolBar(getView(), (MaterialToolbar) binding.toolbar, R.id.loginFragment);
+        NavigationUtils.setUpToolBar(getView(), (Toolbar) binding.toolbar, R.id.loginFragment);
 
         viewModel.getGoToPasswordResetLiveEvent().observe(getViewLifecycleOwner(), __ -> {
             Navigation.findNavController(requireView()).navigate(LoginFragmentDirections.actionLoginFragmentToPasswordResetFragment());

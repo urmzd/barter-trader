@@ -7,7 +7,7 @@
     <string name="title_last_name_placeholder">Last Name</string>
     <string name="title_confirmed_password_placeholder">Confirmed Password</string>
     <string name="title_provider">Provider</string>
-    <string name="title_receiver_nav">Home</string>
+    <string name="title_receiver">Receiver</string>
     <string name="title_select_role">Please select a default role.</string>
 
 
@@ -43,7 +43,7 @@
     <string name="message_reset_password">Provide the email associated with your account!</string>
     <string name="action_go_back">BACK</string>
     <string name="action_sendEmail">Send Email</string>
-    <string name="title_search_placeholder">Search...</string>
+    <string name="title_search_placeholder">Search…</string>
     <string name="temp_image_placeholder">Temporary Image</string>
     <string name="message_dummy_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin convallis lorem ac nunc convallis, ut gravida orci varius. Curabitur laoreet massa id purus posuere, et blandit risus egestas. Cras rutrum semper fermentum. Proin ut auctor augue, eget ullamcorper ante. Ut dictum diam vitae purus porta, sit amet consectetur dolor hendrerit. Praesent ac nulla porta purus rutrum tincidunt ac et ligula. Pellentesque pulvinar sed urna in faucibus. Praesent id tellus a mi aliquam vehicula condimentum at lorem.</string>
     <string name="label_switch_role">Switch Role FAB</string>
@@ -71,5 +71,8 @@
     <string name="added">added</string>
     <string name="modified">modified</string>
     <string name="label_provider_offers">Provider Offers</string>
+    <string name="post_image">Post Image</string>
+    <string name="loading_account">Loading Account…</string>
+    <string name="action_offer_item">Offer Item</string>
 
 </resources>

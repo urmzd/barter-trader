@@ -1,7 +1,6 @@
 package ca.dal.bartertrader.presentation.view.profile;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +76,6 @@ public class ProfileFragment extends Fragment {
                 .setQuery(query, Review.class)
                 .build();
 
-        Log.d("UID", uid);
         adapter = new ReviewAdapter(options, uid);
 
         RecyclerView recyclerView = getView().findViewById(R.id.profile_fragment_recyclerView_review);
