@@ -25,6 +25,12 @@
         android:name="ca.dal.bartertrader.presentation.view.receiver_home.ReceiverHomeFragment"
         android:label="@string/label_receiver_homepage"
         tools:layout="@layout/fragment_receiver_home">
+        <action
+            android:id="@+id/action_receiverHomeFragment_to_dialogFilterFragment"
+            app:destination="@id/dialogFilterFragment" />
+        <action
+            android:id="@+id/action_receiverHomeFragment_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
     </fragment>
 
     <fragment
@@ -43,7 +49,8 @@
             app:destination="@id/providerOffersFragment" />
     </fragment>
 
-    <fragment android:id="@+id/providerOffersFragment"
+    <fragment
+        android:id="@+id/providerOffersFragment"
         android:name="ca.dal.bartertrader.presentation.view.ProviderOfferFragment"
         android:label="@string/label_provider_offers"
         tools:layout="@layout/fragment_provider_offers">
@@ -52,6 +59,11 @@
             app:destination="@id/handleReviewFragment" />
     </fragment>
 
+    <dialog
+        android:id="@+id/dialogFilterFragment"
+        android:name="ca.dal.bartertrader.presentation.view.receiver_home.ReceiverHomePostFilterFragment"
+        android:label="@string/label_filter"
+        tools:layout="@layout/dailog_filter_posts" />
 
     <fragment
         android:id="@+id/handlePostFragment"

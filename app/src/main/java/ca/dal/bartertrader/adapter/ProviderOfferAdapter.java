@@ -1,6 +1,5 @@
 package ca.dal.bartertrader.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -98,7 +97,6 @@ public class ProviderOfferAdapter extends RecyclerView.Adapter<ProviderOfferAdap
             this.cardOfferBinding = cardOfferBinding;
 
             cardOfferBinding.acceptButton.setOnClickListener(v -> {
-                Log.d("TAG", getOffer().getReceiverPost().getDescription());
                 getOffer().setStatus(OfferStatus.valueOf("ACCEPTED"));
                 offerListener.onAcceptDeclineClick(getOffer(), "ACCEPTED");
                 notifyItemChanged(getAbsoluteAdapterPosition());
