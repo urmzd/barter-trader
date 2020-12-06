@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -45,7 +46,16 @@ public class ReceiverHomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-
+        NavigationUtils.setUpToolBar(getView(), binding.toolbar, R.id.providerHomeFragment);
+        setHasOptionsMenu(true);
     }
 
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.receiver_home_menu, menu);
+
+        SearchView searchView = (SearchView) menu.findItem(R.id.receiver_search).getActionView();
+    }
 }

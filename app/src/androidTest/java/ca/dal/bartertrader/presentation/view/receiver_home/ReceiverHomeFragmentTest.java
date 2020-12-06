@@ -44,6 +44,7 @@ import static org.hamcrest.Matchers.allOf;
 
 @RunWith(AndroidJUnit4.class)
 public class ReceiverHomeFragmentTest {
+
     public static ViewAction typeSearchViewText(final String text){
         return new ViewAction(){
             @Override
@@ -83,10 +84,6 @@ public class ReceiverHomeFragmentTest {
         });
     }
 
-    @After
-    public void tearDown() throws Exception {
-    }
-
     @Test
     public void testEditableSearchViewExpands() {
         onView(withId(R.id.receiver_search)).perform(click());
@@ -94,4 +91,5 @@ public class ReceiverHomeFragmentTest {
         onView(isAssignableFrom(SearchView.class)).perform(typeSearchViewText("Urmzd"));
         onView(isAssignableFrom(AutoCompleteTextView.class)).check(matches(withText("Urmzd")));
     }
+
 }
