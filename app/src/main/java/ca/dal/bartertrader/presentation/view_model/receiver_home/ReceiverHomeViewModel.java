@@ -1,29 +1,27 @@
 package ca.dal.bartertrader.presentation.view_model.receiver_home;
 
 import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelKt;
+import androidx.paging.PagingData;
+import androidx.paging.rxjava3.PagingRx;
 
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.List;
-
-import ca.dal.bartertrader.domain.use_case.posts.GetPostsUseCase;
-import ca.dal.bartertrader.utils.handler.live_data.event.LiveEvent;
-import ca.dal.bartertrader.utils.handler.resource.Resource;
-import io.reactivex.rxjava3.core.Single;
+import ca.dal.bartertrader.data.model.FirebasePostModel;
+import ca.dal.bartertrader.domain.use_case.posts.GetPagedPostsUseCase;
+import io.reactivex.rxjava3.core.Flowable;
+import kotlinx.coroutines.CoroutineScope;
 
 public class ReceiverHomeViewModel extends ViewModel {
 
-    private final GetPostsUseCase getPostsUseCase;
+    private final GetPagedPostsUseCase getPagedPostsUseCase;
 
 
-    public ReceiverHomeViewModel(GetPostsUseCase getPostsUseCase) {
-        this.getPostsUseCase = getPostsUseCase;
+    public ReceiverHomeViewModel(GetPagedPostsUseCase getPagedPostsUseCase) {
+        this.getPagedPostsUseCase = getPagedPostsUseCase;
     }
 
-    private final LiveEvent<Single<QuerySnapshot>> querySnapshots = new LiveEvent<>();
-    private final LiveEvent<Single<List<byte[]>>> imageSnapshots = new LiveEvent<>();
-
-    public void retrievePosts() {
+    public Flowable<PagingData<FirebasePostModel>> retrievePosts(String query) {
+        CoroutineScope viewModelScope = ViewModelKt.getViewModelScope(this);
+        return PagingRx.cachedIn(getPagedPostsUseCase.execute(query), viewModelScope);
     }
 
 

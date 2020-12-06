@@ -1,23 +1,15 @@
 package ca.dal.bartertrader.presentation.view_model.provider_home;
 
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
-import android.net.Uri;
-import android.util.Log;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import ca.dal.bartertrader.domain.model.PostModel;
 import ca.dal.bartertrader.domain.use_case.posts.GetPostsUseCase;
@@ -27,7 +19,6 @@ import ca.dal.bartertrader.utils.handler.resource.Resource;
 import ca.dal.bartertrader.utils.handler.resource.Status;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.disposables.Disposable;
 
 public class ProviderHomeViewModel extends ViewModel {
 
@@ -49,8 +40,6 @@ public class ProviderHomeViewModel extends ViewModel {
                     postModels.add(postModel/*document.toObject(PostModel.class)*/);
                 }
                 postItemList.setValue(postModels);
-            } else {
-                Log.d("TAG", "Error getting documents: ", task.getException());
             }
         });
     }

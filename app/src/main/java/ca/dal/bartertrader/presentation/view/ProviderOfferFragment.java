@@ -108,7 +108,6 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
 
     }
 
-
     @Override
     public void onAcceptDeclineClick(OfferModel offer, String status) {
         viewModel.setStatus(offer, status);
