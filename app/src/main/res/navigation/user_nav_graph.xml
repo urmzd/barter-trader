@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_receiverHomeFragment_to_dialogFilterFragment"
             app:destination="@id/dialogFilterFragment" />
+        <action
+            android:id="@+id/action_receiverHomeFragment_to_providerHomeFragment"
+            app:destination="@id/providerHomeFragment" />
     </fragment>
 
     <fragment

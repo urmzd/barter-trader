@@ -90,7 +90,7 @@ public class BarterTraderInjector {
     private final PasswordResetViewModelFactory passwordResetViewModelFactory = new PasswordResetViewModelFactory(resetPasswordUseCase);
     private final ProviderHomeViewModelFactory providerHomeViewModelFactory = new ProviderHomeViewModelFactory(getPostsUseCase, switchRoleUseCase);
     private final HandlePostViewModelFactory handlePostViewModelFactory = new HandlePostViewModelFactory(setPostUseCase);
-    private final ReceiverHomeViewModelFactory receiverHomeViewModelFactory = new ReceiverHomeViewModelFactory(getPagedPostsUseCase);
+    private final ReceiverHomeViewModelFactory receiverHomeViewModelFactory = new ReceiverHomeViewModelFactory(getPagedPostsUseCase, switchRoleUseCase);
     private final HandleReviewViewModelFactory handleReviewViewModelFactory = new HandleReviewViewModelFactory(setReviewUseCase);
     private final ProviderOfferViewModelFactory providerOfferViewModelFactory = new ProviderOfferViewModelFactory(providerOfferRepositoryCallback);
 

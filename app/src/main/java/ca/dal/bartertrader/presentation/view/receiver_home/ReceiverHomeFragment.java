@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,6 +22,7 @@ import ca.dal.bartertrader.databinding.FragmentReceiverHomeBinding;
 import ca.dal.bartertrader.di.view_model.receiver_home.ReceiverHomeViewModelFactory;
 import ca.dal.bartertrader.presentation.view_model.receiver_home.ReceiverHomeViewModel;
 import ca.dal.bartertrader.utils.NavigationUtils;
+import ca.dal.bartertrader.utils.handler.resource.Status;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class ReceiverHomeFragment extends Fragment {
@@ -76,6 +78,21 @@ public class ReceiverHomeFragment extends Fragment {
         filterView.setOnMenuItemClickListener(item -> {
             Navigation.findNavController(getView()).navigate(ReceiverHomeFragmentDirections.actionReceiverHomeFragmentToDialogFilterFragment());
             return true;
+        });
+
+        binding.switchRole.setOnClickListener(v -> viewModel.switchRole());
+
+        viewModel.getSwitchRoleStatus().observe(getViewLifecycleOwner(), status -> {
+            if (status == Status.FULFILLED) {
+                Toast.makeText(getContext(), "Role Switched!", Toast.LENGTH_SHORT).show();
+                Navigation.findNavController(getView()).navigate(ReceiverHomeFragmentDirections.actionReceiverHomeFragmentToProviderHomeFragment());
+            } else if (status == Status.REJECTED) {
+                Toast.makeText(getContext(), "Error occured... Please try again!", Toast.LENGTH_LONG).show();
+            } else {
+                binding.progressBar.setVisibility(View.VISIBLE);
+            }
+
+
         });
 
         SearchView searchView = (SearchView) ((Toolbar) binding.toolbar).getMenu().findItem(R.id.receiver_search).getActionView();
