@@ -1,7 +1,5 @@
 package ca.dal.bartertrader.data.data_source;
 
-import android.util.Log;
-
 import androidx.paging.rxjava3.RxPagingSource;
 
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -15,6 +13,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import ca.dal.bartertrader.data.model.FirebasePostModel;
+import ca.dal.bartertrader.domain.model.ReceiverPostQuery;
 import ca.dal.bartertrader.utils.handler.async.SingleTaskHandler;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
@@ -24,20 +23,22 @@ public class ReceiverPostPagingSource extends RxPagingSource<String, FirebasePos
 
     private final FirebaseFirestore firebaseFirestore;
     private final FirebaseStorage firebaseStorage;
-    private final String query;
+    private final ReceiverPostQuery query;
     private final long FIVE_MEGABYTES = 5 * 1024 * 1024;
 
-    public ReceiverPostPagingSource(String query, FirebaseFirestore firebaseFirestore, FirebaseStorage firebaseStorage) {
+    public ReceiverPostPagingSource(ReceiverPostQuery query, FirebaseFirestore firebaseFirestore, FirebaseStorage firebaseStorage) {
         this.firebaseFirestore = firebaseFirestore;
         this.firebaseStorage = firebaseStorage;
         this.query = query;
     }
 
-    private Single<QuerySnapshot> getPosts(String lastPostId, String title) {
+    private Single<QuerySnapshot> getPosts(String lastPostId, ReceiverPostQuery query) {
         Query queryToMake = firebaseFirestore.collection("posts").limit(10);
+        String field = query.getField() != null ? query.getField() : "title";
 
-        if (title != null) {
-            queryToMake = queryToMake.whereGreaterThanOrEqualTo("title", title);
+        if (query.getField() != null) {
+            Query.Direction direction = query.getAscending() ? Query.Direction.ASCENDING : Query.Direction.DESCENDING;
+            queryToMake = queryToMake.whereGreaterThanOrEqualTo(field, query.getQuery()).orderBy(field, direction);
         }
 
         if (lastPostId != null) {

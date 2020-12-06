@@ -1,11 +1,10 @@
 package ca.dal.bartertrader.presentation.view.receiver_home;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +12,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.paging.LoadState;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,29 +55,34 @@ public class ReceiverHomeFragment extends Fragment {
         ReceiverHomeAdapter pagingAdapter = new ReceiverHomeAdapter(new FirebasePostModelComparator());
 
         setUpAdapter(pagingAdapter);
+
+        viewModel.getRefresh().observe(getViewLifecycleOwner(), __ -> {
+            refreshPagingSource(null, pagingAdapter);
+        });
     }
 
     private void setUpAdapter(ReceiverHomeAdapter pagingAdapter) {
         RecyclerView recyclerView = (RecyclerView) binding.recyclerView;
         recyclerView.setAdapter(pagingAdapter);
 
-        compositeDisposable.add(viewModel.retrievePosts(null).subscribe(
-                firebasePostModelPagingData -> pagingAdapter.submitData(getLifecycle(), firebasePostModelPagingData)
-        ));
+        refreshPagingSource(null, pagingAdapter);
 
         pagingAdapter.addLoadStateListener(combinedLoadStates -> {
             binding.progressBar.setVisibility(combinedLoadStates.getRefresh() instanceof LoadState.Loading ? View.VISIBLE : View.GONE);
             return null;
         });
 
+        MenuItem filterView = ((Toolbar) binding.toolbar).getMenu().findItem(R.id.receiver_filter);
+        filterView.setOnMenuItemClickListener(item -> {
+            Navigation.findNavController(getView()).navigate(ReceiverHomeFragmentDirections.actionReceiverHomeFragmentToDialogFilterFragment());
+            return true;
+        });
+
         SearchView searchView = (SearchView) ((Toolbar) binding.toolbar).getMenu().findItem(R.id.receiver_search).getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                viewModel.retrievePosts(query);
-                compositeDisposable.add(viewModel.retrievePosts(query).subscribe(
-                        firebasePostModelPagingData -> pagingAdapter.submitData(getLifecycle(), firebasePostModelPagingData)
-                ));
+                refreshPagingSource(query, pagingAdapter);
                 return true;
             }
 
@@ -86,6 +91,13 @@ public class ReceiverHomeFragment extends Fragment {
                 return false;
             }
         });
+    }
+
+    protected void refreshPagingSource(String query, ReceiverHomeAdapter pagingAdapter) {
+        viewModel.retrievePosts(query);
+        compositeDisposable.add(viewModel.retrievePosts(query).subscribe(
+                firebasePostModelPagingData -> pagingAdapter.submitData(getLifecycle(), firebasePostModelPagingData)
+        ));
     }
 
     @Override

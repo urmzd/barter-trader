@@ -15,6 +15,7 @@ import ca.dal.bartertrader.data.data_source.ReceiverPostPagingSource;
 import ca.dal.bartertrader.data.model.FirebasePostModel;
 import ca.dal.bartertrader.di.data_source.ReceiverPostPagingSourceFactory;
 import ca.dal.bartertrader.domain.model.PostModel;
+import ca.dal.bartertrader.domain.model.ReceiverPostQuery;
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
@@ -51,7 +52,7 @@ public class FirebasePostsRepository {
         }
     }
 
-    public Flowable<PagingData<FirebasePostModel>> getPagedPost(String query) {
+    public Flowable<PagingData<FirebasePostModel>> getPagedPost(ReceiverPostQuery query) {
         ReceiverPostPagingSourceFactory temp = receiverPostPagingSourceFactory;
         temp.changeQuery(query);
         ReceiverPostPagingSource pagingSource = temp.create();
