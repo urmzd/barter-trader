@@ -28,14 +28,11 @@ import ca.dal.bartertrader.utils.listeners.OfferListener;
 
 public class ProviderOfferFragment extends Fragment implements OfferListener {
     private final ProviderOfferViewModelFactory providerOfferViewModelFactory;
-    private String TAG = "ProviderOfferFragment";
-    private RecyclerView.OnScrollListener onScrollListener;
     private RecyclerView recyclerView;
     private ArrayList<OfferModel> offers = new ArrayList<>();
     private ProviderOfferAdapter offerAdapter;
     private FragmentProviderOffersBinding binding;
     private ProviderOfferViewModel viewModel;
-    private boolean isScrolling;
 
     public ProviderOfferFragment(ProviderOfferViewModelFactory providerOfferViewModelFactory) {
         this.providerOfferViewModelFactory = providerOfferViewModelFactory;
@@ -62,11 +59,11 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
     }
 
     public void getOffers() {
-        OfferListLiveData productListLiveData = viewModel.getProductListLiveData();
+        OfferListLiveData offerListLiveData = viewModel.getProductListLiveData();
 
-        if (productListLiveData != null) {
+        if (offerListLiveData != null) {
             binding.setIsLoading(true);
-            productListLiveData.observe(getViewLifecycleOwner(), operation -> {
+            offerListLiveData.observe(getViewLifecycleOwner(), operation -> {
                 switch (operation.getType()) {
                     case R.string.added:
                         OfferModel addedProduct = operation.getOffer();
@@ -115,8 +112,7 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
 
     @Override
     public void onReviewClick(OfferModel offerModel) {
-
-        Navigation.findNavController(requireView()).navigate(ProviderOfferFragmentDirections.actionProviderOffersFragmentToHandleReviewFragment());
+        Navigation.findNavController(requireView()).navigate(ProviderOfferFragmentDirections.actionProviderOffersFragmentToHandleReviewFragment(offerModel));
     }
 
     @Override
