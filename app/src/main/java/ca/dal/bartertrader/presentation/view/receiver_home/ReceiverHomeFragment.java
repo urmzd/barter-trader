@@ -47,4 +47,5 @@ public class ReceiverHomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
     }
+
 }
