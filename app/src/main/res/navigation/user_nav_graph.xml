@@ -56,7 +56,12 @@
         tools:layout="@layout/fragment_provider_offers">
         <action
             android:id="@+id/action_providerOffersFragment_to_handleReviewFragment"
-            app:destination="@id/handleReviewFragment" />
+            app:destination="@id/handleReviewFragment">
+            <argument
+                android:name="offerModel"
+                app:argType="ca.dal.bartertrader.domain.model.OfferModel" />
+        </action>
+
     </fragment>
 
     <dialog
