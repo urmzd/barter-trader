@@ -27,6 +27,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static junit.framework.Assert.assertEquals;
 import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.is;
 
 
 @RunWith(AndroidJUnit4.class)
@@ -68,8 +69,8 @@ public class ProviderOffersInstrumentedTest {
 
     @Test
     public void onAcceptClick() throws InterruptedException {
-        final TextView[] declineText = clickDecline(0);
-        assertEquals(declineText[0].getVisibility(), View.VISIBLE);
+        final TextView[] acceptText = clickAccept(0);
+        assertEquals(acceptText[0].getVisibility(), View.VISIBLE);
     }
 
     @Test
@@ -80,34 +81,12 @@ public class ProviderOffersInstrumentedTest {
 
 
     @Test
-    public void onSubmitReview() throws InterruptedException {
+    public void onClickReview() throws InterruptedException {
         clickAccept(1);
         clickReview(1);
-        onView(withId(R.id.review_input)).perform(typeText("This is a test a test review"), closeSoftKeyboard());
-        onView(withId(R.id.star_rating_input)).perform(click());
-        onView(withId(R.id.confirm_review_button)).perform(click());
         Thread.sleep(2000);
 
-        final TextView[] completeText = new TextView[1];
-        onView(withId(R.id.recycler_view)).perform(RecyclerViewActions.actionOnItemAtPosition(2,
-                new ViewAction() {
-                    @Override
-                    public Matcher<View> getConstraints() {
-                        return null;
-                    }
-
-                    @Override
-                    public String getDescription() {
-                        return "On review click";
-                    }
-
-                    @Override
-                    public void perform(UiController uiController, View view) {
-                        completeText[0] = view.findViewById(R.id.complete_text);
-                    }
-                }));
-        Thread.sleep(5000);
-        assertEquals(completeText[0].getVisibility(), View.VISIBLE);
+        onView(withText("Exchange Review Form")).check(matches(isDisplayed()));
     }
 
     private TextView[] clickAccept(int position) throws InterruptedException {
