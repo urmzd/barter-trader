@@ -15,4 +15,8 @@
 .cxx
 .settings
 .project
-app/google-services.json
+app/google-services.json.claude/
+.vscode/
+.env
+.env.*
+.idea/
