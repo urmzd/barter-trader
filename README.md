@@ -11,6 +11,8 @@
   </p>
 </p>
 
+> **Archived (March 2026)** — This project originated as a university group project in October 2020 and was actively developed through early 2021. The dev environment was modernized in March 2026 (Nix flake, Docker-based Firebase emulators) to ensure the project remains buildable, but no further feature work is planned. Archiving for portfolio preservation.
+
 ## Features
 
 - Two-role system: **Providers** offer items, **Receivers** browse and request trades
