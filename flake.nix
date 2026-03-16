@@ -37,6 +37,9 @@
           platformVersion = "30";
           abiVersion = "arm64-v8a";
           systemImageType = "google_apis";
+          configOptions = {
+            "hw.keyboard" = "yes";
+          };
           sdkExtraArgs = {};
         };
 
