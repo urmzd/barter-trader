@@ -25,7 +25,9 @@
 
         androidSdk = androidComposition.androidsdk;
 
-        javaHome = "${pkgs.jdk11}";
+        javaHome = if pkgs.stdenv.isDarwin
+          then "${pkgs.jdk11}/Library/Java/JavaVirtualMachines/zulu-11.jdk/Contents/Home"
+          else "${pkgs.jdk11}";
 
       in
       {
