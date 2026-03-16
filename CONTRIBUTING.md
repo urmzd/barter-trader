@@ -6,9 +6,6 @@
 # One-time: allow direnv (auto-activates on cd, generates local.properties)
 direnv allow
 
-# Add your Firebase config
-cp /path/to/your/google-services.json app/google-services.json
-
 # Launch Android emulator (background)
 nix run .#emulator &
 

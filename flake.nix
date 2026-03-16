@@ -2,7 +2,7 @@
   description = "Barter Trader - Android dev environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -16,13 +16,11 @@
         };
 
         androidComposition = pkgs.androidenv.composeAndroidPackages {
-          buildToolsVersions = [ "30.0.2" "30.0.3" ];
+          buildToolsVersions = [ "30.0.3" ];
           platformVersions = [ "30" ];
-          includeEmulator = true;
-          includeSystemImages = true;
-          systemImageTypes = [ "google_apis" ];
-          abiVersions = [ "x86_64" "arm64-v8a" ];
-          includeExtras = [ "extras;google;gcm" ];
+          includeEmulator = false;
+          includeSystemImages = false;
+          abiVersions = [ "arm64-v8a" ];
         };
 
         androidSdk = androidComposition.androidsdk;
@@ -39,9 +37,7 @@
           platformVersion = "30";
           abiVersion = "arm64-v8a";
           systemImageType = "google_apis";
-          sdkExtraArgs = {
-            emulatorVersion = "35.1.4";
-          };
+          sdkExtraArgs = {};
         };
 
         devShells.default = pkgs.mkShell {
@@ -49,8 +45,6 @@
             pkgs.jdk11
             androidSdk
             pkgs.gradle
-            pkgs.nodejs_24
-            pkgs.nodePackages.firebase-tools
           ];
 
           JAVA_HOME = javaHome;

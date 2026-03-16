@@ -1,0 +1,13 @@
+services:
+  firebase:
+    image: andreysenov/firebase-tools
+    ports:
+      - "4000:4000"   # Emulator UI
+      - "8080:8080"   # Firestore
+      - "9099:9099"   # Auth
+      - "9199:9199"   # Storage
+    volumes:
+      - ./firebase.json:/home/node/firebase.json:ro
+      - ./firestore.rules:/home/node/firestore.rules:ro
+      - ./storage.rules:/home/node/storage.rules:ro
+    command: firebase emulators:start --project barter-trader-local

@@ -13,7 +13,7 @@ Android barter marketplace app. Users exchange items as Providers (offer items) 
 - **Reactive**: RxJava3 + LiveData
 - **UI**: Data Binding, Material Design 1.2.1, Glide 4.11.0
 - **DI**: Manual factory pattern (no Dagger/Hilt)
-- **Dev environment**: Nix flake (JDK 11, Android SDK, Firebase Tools)
+- **Dev environment**: Nix flake (JDK 11, Android SDK, Gradle), Docker Compose (Firebase emulators)
 
 ## Build & Run
 
@@ -29,7 +29,7 @@ nix run .#emulator &  # Launch Android emulator (background)
 - `nix run .#emulator` launches an Android emulator with API 30 arm64 via `androidenv.emulateApp`
 - `./gradlew dev` chains `installDebug` + `seed` — requires a running Android emulator/device and Firebase emulators
 - `./gradlew seed` populates Firebase emulators with test users (`provider@test.com` / `receiver@test.com`) and sample posts
-- Requires `app/google-services.json` (gitignored). Debug builds auto-connect to Firebase emulators at `10.0.2.2`.
+- A dummy `app/google-services.json` is committed for local dev. Debug builds auto-connect to Firebase emulators at `10.0.2.2`.
 
 ## Architecture
 

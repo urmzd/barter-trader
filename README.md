@@ -24,7 +24,8 @@
 
 ### Prerequisites
 
-- [Nix](https://nixos.org/download.html) — provides JDK 11, Android SDK, Android emulator, Gradle, Node.js, and Firebase Tools
+- [Nix](https://nixos.org/download.html) — provides JDK 11, Android SDK, Android emulator, and Gradle
+- [Docker](https://docs.docker.com/get-docker/) — runs Firebase emulators
 - [direnv](https://direnv.net/) (recommended) — auto-activates the dev environment on `cd`
 
 ### Setup
@@ -32,12 +33,11 @@
 ```bash
 # One-time: allow direnv (auto-activates on cd)
 direnv allow
-
-# Add your Firebase config
-cp /path/to/your/google-services.json app/google-services.json
 ```
 
 If you don't use direnv, run `nix develop` manually to enter the dev shell.
+
+A dummy `google-services.json` is included for local development — debug builds connect to Firebase emulators, so real credentials aren't needed.
 
 ### Development
 
@@ -54,7 +54,7 @@ nix run .#emulator &     # Launch Android emulator (background)
 | Task | Description |
 |---|---|
 | `nix run .#emulator` | Launch the Android emulator |
-| `./gradlew emulators` | Start Firebase emulators |
+| `./gradlew emulators` | Start Firebase emulators (via Docker) |
 | `./gradlew seed` | Seed Firebase emulators with test data |
 | `./gradlew dev` | Build + install + seed (all-in-one) |
 | `./gradlew test` | Run unit tests |
@@ -95,7 +95,7 @@ View → ViewModel → UseCase → Repository → DataSource
 
 ### Firebase Emulators
 
-Configured in `firebase.json`:
+Run via Docker Compose (`docker-compose.yml`), configured in `firebase.json`:
 
 | Service | Port |
 |---|---|

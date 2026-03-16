@@ -29,9 +29,9 @@ task clean(type: Delete) {
 }
 
 task emulators(type: Exec) {
-    description 'Start Firebase emulators'
+    description 'Start Firebase emulators via Docker Compose'
     group 'development'
-    commandLine 'firebase', 'emulators:start', '--project', 'barter-trader-local'
+    commandLine 'docker', 'compose', 'up'
 }
 
 task seed(type: Exec) {
