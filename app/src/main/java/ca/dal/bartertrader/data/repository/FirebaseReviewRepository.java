@@ -27,8 +27,8 @@ public class FirebaseReviewRepository {
                 );
     }
 
-    public void setOfferComplete(String offerId) {
-        firebaseFirestoreDataSource.setOfferComplete(offerId);
+    public Completable setOfferComplete(String offerId) {
+        return firebaseFirestoreDataSource.setOfferComplete(offerId);
     }
 
 }

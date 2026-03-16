@@ -71,17 +71,18 @@ public class ReceiverPostPagingSource extends RxPagingSource<String, FirebasePos
         }).map(imagesReturned -> {
             List<FirebasePostModel> posts = querySnapshotAtomicReference.get().toObjects(FirebasePostModel.class);
             for (int index = 0; index < imagesReturned.size(); index++) {
-                posts.get(index).setImage(imagesReturned.get(0));
+                posts.get(index).setImage(imagesReturned.get(index));
             }
             return posts;
         }).map(this::toLoadResult).onErrorReturn(LoadResult.Error::new);
     }
 
     private LoadResult<String, FirebasePostModel> toLoadResult(List<FirebasePostModel> response) {
+        String nextKey = response.isEmpty() ? null : response.get(response.size() - 1).getPostId();
         return new LoadResult.Page<>(
                 response,
                 null,
-                response.get(response.size() - 1).getPostId(),
+                nextKey,
                 LoadResult.Page.COUNT_UNDEFINED,
                 LoadResult.Page.COUNT_UNDEFINED);
     }

@@ -5,7 +5,6 @@ import androidx.paging.PagingConfig;
 import androidx.paging.PagingData;
 import androidx.paging.rxjava3.PagingRx;
 
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import ca.dal.bartertrader.data.data_source.FirebaseAuthDataSource;
@@ -34,7 +33,10 @@ public class FirebasePostsRepository {
         this.receiverPostPagingSourceFactory = receiverPostPagingSource;
     }
 
-    public Task<QuerySnapshot> getPosts() {
+    public Single<QuerySnapshot> getPosts() {
+        if (firebaseAuthDataSource.getUser() == null) {
+            return Single.error(new IllegalStateException("User is not authenticated"));
+        }
         return firebaseFirestoreDataSource.getPosts(firebaseAuthDataSource.getUser().getUid());
     }
 
@@ -47,7 +49,12 @@ public class FirebasePostsRepository {
         } else {
             return firebaseAuthDataSource.reloadUser()
                     .subscribeOn(Schedulers.io())
-                    .andThen(Single.defer(() -> firebaseFirestoreDataSource.addPost(postModel, firebaseAuthDataSource.getUser().getUid())))
+                    .andThen(Single.defer(() -> {
+                        if (firebaseAuthDataSource.getUser() == null) {
+                            return Single.error(new IllegalStateException("User is not authenticated"));
+                        }
+                        return firebaseFirestoreDataSource.addPost(postModel, firebaseAuthDataSource.getUser().getUid());
+                    }))
                     .flatMapCompletable(documentReference -> firebaseStorageDataSource.putPostImageFile(documentReference.getId(), postModel.getImage()));
         }
     }
