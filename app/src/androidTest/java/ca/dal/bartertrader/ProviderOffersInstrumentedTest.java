@@ -33,6 +33,9 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class ProviderOffersInstrumentedTest {
 
+    private static final String TEST_EMAIL = BuildConfig.TEST_EMAIL;
+    private static final String TEST_PASSWORD = BuildConfig.TEST_PASSWORD;
+
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
 
@@ -40,12 +43,12 @@ public class ProviderOffersInstrumentedTest {
     public void setup() throws InterruptedException {
         onView(withHint("Email"))
                 .perform(click())
-                .perform(typeText("eliask1094@gmail.com"))
+                .perform(typeText(TEST_EMAIL))
                 .perform(closeSoftKeyboard());
 
         onView(withHint("Password"))
                 .perform(click())
-                .perform(typeText("123123Abc/!"))
+                .perform(typeText(TEST_PASSWORD))
                 .perform(closeSoftKeyboard());
 
         onView(withText("LOG IN"))
@@ -165,4 +168,3 @@ public class ProviderOffersInstrumentedTest {
 
 
 }
-
