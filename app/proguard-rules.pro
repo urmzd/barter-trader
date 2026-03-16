@@ -19,3 +19,21 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep Firestore model classes (used with toObject/toObjects)
+-keep class ca.dal.bartertrader.data.model.** { *; }
+-keep class ca.dal.bartertrader.domain.model.** { *; }
+
+# Keep data binding generated classes
+-keep class ca.dal.bartertrader.databinding.** { *; }
+
+# Keep Firebase classes
+-keep class com.google.firebase.** { *; }
+-dontwarn com.google.firebase.**
+
+# Keep Glide
+-keep public class * implements com.bumptech.glide.module.GlideModule
+-keep class * extends com.bumptech.glide.module.AppGlideModule { <init>(...); }
+
+# Keep RxJava
+-dontwarn io.reactivex.rxjava3.**
