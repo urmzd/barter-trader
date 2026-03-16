@@ -19,6 +19,7 @@ import ca.dal.bartertrader.utils.handler.resource.Resource;
 import ca.dal.bartertrader.utils.handler.resource.Status;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ProviderHomeViewModel extends ViewModel {
 
@@ -30,18 +31,7 @@ public class ProviderHomeViewModel extends ViewModel {
         this.getPostsUseCase = getPostsUseCase;
         this.switchRoleUseCase = switchRoleUseCase;
 
-        getPostsUseCase.execute(null).addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                for (QueryDocumentSnapshot document : task.getResult()) {
-                    document.getId();
-                    PostModel postModel = document.toObject(PostModel.class);
-                    postModel.setImage(Uri.parse("https://firebasestorage.googleapis.com/v0/b/barter-trader-6ca98.appspot.com/o/posts%2F"+document.getId()+".jpg"));
-                    postModel.setImageName(document.getId());
-                    postModels.add(postModel/*document.toObject(PostModel.class)*/);
-                }
-                postItemList.setValue(postModels);
-            }
-        });
+        loadPosts();
     }
 
     private final LiveEvent<Resource<Void>> switchRoleResults = new LiveEvent<>();
@@ -59,6 +49,26 @@ public class ProviderHomeViewModel extends ViewModel {
 
     public LiveEvent<Void> getAddPostEvent() {
         return addPostEvent;
+    }
+
+    public void loadPosts() {
+        disposables.add(
+                getPostsUseCase.execute(null)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(querySnapshot -> {
+                            ArrayList<PostModel> posts = new ArrayList<>();
+                            for (QueryDocumentSnapshot document : querySnapshot) {
+                                PostModel postModel = document.toObject(PostModel.class);
+                                postModel.setImage(Uri.parse("https://firebasestorage.googleapis.com/v0/b/barter-trader-6ca98.appspot.com/o/posts%2F" + document.getId() + ".jpg"));
+                                postModel.setImageName(document.getId());
+                                posts.add(postModel);
+                            }
+                            postItemList.setValue(posts);
+                        }, throwable -> {
+                            postItemList.setValue(new ArrayList<>());
+                        })
+        );
     }
 
     public void switchRole() {
@@ -79,7 +89,9 @@ public class ProviderHomeViewModel extends ViewModel {
         disposables.clear();
     }
 
-    private ArrayList<PostModel> postModels = new ArrayList<>();
-    public MutableLiveData<ArrayList<PostModel>> postItemList = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<PostModel>> postItemList = new MutableLiveData<>();
 
+    public LiveData<ArrayList<PostModel>> getPostItemList() {
+        return postItemList;
+    }
 }
