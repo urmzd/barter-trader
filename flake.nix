@@ -19,7 +19,8 @@
           buildToolsVersions = [ "30.0.3" ];
           platformVersions = [ "30" ];
           includeEmulator = false;
-          includeSystemImages = false;
+          includeSystemImages = true;
+          systemImageTypes = [ "google_apis" ];
           abiVersions = [ "arm64-v8a" ];
         };
 
