@@ -25,10 +25,7 @@
 
         androidSdk = androidComposition.androidsdk;
 
-        # Resolve the real JAVA_HOME (handles macOS .jdk bundle structure)
-        javaHome = if pkgs.stdenv.isDarwin
-          then "${pkgs.jdk11}/zulu-11.jdk/Contents/Home"
-          else "${pkgs.jdk11}";
+        javaHome = "${pkgs.jdk11}";
 
       in
       {
