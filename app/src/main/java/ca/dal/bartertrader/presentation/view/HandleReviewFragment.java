@@ -32,7 +32,10 @@ public class HandleReviewFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this, handleReviewViewModelFactory).get(HandleReviewViewModel.class);
 
-        viewModel.setOffer((OfferModel) getArguments().getSerializable("offerModel"));
+        Bundle args = getArguments();
+        if (args != null) {
+            viewModel.setOffer((OfferModel) args.getSerializable("offerModel"));
+        }
 
         binding = FragmentProviderHandleReviewBinding.inflate(getLayoutInflater());
         binding.setLifecycleOwner(getViewLifecycleOwner());

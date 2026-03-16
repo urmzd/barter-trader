@@ -56,14 +56,16 @@ public class HandlePostFragment extends Fragment {
 
         binding.setViewModel(viewModel);
 
-        String title = getArguments().getString("title");
-        String description = getArguments().getString("description");
-        Uri imageUri = getArguments().getParcelable("imageUri");
-        double lat = getArguments().getDouble("lat");
-        double lon = getArguments().getDouble("lon");
-        String postUid = getArguments().getString("postUid");
+        Bundle args = getArguments();
+        if (args != null) {
+            String title = args.getString("title");
+            String description = args.getString("description");
+            Uri imageUri = args.getParcelable("imageUri");
+            double lat = args.getDouble("lat");
+            double lon = args.getDouble("lon");
 
-        viewModel.setExistingPostData(title, description, imageUri, lat, lon);
+            viewModel.setExistingPostData(title, description, imageUri, lat, lon);
+        }
 
         return binding.getRoot();
     }
@@ -110,12 +112,7 @@ public class HandlePostFragment extends Fragment {
 
         });
 
-        LocationServiceManager locMan = LocationServiceManager.getInstance();
-        if ( locMan != null)
-        {
-            double lat = locMan.getCurrentLat();
-            double lon = locMan.getCurrentLon();
-        }
+        // Location data is set via arguments from the navigation graph
     }
 
     private final ActivityResultLauncher<Uri> takePicture = registerForActivityResult(new ActivityResultContracts.TakePicture(), pictureTaken -> {

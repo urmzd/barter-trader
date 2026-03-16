@@ -126,7 +126,7 @@ public class ProviderHomeFragment extends Fragment {
     }
 
     public void setUpPostListAdapter() {
-        viewModel.postItemList.observe(getActivity(), postList->{
+        viewModel.getPostItemList().observe(getActivity(), postList->{
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
             postModels = new ArrayList<>();
             postModels.addAll(postList);

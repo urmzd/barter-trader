@@ -87,7 +87,7 @@ public class ReceiverHomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Role Switched!", Toast.LENGTH_SHORT).show();
                 Navigation.findNavController(getView()).navigate(ReceiverHomeFragmentDirections.actionReceiverHomeFragmentToProviderHomeFragment());
             } else if (status == Status.REJECTED) {
-                Toast.makeText(getContext(), "Error occured... Please try again!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Error occurred... Please try again!", Toast.LENGTH_LONG).show();
             } else {
                 binding.progressBar.setVisibility(View.VISIBLE);
             }
@@ -111,15 +111,15 @@ public class ReceiverHomeFragment extends Fragment {
     }
 
     protected void refreshPagingSource(String query, ReceiverHomeAdapter pagingAdapter) {
-        viewModel.retrievePosts(query);
         compositeDisposable.add(viewModel.retrievePosts(query).subscribe(
-                firebasePostModelPagingData -> pagingAdapter.submitData(getLifecycle(), firebasePostModelPagingData)
+                firebasePostModelPagingData -> pagingAdapter.submitData(getLifecycle(), firebasePostModelPagingData),
+                throwable -> Toast.makeText(getContext(), "Failed to load posts. Please try again.", Toast.LENGTH_LONG).show()
         ));
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        compositeDisposable.dispose();
+        compositeDisposable.clear();
     }
 }

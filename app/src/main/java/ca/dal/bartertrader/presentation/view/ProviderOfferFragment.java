@@ -116,7 +116,8 @@ public class ProviderOfferFragment extends Fragment implements OfferListener {
     @Override
     public void onPause() {
         super.onPause();
-        offers = new ArrayList<>();
+        offers.clear();
+        offerAdapter.notifyDataSetChanged();
     }
 
 }

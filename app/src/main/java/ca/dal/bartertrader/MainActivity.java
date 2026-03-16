@@ -26,6 +26,8 @@ import ca.dal.bartertrader.utils.LocationServiceManager;
 
 public class MainActivity extends FragmentActivity {
 
+    private LocationServiceManager locationService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         BarterTraderInjector injector = ((BarterTradeApplication) getApplication()).injector;
@@ -36,10 +38,18 @@ public class MainActivity extends FragmentActivity {
 
         LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
         Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-        LocationServiceManager locationService = new LocationServiceManager(locationManager, geocoder);
+        locationService = new LocationServiceManager(locationManager, geocoder);
         locationService.startRequestingLocationUpdates();
 
         setNavigationUp();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (locationService != null) {
+            locationService.stopRequestingLocationUpdates();
+        }
     }
 
     public void setNavigationUp() {

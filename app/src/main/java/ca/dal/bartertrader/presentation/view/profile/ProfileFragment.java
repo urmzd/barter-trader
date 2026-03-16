@@ -54,20 +54,20 @@ public class ProfileFragment extends Fragment {
         displayName = getView().findViewById(R.id.profile_fragment_text_username);
         dateJoined = getView().findViewById(R.id.profile_fragment_text_joinDate);
 
-        FirebaseUser user = mAuth.getCurrentUser();//userRepository.getUser();
+        FirebaseUser user = mAuth.getCurrentUser();
 
-        if (user != null) {
-            displayName.setText(user.getDisplayName());
-            long timestamp = user.getMetadata().getCreationTimestamp();
-            Date d = new Date(timestamp);
-            dateJoined.setText(d.toString());
+        if (user == null) {
+            return;
         }
+
+        displayName.setText(user.getDisplayName());
+        long timestamp = user.getMetadata().getCreationTimestamp();
+        Date d = new Date(timestamp);
+        dateJoined.setText(d.toString());
 
         String uid = user.getUid();
 
         Query query = mFirestore.collection("reviews")
-//                .document("4EpZapNpZM66OvBRMkbF")
-//                .collection(uid)
                 .whereEqualTo("to", uid)
                 .orderBy("timestamp");
 
