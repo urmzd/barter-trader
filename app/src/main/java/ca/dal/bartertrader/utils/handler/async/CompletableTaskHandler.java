@@ -10,8 +10,6 @@ import io.reactivex.rxjava3.core.CompletableEmitter;
 public class CompletableTaskHandler<ResourceT> implements OnCompleteListener<ResourceT> {
 
     private final CompletableEmitter emitter;
-    private static Task<Object> task;
-
     private CompletableTaskHandler(CompletableEmitter emitter) {
         this.emitter = emitter;
     }
@@ -23,12 +21,13 @@ public class CompletableTaskHandler<ResourceT> implements OnCompleteListener<Res
 
     @Override
     public void onComplete(@NonNull Task task) {
+        if (emitter.isDisposed()) {
+            return;
+        }
         if (task.isSuccessful()) {
             emitter.onComplete();
         } else {
-            if (!emitter.isDisposed()) {
-                emitter.onError(task.getException());
-            }
+            emitter.onError(task.getException());
         }
     }
 }
