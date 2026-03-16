@@ -22,7 +22,11 @@ public class FirebaseAuthDataSource {
     }
 
     public Completable reloadUser() {
-        return Completable.create(emitter -> CompletableTaskHandler.assign(emitter, firebaseAuth.getCurrentUser().reload()));
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        if (user == null) {
+            return Completable.error(new IllegalStateException("No authenticated user"));
+        }
+        return Completable.create(emitter -> CompletableTaskHandler.assign(emitter, user.reload()));
     }
 
     public Single<AuthResult> signInWithEmailAndPassword(String email, String password) {
