@@ -1,0 +1,17 @@
+# Barter Trader
+
+> An Android marketplace for exchanging items through barter.
+
+## Overview
+
+Barter Trader is an Android app where users trade items without currency. Providers offer items, Receivers browse and request exchanges. Built with Java 8, Firebase, Clean Architecture + MVVM.
+
+## Key Files
+
+- README.md: Project documentation and setup instructions
+- AGENTS.md: AI agent context — architecture, patterns, conventions
+- skills/conventions/SKILL.md: Coding conventions skill
+- app/build.gradle: Dependencies and build config
+- app/src/main/java/ca/dal/bartertrader/: Source root
+- firebase.json: Firebase emulator configuration
+- flake.nix: Nix development environment
