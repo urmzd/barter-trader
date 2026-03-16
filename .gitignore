@@ -20,3 +20,5 @@ app/google-services.json
 .env
 .env.*
 .idea/
+.envrc
+.direnv/

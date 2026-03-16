@@ -27,3 +27,21 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+task emulators(type: Exec) {
+    description 'Start Firebase emulators'
+    group 'development'
+    commandLine 'firebase', 'emulators:start', '--project', 'barter-trader-local'
+}
+
+task seed(type: Exec) {
+    description 'Seed Firebase emulators with test data'
+    group 'development'
+    commandLine 'bash', 'seed-emulator.sh'
+}
+
+task dev {
+    description 'Build, install debug APK, and seed emulators'
+    group 'development'
+    dependsOn ':app:installDebug', 'seed'
+}

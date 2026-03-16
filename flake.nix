@@ -31,14 +31,25 @@
         javaHome = if pkgs.stdenv.isDarwin
           then "${pkgs.jdk11}/zulu-11.jdk/Contents/Home"
           else "${pkgs.jdk11}";
+
       in
       {
+        packages.emulator = pkgs.androidenv.emulateApp {
+          name = "barter-trader-emulator";
+          platformVersion = "30";
+          abiVersion = "arm64-v8a";
+          systemImageType = "google_apis";
+          sdkExtraArgs = {
+            emulatorVersion = "35.1.4";
+          };
+        };
+
         devShells.default = pkgs.mkShell {
           buildInputs = [
             pkgs.jdk11
             androidSdk
             pkgs.gradle
-            pkgs.nodejs_20
+            pkgs.nodejs_24
             pkgs.nodePackages.firebase-tools
           ];
 
@@ -47,14 +58,11 @@
           ANDROID_SDK_ROOT = "${androidSdk}/libexec/android-sdk";
 
           shellHook = ''
-            export PATH="${androidSdk}/libexec/android-sdk/platform-tools:$PATH"
+            export PATH="${androidSdk}/libexec/android-sdk/platform-tools:${androidSdk}/libexec/android-sdk/emulator:$PATH"
             export GRADLE_OPTS="-Dorg.gradle.java.home=${javaHome}"
-            echo "Barter Trader dev shell"
-            echo "  Java:     $(java -version 2>&1 | head -1)"
-            echo "  Gradle:   $(gradle --version 2>/dev/null | grep '^Gradle' || echo 'using wrapper')"
-            echo "  Node:     $(node --version)"
-            echo "  Firebase: $(firebase --version 2>/dev/null || echo 'available')"
-            echo "  Android:  $ANDROID_HOME"
+
+            # Generate local.properties so ./gradlew works without env vars
+            echo "sdk.dir=${androidSdk}/libexec/android-sdk" > local.properties
           '';
         };
       });

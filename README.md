@@ -24,24 +24,43 @@
 
 ### Prerequisites
 
-- [Nix](https://nixos.org/download.html) (recommended) — provides JDK 11, Android SDK, Gradle, Node.js, and Firebase Tools
-- Or manually: JDK 11, Android SDK 30, Gradle 6.5+
+- [Nix](https://nixos.org/download.html) — provides JDK 11, Android SDK, Android emulator, Gradle, Node.js, and Firebase Tools
+- [direnv](https://direnv.net/) (recommended) — auto-activates the dev environment on `cd`
 
 ### Setup
 
 ```bash
-# Enter the dev shell (installs all dependencies)
-nix develop
+# One-time: allow direnv (auto-activates on cd)
+direnv allow
 
 # Add your Firebase config
 cp /path/to/your/google-services.json app/google-services.json
-
-# Start Firebase emulators
-firebase emulators:start
-
-# Build the debug APK
-./gradlew assembleDebug
 ```
+
+If you don't use direnv, run `nix develop` manually to enter the dev shell.
+
+### Development
+
+```bash
+nix run .#emulator &     # Launch Android emulator (background)
+./gradlew emulators &    # Start Firebase emulators (background)
+./gradlew dev            # Build + install + seed test data
+```
+
+`./gradlew dev` runs `installDebug` + `seed` together. The seed script creates two test accounts and sample posts in the Firebase emulators.
+
+### Available Tasks
+
+| Task | Description |
+|---|---|
+| `nix run .#emulator` | Launch the Android emulator |
+| `./gradlew emulators` | Start Firebase emulators |
+| `./gradlew seed` | Seed Firebase emulators with test data |
+| `./gradlew dev` | Build + install + seed (all-in-one) |
+| `./gradlew test` | Run unit tests |
+| `./gradlew connectedAndroidTest` | Run instrumented tests |
+| `./gradlew assembleDebug` | Build debug APK |
+| `./gradlew assembleRelease` | Build release APK |
 
 ### Running Tests
 
@@ -49,7 +68,7 @@ firebase emulators:start
 # Unit tests
 ./gradlew test
 
-# Instrumented tests (requires emulator or device)
+# Instrumented tests (requires Android emulator + Firebase emulators running)
 # Set test credentials in gradle.properties:
 #   TEST_EMAIL=your-test@example.com
 #   TEST_PASSWORD=YourTestPass123!

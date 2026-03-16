@@ -38,7 +38,7 @@
             android:id="@+id/handle_review_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/confirm_button"
+            app:layout_constraintBottom_toTopOf="@+id/confirm_review_button"
             app:layout_constraintHeight_min="wrap"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

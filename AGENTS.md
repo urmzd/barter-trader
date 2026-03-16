@@ -18,13 +18,18 @@ Android barter marketplace app. Users exchange items as Providers (offer items) 
 ## Build & Run
 
 ```bash
-nix develop              # Enter dev shell
-./gradlew assembleDebug  # Build
-./gradlew test           # Unit tests
-firebase emulators:start # Local Firebase
+direnv allow          # One-time: auto-activates dev shell, generates local.properties
+nix run .#emulator &  # Launch Android emulator (background)
+./gradlew emulators & # Start Firebase emulators (background)
+./gradlew dev         # Build + install + seed test data
+./gradlew test        # Run unit tests
 ```
 
-Requires `app/google-services.json` (gitignored). Debug builds auto-connect to Firebase emulators at `10.0.2.2`.
+- direnv auto-activates the Nix dev shell and generates `local.properties` (points Gradle to the Nix-provided Android SDK). Without direnv, run `nix develop` manually.
+- `nix run .#emulator` launches an Android emulator with API 30 arm64 via `androidenv.emulateApp`
+- `./gradlew dev` chains `installDebug` + `seed` — requires a running Android emulator/device and Firebase emulators
+- `./gradlew seed` populates Firebase emulators with test users (`provider@test.com` / `receiver@test.com`) and sample posts
+- Requires `app/google-services.json` (gitignored). Debug builds auto-connect to Firebase emulators at `10.0.2.2`.
 
 ## Architecture
 

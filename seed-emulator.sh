@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Seed Firebase emulators with test data.
-# Run this AFTER the emulators are up: ./seed-emulator.sh
+# Safe to run multiple times — creates users if missing, signs in if they exist.
 
 set -euo pipefail
 
@@ -8,29 +8,43 @@ AUTH_URL="http://127.0.0.1:9099"
 FIRESTORE_URL="http://127.0.0.1:8080"
 PROJECT_ID="barter-trader-local"
 
-echo "==> Creating test users in Auth emulator..."
+get_uid() {
+  local email="$1"
+  local password="$2"
+  local resp
 
-# Create a provider user
-curl -s -X POST "${AUTH_URL}/identitytoolkit.googleapis.com/v1/accounts:signUp?key=fake-api-key" \
-  -H 'Content-Type: application/json' \
-  -d '{"email":"provider@test.com","password":"Test1234!","returnSecureToken":true}' \
-  -o /tmp/provider_resp.json
+  # Try sign up first
+  resp=$(curl -s -X POST "${AUTH_URL}/identitytoolkit.googleapis.com/v1/accounts:signUp?key=fake-api-key" \
+    -H 'Content-Type: application/json' \
+    -d "{\"email\":\"${email}\",\"password\":\"${password}\",\"returnSecureToken\":true}")
 
-PROVIDER_UID=$(python3 -c "import json; print(json.load(open('/tmp/provider_resp.json'))['localId'])")
+  local uid
+  uid=$(python3 -c "import json,sys; d=json.loads(sys.argv[1]); print(d.get('localId',''))" "$resp")
+
+  if [ -n "$uid" ]; then
+    echo "$uid"
+    return
+  fi
+
+  # Already exists — sign in instead
+  resp=$(curl -s -X POST "${AUTH_URL}/identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=fake-api-key" \
+    -H 'Content-Type: application/json' \
+    -d "{\"email\":\"${email}\",\"password\":\"${password}\",\"returnSecureToken\":true}")
+
+  uid=$(python3 -c "import json,sys; d=json.loads(sys.argv[1]); print(d['localId'])" "$resp")
+  echo "$uid"
+}
+
+echo "==> Creating/signing in test users..."
+
+PROVIDER_UID=$(get_uid "provider@test.com" "Test1234!")
 echo "    Provider UID: ${PROVIDER_UID}"
 
-# Create a receiver user
-curl -s -X POST "${AUTH_URL}/identitytoolkit.googleapis.com/v1/accounts:signUp?key=fake-api-key" \
-  -H 'Content-Type: application/json' \
-  -d '{"email":"receiver@test.com","password":"Test1234!","returnSecureToken":true}' \
-  -o /tmp/receiver_resp.json
-
-RECEIVER_UID=$(python3 -c "import json; print(json.load(open('/tmp/receiver_resp.json'))['localId'])")
+RECEIVER_UID=$(get_uid "receiver@test.com" "Test1234!")
 echo "    Receiver UID: ${RECEIVER_UID}"
 
 echo "==> Seeding Firestore with user profiles..."
 
-# Provider user doc
 curl -s -X PATCH \
   "${FIRESTORE_URL}/v1/projects/${PROJECT_ID}/databases/(default)/documents/users/${PROVIDER_UID}?updateMask.fieldPaths=role&updateMask.fieldPaths=email" \
   -H 'Content-Type: application/json' \
@@ -39,9 +53,8 @@ curl -s -X PATCH \
       \"role\": {\"stringValue\": \"provider\"},
       \"email\": {\"stringValue\": \"provider@test.com\"}
     }
-  }"
+  }" > /dev/null
 
-# Receiver user doc
 curl -s -X PATCH \
   "${FIRESTORE_URL}/v1/projects/${PROJECT_ID}/databases/(default)/documents/users/${RECEIVER_UID}?updateMask.fieldPaths=role&updateMask.fieldPaths=email" \
   -H 'Content-Type: application/json' \
@@ -50,7 +63,7 @@ curl -s -X PATCH \
       \"role\": {\"stringValue\": \"receiver\"},
       \"email\": {\"stringValue\": \"receiver@test.com\"}
     }
-  }"
+  }" > /dev/null
 
 echo "==> Seeding Firestore with sample posts..."
 
@@ -64,7 +77,7 @@ curl -s -X POST \
       \"category\": {\"stringValue\": \"Music\"},
       \"uid\": {\"stringValue\": \"${PROVIDER_UID}\"}
     }
-  }"
+  }" > /dev/null
 
 curl -s -X POST \
   "${FIRESTORE_URL}/v1/projects/${PROJECT_ID}/databases/(default)/documents/posts" \
@@ -76,7 +89,7 @@ curl -s -X POST \
       \"category\": {\"stringValue\": \"Education\"},
       \"uid\": {\"stringValue\": \"${PROVIDER_UID}\"}
     }
-  }"
+  }" > /dev/null
 
 echo ""
 echo "=== Seeding complete ==="

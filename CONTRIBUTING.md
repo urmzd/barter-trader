@@ -1,5 +1,26 @@
 # Contributing
 
+## Setup
+
+```bash
+# One-time: allow direnv (auto-activates on cd, generates local.properties)
+direnv allow
+
+# Add your Firebase config
+cp /path/to/your/google-services.json app/google-services.json
+
+# Launch Android emulator (background)
+nix run .#emulator &
+
+# Start Firebase emulators (background)
+./gradlew emulators &
+
+# Build, install, and seed test data
+./gradlew dev
+```
+
+direnv auto-activates the Nix dev shell and generates `local.properties` (points Gradle to the Android SDK) when you `cd` into the project. If you don't use direnv, run `nix develop` manually.
+
 ## Conventions
 
 ### Java
