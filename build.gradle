@@ -40,8 +40,15 @@ task seed(type: Exec) {
     commandLine 'bash', 'seed-emulator.sh'
 }
 
+task launch(type: Exec) {
+    description 'Launch the app on a connected device/emulator'
+    group 'development'
+    commandLine 'adb', 'shell', 'am', 'start', '-n', 'ca.dal.bartertrader/.MainActivity'
+}
+
 task dev {
-    description 'Build, install debug APK, and seed emulators'
+    description 'Build, install debug APK, seed emulators, and launch app'
     group 'development'
     dependsOn ':app:installDebug', 'seed'
+    finalizedBy 'launch'
 }
