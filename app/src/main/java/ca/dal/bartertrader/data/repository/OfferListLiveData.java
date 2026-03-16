@@ -37,12 +37,15 @@ public class OfferListLiveData extends LiveData<Operation> implements EventListe
 
     @Override
     protected void onInactive() {
-        listenerRegistration.remove();
+        if (listenerRegistration != null) {
+            listenerRegistration.remove();
+            listenerRegistration = null;
+        }
     }
 
     @Override
     public void onEvent(@Nullable QuerySnapshot querySnapshot, @Nullable FirebaseFirestoreException e) {
-        if (e != null) {
+        if (e != null || querySnapshot == null) {
             return;
         }
 
@@ -66,16 +69,30 @@ public class OfferListLiveData extends LiveData<Operation> implements EventListe
         DocumentReference providerRef = (DocumentReference) documentChange.getDocument().get("providerPost");
         DocumentReference receiverRef = (DocumentReference) documentChange.getDocument().get("receiverPost");
 
+        if (providerRef == null || receiverRef == null) {
+            return;
+        }
+
         Tasks.whenAllSuccess(providerRef.get(), receiverRef.get()).addOnSuccessListener(objects -> {
+            if (objects.size() < 2) {
+                return;
+            }
             DocumentSnapshot providerDoc = (DocumentSnapshot) objects.get(0);
             DocumentSnapshot receiverDoc = (DocumentSnapshot) objects.get(1);
 
+
+            OfferStatus offerStatus;
+            try {
+                offerStatus = OfferStatus.valueOf(status);
+            } catch (IllegalArgumentException | NullPointerException ex) {
+                return;
+            }
 
             OfferModel addedOffer = new OfferModel(
                     offerId,
                     providerDoc.toObject(FirestorePostModel.class),
                     receiverDoc.toObject(FirestorePostModel.class),
-                    OfferStatus.valueOf(status)
+                    offerStatus
             );
 
             Operation operation = new Operation(addedOffer, changeType);
