@@ -14,7 +14,7 @@ public class SetReviewUseCase extends AbstractBaseUseCase<ReviewModel, Completab
 
     @Override
     public Completable execute(ReviewModel review) {
-        firebaseReviewsRepository.setOfferComplete(review.getOfferId());
-        return firebaseReviewsRepository.setReview(review);
+        return firebaseReviewsRepository.setOfferComplete(review.getOfferId())
+                .andThen(firebaseReviewsRepository.setReview(review));
     }
 }
